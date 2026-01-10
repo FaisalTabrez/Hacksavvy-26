@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MGIT – HACKSAVVY</title>
+    <meta name="description" content="Join HackSavvy-26, the premier national-level hackathon by MGIT, Hyderabad, on February 12–13, 2026. Compete in AI, Cybersecurity, IoT, and more for a prize pool of ₹2 Lakhs.">
+    <style>
+        /* CSS Reset */
+        html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, address, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+            margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline;
+        }
+        article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
+        body { line-height: 1;}
+        ol, ul { list-style: none; }
+        blockquote, q { quotes: none; }
+        blockquote:before, blockquote:after, q:before, q:after { content: ''; }
+        table { border-collapse: collapse; border-spacing: 0; }
+
+        /* General Styles */
+        body {
+            font-family: 'Inter', sans-serif; margin: 0; background-color: #000; color: #fff;
+            overflow-x: hidden; line-height: 1.6; font-weight: 300; 
+            -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+            padding-top: var(--header-height);
+        }
+
+        :root { --header-height: 80px; }
+        @media (max-width: 768px) { :root { --header-height: 120px; } }
+
+        p { font-size: 1.1em; color: #ccc; }
+        a { font-family: 'Inter', sans-serif; }
+        .container { width: 100%; max-width: 1920px; margin: 0 auto; }
+
+        /* Sections */
+        .section {
+            height: 100vh; display: flex; flex-direction: column; justify-content: center;
+            align-items: center; text-align: center; padding: 20px; box-sizing: border-box; position: relative;
+        }
+        .circle-img { width: 200px; height: 200px; border-radius: 50%; object-fit: cover; display: block; margin: 0 auto; }
+        #hero { background-color: #000;  }
+        #tracks { background-color: #222; }
+        #projects { background-color: #000; height: 100vh; overflow: hidden; padding: 0; display: flex; align-items: center; }
+
+        /* Hero */
+        .hero-content { display: flex; flex-direction: column; align-items: center; justify-content: center; max-width: 800px; margin: 0 auto; margin-top: -60px} /* Added padding-top to push content lower */
+        .hero-title { font-size: 7em; font-weight: 700; line-height: 0.9; margin-bottom: 10px; opacity: 0; transform: translateY(20px); letter-spacing: -0.05em;   animation: titleReveal 0.8s ease forwards;
+  animation-delay: 2.8s; /* SAME as logo animation duration */ }
+        .hero-subtitle { font-size: 1.5em; color: #eee; opacity: 0; transform: translateY(20px); font-weight: 500;  animation: titleReveal 0.8s ease forwards;
+  animation-delay: 2.8s; /* SAME as logo animation duration */ }
+  @keyframes titleReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.hero-image {
+  width: 180px; /* adjust as needed */
+height: 180px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  border-radius: 50%;
+  z-index: 1;
+  opacity: 0;
+  transform-origin: center;
+  animation: logoEntrance 2.8s ease-out forwards;
+}
+
+@keyframes logoEntrance {
+  0% {
+    opacity: 0;
+    transform: rotate(0deg) scale(0.6);
+  }
+
+  15% {
+    opacity: 1;
+    transform: rotate(-15deg) scale(0.7);
+  }
+
+  30% {
+    transform: rotate(15deg) scale(0.8);
+  }
+
+  55% {
+    transform: rotate(360deg) scale(1.2);
+  }
+
+  75% {
+    transform: rotate(360deg) scale(1.05);
+  }
+
+  100% {
+    opacity: 1;
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+   /* About/Contact */
+        .about { padding: 80px 20px; height: auto; display: block; background-color: #111; }
+        .about .container { max-width: 1200px; margin: 0 auto; }
+        .about .row { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; }
+        .about .col-lg-6 { flex: 0 0 60%; padding: 0 20px; text-align: left; }
+        .about .col-lg-2 { flex: 0 0 30%; padding: 0 20px; text-align: left; }
+        .about h2, #contact h2 { font-size: 3em; font-weight: 600; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .about h3 { font-size: 1.8em; font-weight: 500; margin-bottom: 15px; color: #eee; }
+        .about p { font-size: 1.1em; color: #ccc; line-height: 1.7; margin-bottom: 15px; }
+        .about_image { background-size: cover; background-position: center; height: 400px; margin-bottom: 20px; }
+
+        /* Contact */
+        #contact p { font-size: 1.2em; color: #ddd; line-height: 1.8; max-width: 700px; margin: 0 auto; }
+        #contact h3 { font-size: 1.2em; font-weight: 600; margin-top: 20px; margin-bottom: 10px; }
+        #contact a { color: #f82249; text-decoration: none; }
+        #contact a:hover { text-decoration: underline; }
+        address { font-style: normal; line-height: 1.7; }
+
+        /* Projects */
+        .projects-container { display: flex; height: 100%; width: fit-content; transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1); }
+        .project-slide { flex-shrink: 0; width: 100vw; height: 100%; position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; }
+        .project-slide img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease-in-out; }
+        .project-slide:hover img { transform: scale(1.1); }
+        .project-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.3); color: #fff; display: flex;
+            justify-content: center; align-items: center; font-size: 2em; font-weight: 600;
+            opacity: 0; transition: opacity 0.3s ease; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+        .project-slide:hover .project-overlay { opacity: 1; }
+
+        /* Headings & Tracks */
+        h2 { font-size: 3em; font-weight: 600; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 0.1em; }
+        #tracks ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; max-width: 800px; margin: 0 auto; }
+        #tracks li { font-size: 1.3em; color: #bbb; padding: 10px 20px; margin: 10px; border: 1px solid #333; border-radius: 5px; transition: all 0.3s ease; }
+        #tracks li:hover { background-color: #333; color: #fff; border-color: #555; transform: translateY(-3px); }
+
+        /* Navbar */
+        #navbar { display: flex; align-items: center; }
+        #navbar ul { display: flex !important; flex-direction: row !important; gap: 10px; align-items: center; padding: 0; margin: 0; justify-content: flex-end; flex-wrap: wrap; padding-bottom: 0px !important;}
+        #navbar li { list-style: none; margin: 0; }
+        #navbar a.nav-link { line-height: normal;color: #fff; text-decoration: none; padding: 8px 12px; display: inline-block; font-weight: 500; transition: color 0.15s ease, background 0.15s ease, transform 0.15s ease; border-radius: 6px; }
+        #navbar a.nav-link:hover, #navbar a.nav-link:focus { color: #fff; background: rgba(248,34,73,0.08); transform: translateY(-2px); }
+        .mobile-nav-toggle { display: none; cursor: pointer; font-size: 1.5rem; color: #fff; }
+
+        @media (max-width: 991px) {
+            .mobile-nav-toggle { display: inline-block; }
+            #navbar ul { overflow-x: auto; -webkit-overflow-scrolling: touch; gap: 8px; justify-content: flex-start; }
+            #navbar a.nav-link { padding: 6px 10px; font-size: 0.95rem; }
+        }
+
+        /* Header */
+        #header { position: fixed; top: 0; left: 0; width: 100%; z-index: 9999; background: rgba(0, 0, 0, 0.95); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+        #header .container-fluid { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: var(--header-height); box-sizing: border-box; }
+        #logo { order: 1; margin-left: 0; }
+        #navbar { order: 2; margin-left: auto; }
+        .buy-tickets { order: 3; margin-left: 0px; }
+
+        @media (max-width: 991px) { #logo { margin-right: 12px; } }
+
+        /* Button */
+        a.buy-tickets { display: inline-block; padding: 10px 10px; background: #f82249; color: #fff; text-decoration: none; border-radius: 8px; font-weight: 700; transition: transform .12s ease, box-shadow .12s ease; box-shadow: 0 6px 18px rgba(248,34,73,0.12); }
+        a.buy-tickets:hover, a.buy-tickets:focus { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(248,34,73,0.18); }
+
+        /* Ticker */
+#ticker-wrap {
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+  background: #f82249;
+  overflow: hidden;
+  padding: 10px 0;
+  z-index: 10;
+}
+
+/* Moving text only */
+.ticker {
+  display: flex;
+  width: max-content;
+  animation: scroll 35s linear infinite;
+}
+
+.ticker span {
+  color: #fff;
+  font-weight: bold;
+  font-size: medium;
+  margin-right: 50px;
+  white-space: nowrap;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+        /* Ticker Two */
+#ticker-wrap-top {
+  position: absolute;
+  top: var(--header-height);
+  width: 100vw; 
+  overflow: hidden;
+  padding: 65px 70px;
+  z-index: 9;
+}
+/* Rotation lives here */
+.ticker-tilt {
+ background: #454242;
+  transform: rotate(-25deg);
+  transform-origin: top left;
+}
+
+/* Motion lives here */
+.ticker-reverse {
+  display: flex;
+  width: max-content;
+  white-space: nowrap;
+  animation: scrollReverse 45s linear infinite;
+}
+
+.ticker-reverse span {
+  color: #fff;
+  font-weight: bold;
+  margin-right: 40px;
+}
+
+@keyframes scrollReverse {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+        /* Schedule Section */
+.schedule-item {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.schedule-item time {
+    display: block;
+    font-weight: 700;
+    font-size: 1.1em;
+    color: #f82249; /* accent color for times */
+    text-align: right;
+}
+
+.schedule-item h4 {
+    margin-bottom: 5px;
+    font-size: 1.25em;
+}
+
+
+
+
+
+
+        /* Footer */
+        footer { background-color: #000; color: #888; text-align: center; padding: 20px; font-size: 0.8em; }
+
+        @media (max-width: 768px) { .hero-title { font-size: 4em; } #theme .col-md-3 { flex: 0 0 100%; } }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <!-- GSAP & ScrollTrigger CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+</head>
+<body>
+<!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center">
+<div class="container-fluid container-xxl d-flex align-items-center justify-content-between">
+
+  <div id="logo" class="me-auto">
+    <a href="/hacksavvy/" class="scrollto" style="width: 280px; margin-top: 1px;">
+      <img class="lazy" src="mgitwhitelogo.png" alt="MGIT Logo" style="padding: 20px; width: 220px; height: auto;">
+    </a>
+  </div>
+
+  <nav id="navbar" class="navbar order-last order-lg-0">
+    <ul class="d-flex flex-row align-items-center">
+      <li><a class="nav-link scrollto" href="#about">About</a></li>
+      <li><a class="nav-link scrollto" href="#theme">Theme</a></li>
+      <li><a class="nav-link scrollto" href="#leaders">Leaders</a></li>
+      <li><a class="nav-link scrollto" href="#guidelines">Guidelines</a></li>
+      <li><a class="nav-link scrollto" href="#schedule">Schedule</a></li>
+      <li><a class="nav-link scrollto" href="#supporters">Our Partners</a></li>
+      <li><a class="nav-link scrollto" href="#speakers">Team</a></li>
+      <li><a class="nav-link scrollto" href="#faq">F.A.Q</a></li>
+      <li><a class="nav-link scrollto" href="#buy-tickets">Tiers</a></li>
+      <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+    </ul>
+    <i class="bi bi-list mobile-nav-toggle"></i>
+  </nav><!-- .navbar -->
+  <a class="buy-tickets scrollto" href="#">Register</a>
+
+</div>
+  </header><!-- End Header -->
+
+        <!-- Hero Section -->
+        <section id="hero" class="section">
+            <div id="ticker-wrap-top">
+  <div class="ticker-tilt">
+    <div class="ticker-reverse">
+<span>REGISTRATIONS OPEN • REGISTRATIONS OPEN • REGISTRATIONS OPEN </span>
+                    <span>REGISTRATIONS OPEN • REGISTRATIONS OPEN • REGISTRATIONS OPEN </span>
+    </div>
+  </div>
+</div>
+
+            <div class="hero-content">
+                <img src="mgitlogo.png" class="hero-image" alt="Mgit Logo">
+                <h1 class="hero-title">HackSavvy-26</h1>
+                <p class="hero-subtitle">National-Level Hackathon <br><br> MGIT, Hyderabad <br> February 12th-13th 2026</p>
+            </div>
+            <div class="ticker-wrap" id="ticker-wrap">
+                <div class="ticker">
+                    <span>24 Hour Hackathon • </span>
+                    <span>Price Pool: ₹ 2,00,000 • </span>
+                    <span>National Level Event • </span>
+                    <span>Industry Expert Mentors • </span>
+                    <span>Exciting Domains & Tracks • </span>
+                    <span>Networking Opportunities • </span>
+                    <!-- Duplicate spans for seamless loop -->
+                    <span>24 Hour Hackathon • </span>
+                    <span>Price Pool: ₹ 2,00,000 • </span>
+                    <span>National Level Event • </span>
+                    <span>Industry Expert Mentors • </span>
+                    <span>Exciting Domains & Tracks • </span>
+                    <span>Networking Opportunities • </span>
+                </div>
+            </div>
+        </section>
+
+    <!-- ======= About Section ======= -->
+        <section id="about" class="about">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h2>About The Event</h2>
+                        <p style="text-align: justify;">Join us at HackSavvy, exclusively hosted by the Mahatma Gandhi Institute of Technology, for a premier national-level 24-hour hackathon dedicated to students passionate about advancing the frontiers of innovation. Immerse yourself in the realm of technology, exploring a wide range of themes including Artificial Intelligence (AI), Cybersecurity, Internet of Things (IoT), Machine Learning, Blockchain Technology, Drone Technology, Robotics, and Sustainable Infrastructure. This national event provides a unique platform for students from across the country to engage in deep collaboration, guided by industry experts, to turn innovative ideas into practical solutions. HackSavvy is the ideal stage for students to challenge the status quo, enhance their technical prowess, and achieve significant breakthroughs. Circle the date for an extraordinary experience of learning, growth, and the exhilaration of making a tangible difference through technological innovation at a national scale.</p>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="about_image bg_cover"
+                            style="background-image: url('https://mgit.ac.in/wp-content/themes/CBIT/hackassets/img/aboutmgit.png'); height: 400px; background-size: cover; background-position: center;">
+                        </div> <!-- about image -->
+                        <div class="col-lg-2">
+                            <p><span style="font-size: 1.2em; font-weight: bold;">Where:</span> MGIT, Hyderabad</p>                      
+                            <p><span style="font-size: 1.2em; font-weight: bold;">When:</span> Thursday - Friday<br>12th - 13th Feb 2026</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </section><!-- End About Section -->
+
+        <!--====== ABOUT PART START ======-->
+        <!-- ======= About Section ======= -->
+        <section id="about" class="about">
+            <div class="container">
+            <div class="row">
+                <div class="col-lg-7">
+                <h2>About MGIT</h2>
+                <p>Knowledge is Power</p>
+                <p style="text-align: justify;">Mahatma Gandhi Institute of Technology (MGIT) has experienced rapid growth since its establishment in 1997 by the Chaitanya Bharathi Educational Society (CBES) in
+                    the serene and tranquil surroundings of Gandipet, Hyderabad. </p>
+                <p style="text-align: justify;">The institute is accredited by NAAC with A++ grade for a period of 5 years w.e.f 23rd Nov 2023.
+                    MGIT has obtained academic Autonomous status by UGC for 10 years from the academic year 2021-22 and all the Departments of the Institute have been accredited by NBA, New Delhi.
+                    The Institute has been consistently ranked among the top 10 Engineering Colleges in Telangana State. </p>
+                <p style="text-align: justify;">In its two decades and more of its evolution, all the stakeholders of
+                    the Institute, relentlessly endeavoured to position MGIT as a Leader and an Innovator in the ecosystem of technical education.
+                    The Institute has established excellent Infrastructure such as state-of-the-art laboratories, spacious library with a collection of printed and digital books & journals,
+                    sports & hostel facilities along with Infrastructure for extra and co-curricular engagements in pursuit of academic excellence.
+                    MGIT has scaled greater heights both Nationally & Internationally and made its mark in Industry and in academia. </p>
+                <a href="https://mgit.ac.in/" class="buy-tickets">Know More</a>
+                </div>
+                
+                </div>
+            </div>
+            </div>
+        </section><!-- End About Section -->
+        <!--====== ABOUT PART END ======-->
+
+<!-- ======= Themes Section ======= -->
+<section id="theme" class="about">
+    <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Main Themes of HackSavvy</h2>
+                    <p style="text-align: justify;">Dive into the heart of innovation with HackSavvy's carefully selected themes,
+                        each designed to challenge your creativity and technical prowess. From the intricate world of Artificial Intelligence
+                        to the sustainable solutions in Infrastructure, explore how technology can transform our future. Click on a theme below
+                        to access complete problem statements and tailor your project to solve real-world issues.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    
+                        <img src="ai.jpg" alt="Artificial Intelligence for Future Innovations" class="circle-img">
+                        <div class="details">                                                    
+                            <p style="text-align: center; font-weight: bold;">Artificial Intelligence</h4>
+                            <div class="social">
+                                <a href="#" class="buy-tickets">View Problem Statements</a>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-md-3">
+                    
+                        <img src="security.jpg" alt="Cybersecurity and Digital Resilience" class="circle-img">
+                        <div class="details">
+                            <p style="text-align: center; font-weight: bold;">Cybersecurity</h4>
+                            <div class="social">
+                                <a href="#" class="buy-tickets">View Problem Statements</a>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-md-3">
+                    
+                        <img src="iot.jpg" alt="Internet of Things (IoT) and Smart Connectivity" class="circle-img">
+                        <div class="details">
+                            <p style="text-align: center; font-weight: bold;">Internet of Things (IoT)</h4>
+                            <div class="social">
+                                <a href="#" class="buy-tickets">View Problem Statements</a>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-md-3">
+                    
+                        <img src="sustainable.jpg" alt="Sustainable Technology and Innovation for a Greener Future" class="circle-img">
+                        <div class="details">
+                            <p style="text-align: center; font-weight: bold;">Sustainable Technology</h4>
+                            <div class="social">
+                                <a href="#" class="buy-tickets">View Problem Statements</a>
+                            </div>
+                        </div>
+                </div>
+        </div>
+    </div>
+</section><!-- End Themes Section -->
+
+  <!-- ======= Guidelines Section ======= -->
+        <section id="guidelines" class="about">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2>Guidelines for The Event</h2>
+                        <h3>Team Formation:</h3>
+                        <p>Each team should consist of 2-5 members.We encourage collaboration and diversity in skill sets for a well-rounded team.</p>
+                        <h3>Registration Fee:</h3>
+                        <p>A non-refundable fee of Rs. 2500 per team is required for registration.Payment details will be provided upon registration.</p>
+                        <h3>Eligibility:</h3>
+                        <p>This event is open to all college students.A valid college ID and a government-issued ID are mandatory for verification at the event.</p>
+                        <h3>Project Development:</h3>
+                        <p>All development work must be done during the hackathon hours.Pre-existing projects or cases of plagiarism will lead to disqualification.</p>
+                        <h3>Equipment:</h3>
+                        <p>Participants are required to bring their laptops, chargers, and any necessary hardware.Internet access will be provided at the venue.</p>
+                        <h3>Submission:</h3>
+                        <p>Teams must submit their project by the end of the hackathon period for evaluation.</p>
+                        <h3>Judging Criteria:</h3>
+                        <p>Projects will be evaluated based on creativity, technical difficulty, impact, and presentation.</p>
+                        <h3>Awards and Recognition:</h3>
+                        <p>Certificates will be awarded to all participants.Special prizes will be given to top-performing teams.</p>
+                        <h3>Food and Refreshments:</h3>
+                        <p>Meals (Breakfast, lunch, and dinner) will be provided to keep participants energized.Snacks and beverages, including tea and coffee, will also be available.</p>
+                        <h3>Before You Begin:</h3>
+                        <p>Please ensure you have the following ready for a smooth registration process:<br>
+                        <p>Team details (names, email addresses, college IDs, etc.).</p>
+                        <p>Proof of payment for the registration fee (Rs. 2500 per team).</p>
+                    </div>                    
+                </div>
+            </div>
+        </section><!-- End About Section -->
+
+          <!-- ======= Schedule Section ======= -->
+        <section id="schedule" class="about">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2>Schedule of The Event</h2>
+                        <p>Dive into two days of innovative hacking, collaboration, and fun at HackSavvy-26, where technology meets creativity.</p>
+                        <a class="buy-tickets scrollto" href="#day-1">Day 1: 12th Feb</a>
+                        <a class="buy-tickets scrollto" href="#day-2">Day 2: 13th Feb</a>
+                        
+                        <div id="day-1" class="schedule-item">
+                            <h3>Day 1: 12th February 2026</h3>
+
+<time>08:00 AM - 09:00 AM</time>
+<h4>Registration</h4>
+<p>Main registration opens, marking the beginning of an exciting journey.</p>
+
+<time>09:00 AM - 11:00 AM</time>
+<h4>Hacking Starts!</h4>
+<p>Participants start coding, bringing their innovative ideas to life.</p>
+
+<time>11:00 AM - 01:30 PM</time>
+<h4>1st Checkpoint</h4>
+<p>Teams present their progress and receive valuable feedback from mentors.</p>
+
+<time>01:30 PM - 02:00 PM</time>
+<h4>Lunch</h4>
+<p>A well-deserved break where participants can recharge in batches until 2 PM.</p>
+
+<time>03:00 PM - 05:00 PM</time>
+<h4>2nd Checkpoint</h4>
+<p>Teams showcase their advancements and tackle any challenges with mentor guidance.</p>
+
+<time>05:00 PM - 07:30 PM</time>
+<h4>Snacks</h4>
+<p>A quick refreshment break to boost energy levels for continued coding.</p>
+
+<time>07:30 PM - 09:30 PM</time>
+<h4>Dinner</h4>
+<p>Another opportunity for participants to enjoy a meal in batches until 9:30 PM.</p>
+
+<time>09:30 PM - 12:00 AM</time>
+<h4>1st Round</h4>
+<p>Initial presentations where teams preview their projects to judges for early feedback.</p>
+<br><br>
+                        </div>
+
+                        <div id="day-2" class="schedule-item">
+<h3>Day 2: 13th February 2026</h3>
+
+<time>12:00 AM - 02:00 AM</time>
+<h4>Fun Games</h4>
+<p>A leisurely break from coding with engaging activities to relax and have fun.</p>
+
+<time>02:00 AM - 06:00 AM</time>
+<h4>Midnight Snack</h4>
+<p>Coffee, tea, and biscuits served to help maintain focus during the late-night coding sprint.</p>
+
+<time>06:00 AM - 07:30 AM</time>
+<h4>3rd Checkpoint</h4>
+<p>A crucial time for teams to finalize their projects and prepare for the final presentation.</p>
+
+<time>07:30 AM - 09:00 AM</time>
+<h4>Breakfast</h4>
+<p>Energizing breakfast served to fuel participants for the final push of the hackathon.</p>
+
+<time>09:00 AM - 10:00 AM</time>
+<h4>Final Round</h4>
+<p>Teams present their completed projects to judges and peers, showcasing their hard work and innovation.</p>
+
+<time>10:00 AM - 11:00 AM</time>
+<h4>Closing Ceremony</h4>
+<p>The event wraps up with the announcement of winners, distribution of prizes, and acknowledgments, celebrating the achievements of all participants.</p>
+
+        </div>                    
+        </div>
+    </div>
+  </div>
+</section>
+
+
+
+        <!-- Contact Section -->
+    <section id="contact" class="about">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h2>Contact Us</h2>
+                        <p style="text-align: justify;">Reach Out, Connect, and Explore Possibilities Together!</p>
+                           
+                    </div>
+                    <div class="col-lg-2">
+                        <h3>Phone Number</h3>
+                        <p><a href="tel:+91 8019923406">+91 8019923406</a></p>
+                        <p><a href="tel:+91 9666660051">+91 9666660051</a></p>
+                        <p><a href="tel:+91 8142781437">+91 8142781437</a></p>
+                        <p><a href="tel:+91 9985329931">+91 9985329931</a></p>
+ 
+                        <h3>Email</h3>
+                        <p><a href="mailto:hacksavvy@mgit.ac.in ">hacksavvy@mgit.ac.in </a></p>
+                        
+                        <h3>Address</h3>
+                        <address>Mahatma Gandhi Institute of  Technology, Gandipet, Hyderabad, Telangana.</address>
+                        
+                    </div>
+                </div>
+            </div>
+        </section><!-- End Contact Section -->
+
+
+        <!-- Media & Highlights Section (Horizontal Scroll) -->
+        <section id="projects" class="section">
+            <h2>Media & Highlights</h2>
+            <div class="projects-container">
+                <div class="project-slide">
+                    <img src="https://images.unsplash.com/photo-1682687220937-3a9641b8a9a2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Hackathon Promo Video">
+                    <div class="project-overlay">Hackathon Promo Video</div>
+                </div>
+                <div class="project-slide">
+                    <img src="https://images.unsplash.com/photo-1703845846654-1841409650b3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Previous Event Highlights">
+                    <div class="project-overlay">Previous Event Highlights</div>
+                </div>
+                <div class="project-slide">
+                    <img src="https://images.unsplash.com/photo-1704622352158-038409456b77?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Innovation Showcases">
+                    <div class="project-overlay">Innovation Showcases</div>
+                </div>
+                <div class="project-slide">
+                    <img src="https://images.unsplash.com/photo-1621905244108-699f4d36994c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Technology Demonstrations">
+                    <div class="project-overlay">Technology Demonstrations</div>
+                </div>
+                <!-- Add more project slides here -->
+            </div>
+        </section>
+
+
+    </div>
+    <footer>
+        HackSavvy-26 <br> Organized by MGIT, Hyderabad
+    </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            // Hero Section Animations
+            gsap.fromTo(".hero-title", {opacity: 0, y: 20}, {opacity: 1, y: 0, duration: 1, delay: 0.5});
+            gsap.fromTo(".hero-subtitle", {opacity: 0, y: 20}, {opacity: 1, y: 0, duration: 1, delay: 1});
+
+            // Hide ticker when scrolling past hero section
+            const tickerWrap = document.querySelector("#ticker-wrap");
+            window.addEventListener("scroll", function() {
+                const heroSection = document.querySelector("#hero");
+                const heroBottom = heroSection.offsetHeight;
+                if (window.scrollY > heroBottom) {
+                    tickerWrap.style.opacity = "0";
+                    tickerWrap.style.pointerEvents = "none";
+                } else {
+                    tickerWrap.style.opacity = "1";
+                    tickerWrap.style.pointerEvents = "auto";
+                }
+            });
+
+            //Horizontal scrolling
+            gsap.registerPlugin(ScrollTrigger);
+
+            gsap.to(".projects-container", {
+                xPercent: -100 * (document.querySelectorAll(".project-slide").length - 1),
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#projects",
+                    pin: true,
+                    scrub: 1,
+                    snap: 1 / (document.querySelectorAll(".project-slide").length - 1),
+                    end: () => "+=" + document.querySelector(".projects-container").offsetWidth
+                }
+            });
+
+            // Ticker animation: slower start, then even slower
+            const ticker = document.querySelector(".ticker");
+            setTimeout(() => {
+                ticker.style.animation = "scrollSlow 60s linear infinite";
+            }, 25000);
+        });
+    </script>
+</body>
+</html>
