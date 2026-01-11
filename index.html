@@ -601,6 +601,13 @@
             margin-right: 40px;
         }
 
+        /* Hide ticker on screens smaller than 768px */
+        @media (max-width: 768px) {
+            #ticker-wrap-top {
+                display: none;
+            }
+        }
+
         @keyframes scrollReverse {
             from {
                 transform: translateX(0);
