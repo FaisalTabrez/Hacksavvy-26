@@ -241,18 +241,37 @@
             justify-content: space-between;
         }
 
+        /* Default (small screens) */
         .about .col-lg-6 {
-            flex: 0 0 60%;
+            flex: 0 0 100%;
+            max-width: 100%;
             padding: 0 20px;
             text-align: left;
         }
 
+        /* Large screens and up */
+        @media (min-width: 992px) {
+            .about .col-lg-6 {
+                flex: 0 0 60%;
+                max-width: 60%;
+            }
+        }
+
+        /* Default (small screens) */
         .about .col-lg-2 {
-            flex: 0 0 30%;
+            flex: 0 0 100%;
+            max-width: 100%;
             padding: 0 20px;
             text-align: left;
         }
 
+        /* Large screens and up */
+        @media (min-width: 992px) {
+            .about .col-lg-2 {
+                flex: 0 0 30%;
+                max-width: 30%;
+            }
+        }
         .about h2,
         #contact h2 {
             font-size: 3em;
@@ -656,7 +675,7 @@
         <div class="container-fluid container-xxl d-flex align-items-center justify-content-between">
 
             <div id="logo" class="me-auto">
-                <a href="/hacksavvy/" class="scrollto" style="width: 280px; margin-top: 1px;">
+                <a href="https://mgit.ac.in/" style="width: 280px; margin-top: 1px;">
                     <img class="lazy" src="mgitwhitelogo.png" alt="MGIT Logo"
                         style="padding: 20px; width: 220px; height: auto;">
                 </a>
@@ -696,7 +715,7 @@
         </div>
 
         <div class="hero-content">
-            <img src="Mgitlogo.png" class="hero-image" alt="Mgit Logo animation">
+            <img src="mgitlogo.png" class="hero-image" alt="Mgit Logo animation">
             <h1 class="hero-title">HackSavvy-26</h1>
             <p class="hero-subtitle">National-Level Hackathon <br><br> MGIT, Hyderabad <br> February 12th-13th 2026</p>
         </div>
@@ -743,10 +762,11 @@
                     <div class="about_image bg_cover"
                         style="background-image: url('https://mgit.ac.in/wp-content/themes/CBIT/hackassets/img/aboutmgit.png'); height: 400px; background-size: cover; background-position: center;">
                     </div> <!-- about image -->
-                    <div class="col-lg-2">
-                        <p><span style="font-size: 1.2em; font-weight: bold;">Where:</span> MGIT, Hyderabad</p>
-                        <p><span style="font-size: 1.2em; font-weight: bold;">When:</span> Thursday - Friday<br>12th -
-                            13th Feb 2026</p>
+                    <div class="col-lg-6">
+                        <p><span style=" text-decoration: underline; font-weight: 600;">Where</span>: MGIT, Hyderabad</p>
+                        <p>
+                        <span style=" text-decoration: underline; font-weight: 600;">When</span>: Thursday – Friday<br>12th – 13th Feb 2026
+                        </p>
                     </div>
 
                 </div>
@@ -807,7 +827,7 @@
             </div>
             <div class="row">
                 <div class="col-md-3">
-
+                    <div class="container">
                     <img src="ai.jpg" alt="Artificial Intelligence for Future Innovations" class="circle-img">
                     <div class="details">
                         <p style="text-align: center; font-weight: bold;">Artificial Intelligence</h4>
@@ -815,9 +835,10 @@
                             <a href="#" class="buy-tickets">View Problem Statements</a>
                         </div>
                     </div>
+                    </div>
                 </div>
                 <div class="col-md-3">
-
+                    <div class="container">
                     <img src="security.jpg" alt="Cybersecurity and Digital Resilience" class="circle-img">
                     <div class="details">
                         <p style="text-align: center; font-weight: bold;">Cybersecurity</h4>
@@ -826,8 +847,9 @@
                         </div>
                     </div>
                 </div>
+                </div>
                 <div class="col-md-3">
-
+                    <div class="container">
                     <img src="iot.jpg" alt="Internet of Things (IoT) and Smart Connectivity" class="circle-img">
                     <div class="details">
                         <p style="text-align: center; font-weight: bold;">Internet of Things (IoT)</h4>
@@ -835,9 +857,10 @@
                             <a href="#" class="buy-tickets">View Problem Statements</a>
                         </div>
                     </div>
+                    </div>
                 </div>
                 <div class="col-md-3">
-
+                    <div class="container">
                     <img src="sustainable.jpg" alt="Sustainable Technology and Innovation for a Greener Future"
                         class="circle-img">
                     <div class="details">
@@ -845,6 +868,7 @@
                         <div class="social">
                             <a href="#" class="buy-tickets">View Problem Statements</a>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>
