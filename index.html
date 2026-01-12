@@ -71,6 +71,92 @@
             --navbar-height: 80px;
         }
 
+        div.details p {
+            padding-top: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        div.details h5 {
+            text-align: center;
+            color: white;
+        }
+
+        /* Slider container */
+        .team-slider {
+            width: 100%;
+            overflow: hidden;
+            padding: 30px 0;
+        }
+
+        /* Moving track */
+        .team-track {
+            display: flex;
+            gap: 30px;
+            width: max-content;
+            animation: scroll-left 18s linear infinite;
+        }
+
+        /* Card */
+        .team-card {
+            min-width: 260px;
+            background: #333132;
+            border-radius: 16px;
+            padding: 22px 18px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Image */
+        .team-card img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 12px;
+        }
+
+        /* Text */
+        .team-card h4,
+        .team-card phone {
+            margin: 6px 0 4px;
+            font-weight: 600;
+            color: black;
+        }
+
+        .team-card p {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .team-slider:hover .team-track {
+            animation-play-state: paused;
+        }
+
+        /* Animation */
+        @keyframes scroll-left {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-25%);
+            }
+        }
+
+        /* 📱 Mobile optimization */
+        @media (max-width: 768px) {
+            .team-card {
+                min-width: 220px;
+            }
+
+            .team-track {
+                animation-duration: 240s;
+            }
+        }
+
+
         @media (max-width: 768px) {
             :root {
                 --header-height: 120px;
@@ -140,13 +226,15 @@
             max-width: 800px;
             margin: 0 auto;
             margin-top: -120px;
-            margin-left: calc(50%); /* Shifts right by 40px from center */
+            margin-left: calc(50%);
+            /* Shifts right by 40px from center */
             transform: translateX(-50%);
         }
 
         /* Added padding-top to push content lower */
         .hero-title {
-            font-size: 5em;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4em;
             font-weight: 700;
             line-height: 0.9;
             margin-bottom: 10px;
@@ -156,6 +244,10 @@
             animation: titleReveal 0.8s ease forwards;
             animation-delay: 2.8s;
             /* SAME as logo animation duration */
+        }
+
+        .hero-title .c1 {
+            color: #f82249;
         }
 
         .hero-subtitle {
@@ -220,6 +312,7 @@
             }
         }
 
+
         /* About/Contact */
         .about {
             scroll-margin-top: calc(1.25 * var(--navbar-height));
@@ -272,6 +365,7 @@
                 max-width: 30%;
             }
         }
+
         .about h2,
         #contact h2 {
             font-size: 3em;
@@ -332,58 +426,137 @@
             line-height: 1.7;
         }
 
-        /* Projects */
-        .projects-container {
-            display: flex;
-            height: 100%;
-            width: fit-content;
-            transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-        }
+       /* PROJECTS SECTION */
 
-        .project-slide {
-            flex-shrink: 0;
-            width: 100vw;
-            height: 100%;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
 
-        .project-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.3s ease-in-out;
-        }
+#projects {
+    overflow: hidden; /* hide overflow during auto-scroll */
+}
 
-        .project-slide:hover img {
-            transform: scale(1.1);
-        }
+/* Container that moves */
+.projects-container {
+    display: flex;
+    gap: 30px;
+    width: max-content;
 
-        .project-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.3);
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2em;
-            font-weight: 600;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-        }
+    /* VERY SLOW AUTO SCROLL */
+    animation: media-scroll 80s linear infinite;
+}
 
-        .project-slide:hover .project-overlay {
-            opacity: 1;
-        }
+/* Pause animation on hover (important UX) */
+.projects-container:hover {
+    animation-play-state: paused;
+}
+
+/* Each media card */
+.project-slide {
+    flex-shrink: 0;
+    width: 320px;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 14px;
+    background: #000;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Image */
+.project-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    /* Slow zoom */
+    transition: transform 1s ease-out;
+}
+
+/* Hover zoom */
+.project-slide:hover img {
+    transform: scale(1.08);
+}
+
+/* Overlay */
+.project-overlay {
+    position: absolute;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.35);
+    color: #fff;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-align: center;
+    padding: 15px;
+
+    opacity: 0;
+
+    /* Slow fade */
+    transition: opacity 1s ease-in-out;
+
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+/* Show overlay */
+.project-slide:hover .project-overlay {
+    opacity: 1;
+}
+
+/* ===============================
+   AUTO SCROLL KEYFRAMES
+   =============================== */
+
+@keyframes media-scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+/* ===============================
+   MOBILE OPTIMIZATION
+   =============================== */
+
+@media (max-width: 768px) {
+    .projects-container {
+        animation-duration: 120s; /* EVEN SLOWER ON MOBILE */
+    }
+
+    .project-slide {
+        width: 260px;
+        height: 160px;
+    }
+
+    .project-overlay {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .project-slide {
+        width: 220px;
+        height: 140px;
+    }
+}
+
+/* Touch devices: always show overlay text */
+@media (hover: none) {
+    .project-overlay {
+        opacity: 1;
+        background: rgba(0, 0, 0, 0.25);
+    }
+}
+
 
         /* Headings & Tracks */
         h2 {
@@ -458,7 +631,7 @@
         #navbar a.nav-link:hover,
         #navbar a.nav-link:focus {
             color: #fff;
-            background: #3d63ac;
+            background: #770000;
             transform: translateY(-2px);
         }
 
@@ -471,11 +644,11 @@
 
         @media (max-width: 991px) {
             #navbar {
-            display: none;
+                display: none;
             }
 
             .mobile-nav-toggle {
-            display: inline-block;
+                display: inline-block;
             }
         }
 
@@ -525,19 +698,19 @@
         a.buy-tickets {
             display: inline-block;
             padding: 10px 10px;
-            background: #1f3256;
+            background: #f82249;
             color: #fff;
             text-decoration: none;
             border-radius: 8px;
             font-weight: 700;
             transition: transform .12s ease, box-shadow .12s ease;
-            box-shadow: 0 6px 18px #3d63ac;
+            box-shadow: 0 6px 18px #770000;
         }
 
         a.buy-tickets:hover,
         a.buy-tickets:focus {
             transform: translateY(-2px);
-            box-shadow: 0 10px 22px #2596be;
+            box-shadow: 0 10px 22px #ab0017;
         }
 
         /* Ticker */
@@ -545,7 +718,8 @@
             position: fixed;
             bottom: 10px;
             width: 100%;
-            background:#1f3256; /* #1f3256 */
+            background: #f82249;
+            /* #f82249 */
             overflow: hidden;
             padding: 10px 0;
             z-index: 10;
@@ -585,8 +759,9 @@
             z-index: 10;
             top: var(--header-height);
             background: #333132;
-            
+
         }
+
         /* Motion lives here */
         .ticker-reverse {
             display: flex;
@@ -629,7 +804,7 @@
             display: block;
             font-weight: 700;
             font-size: 1.1em;
-            color: #f8e61a;
+            color: #ab0017;
             /* accent color for times */
             text-align: right;
         }
@@ -650,10 +825,10 @@
 
         @media (max-width: 768px) {
             .hero-title {
-                font-size: 4em;
+                font-size: 3em;
             }
 
-            .hero-image{
+            .hero-image {
                 padding-top: 80px;
                 padding-bottom: 40px;
             }
@@ -661,7 +836,7 @@
             #theme .col-md-3 {
                 flex: 0 0 100%;
             }
-            
+
             #theme .buy-tickets {
                 display: block;
                 margin: 10px auto;
@@ -673,6 +848,7 @@
             }
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
@@ -706,9 +882,8 @@
                     <li><a class="nav-link scrollto" href="#guidelines">Guidelines</a></li>
                     <li><a class="nav-link scrollto" href="#schedule">Schedule</a></li>
                     <li><a class="nav-link scrollto" href="#supporters">Our Partners</a></li>
-                    <li><a class="nav-link scrollto" href="#speakers">Team</a></li>
+                    <li><a class="nav-link scrollto" href="#team">Team</a></li>
                     <li><a class="nav-link scrollto" href="#faq">F.A.Q</a></li>
-                    <li><a class="nav-link scrollto" href="#buy-tickets">Tiers</a></li>
                     <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
@@ -717,6 +892,7 @@
 
         </div>
     </header><!-- End Header -->
+
 
     <!-- Hero Section -->
     <section id="hero" class="section">
@@ -733,10 +909,13 @@
 
         <div class="hero-content">
             <img src="mgitlogo.png" class="hero-image" alt="Mgit Logo animation">
-            <h1 class="hero-title">HackSavvy-26</h1>
+            <h1 class="hero-title">
+                H<span class="c1">ACK</span>
+                S<span class="c1">AVVY</span>-26
+            </h1>
             <p class="hero-subtitle">National-Level Hackathon <br><br> MGIT, Hyderabad <br> February 12th-13th 2026</p>
         </div>
-        
+
         <div class="ticker-wrap" id="ticker-wrap">
             <div class="ticker">
                 <span>24 Hour Hackathon • </span>
@@ -780,9 +959,11 @@
                         style="background-image: url('https://mgit.ac.in/wp-content/themes/CBIT/hackassets/img/aboutmgit.png'); height: 400px; background-size: cover; background-position: center;">
                     </div> <!-- about image -->
                     <div class="col-lg-6">
-                        <p><span style=" text-decoration: underline; font-weight: 600;">Where</span>: MGIT, Hyderabad</p>
+                        <p><span style=" text-decoration: underline; font-weight: 600;">Where</span>: MGIT, Hyderabad
+                        </p>
                         <p>
-                        <span style=" text-decoration: underline; font-weight: 600;">When</span>: Thursday – Friday<br>12th – 13th Feb 2026
+                            <span style=" text-decoration: underline; font-weight: 600;">When</span>: Thursday –
+                            Friday<br>12th – 13th Feb 2026
                         </p>
                     </div>
 
@@ -802,15 +983,12 @@
                     <p style="text-align: justify;">Mahatma Gandhi Institute of Technology (MGIT) has experienced rapid
                         growth since its establishment in 1997 by the Chaitanya Bharathi Educational Society (CBES) in
                         the serene and tranquil surroundings of Gandipet, Hyderabad. </p>
-                    <p style="text-align: justify;">The institute is accredited by NAAC with A++ grade for a period of 5
-                        years w.e.f 23rd Nov 2023.
-                        MGIT has obtained academic Autonomous status by UGC for 10 years from the academic year 2021-22
-                        and all the Departments of the Institute have been accredited by NBA, New Delhi.
-                        The Institute has been consistently ranked among the top 10 Engineering Colleges in Telangana
-                        State. </p>
-                    <p style="text-align: justify;">In its two decades and more of its evolution, all the stakeholders
-                        of
-                        the Institute, relentlessly endeavoured to position MGIT as a Leader and an Innovator in the
+                    <p style="text-align: justify;">MGIT is an autonomous engineering institute accredited by NAAC with
+                        A++ grade and approved by AICTE, with several NBA-accredited programs. It is consistently ranked
+                        among notable engineering
+                        colleges and offers strong placement outcomes with good industry connections.</p>
+                    <p style="text-align: justify;">In its two decades and more, all the stakeholders
+                        of the Institute, relentlessly endeavoured to position MGIT as a Leader and an Innovator in the
                         ecosystem of technical education.
                         The Institute has established excellent Infrastructure such as state-of-the-art laboratories,
                         spacious library with a collection of printed and digital books & journals,
@@ -845,52 +1023,111 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="container">
-                    <img src="ai.jpg" alt="Artificial Intelligence for Future Innovations" class="circle-img">
-                    <div class="details">
-                        <p style="text-align: center; font-weight: bold;">Artificial Intelligence</h4>
-                        <div class="social">
-                            <a href="#" class="buy-tickets">View Problem Statements</a>
+                        <div class="details">
+                            <img src="theme/ai.jpg" alt="Artificial Intelligence for Future Innovations"
+                                class="circle-img">
+                            <p>Artificial Intelligence</p>
+                            <div class="social">
+                                <a href="#" class="buy-tickets">View Problem Statements</a>
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="container">
-                    <img src="security.jpg" alt="Cybersecurity and Digital Resilience" class="circle-img">
-                    <div class="details">
-                        <p style="text-align: center; font-weight: bold;">Cybersecurity</h4>
-                        <div class="social">
-                            <a href="#" class="buy-tickets">View Problem Statements</a>
+                        <div class="details">
+                            <img src="theme/security.jpg" alt="Cybersecurity and Digital Resilience" class="circle-img">
+                            <p>Cybersecurity</p>
+                            <div class="social">
+                                <a href="#" class="buy-tickets">View Problem Statements</a>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="container">
-                    <img src="iot.jpg" alt="Internet of Things (IoT) and Smart Connectivity" class="circle-img">
-                    <div class="details">
-                        <p style="text-align: center; font-weight: bold;">Internet of Things (IoT)</h4>
-                        <div class="social">
-                            <a href="#" class="buy-tickets">View Problem Statements</a>
-                        </div>
-                    </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="container">
-                    <img src="sustainable.jpg" alt="Sustainable Technology and Innovation for a Greener Future"
-                        class="circle-img">
-                    <div class="details">
-                        <p style="text-align: center; font-weight: bold;">Sustainable Technology</h4>
-                        <div class="social">
-                            <a href="#" class="buy-tickets">View Problem Statements</a>
+                        <div class="details">
+                            <img src="theme/iot.jpg" alt="Internet of Things (IoT) and Smart Connectivity"
+                                class="circle-img">
+                            <p>Internet of Things (IoT)</p>
+                            <div class="social">
+                                <a href="#" class="buy-tickets">View Problem Statements</a>
+                            </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="container">
+                        <div class="details">
+                            <img src="theme/sustainable.jpg"
+                                alt="Sustainable Technology and Innovation for a Greener Future" class="circle-img">
+                            <p>Sustainable Technology</p>
+                            <div class="social">
+                                <a href="#" class="buy-tickets">View Problem Statements</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section><!-- End Themes Section -->
+
+    <!-- ======= Leaders Section ======= -->
+    <section id="leaders" class="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Visionary Leaders of HackSavvy</h2>
+                    <p style="text-align: justify;">Discover the future with our visionary leaders, shaping industry
+                        trends and inspiring innovation at our premier event.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="container">
+                        <div class="details">
+                            <img src="leaders/1.jpg" alt="Prof. C.R.K Reddy" class="circle-img">
+                            <p>Prof. C.R.K Reddy</p>
+                            <h5>Head, CSE<br>Convenor - Hacksavvy 26</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="container">
+                        <div class="details">
+                            <img src="leaders/2.jpg" alt="Prof. D. Vijaya Lakshmi" class="circle-img">
+                            <p>Prof. D. Vijaya Lakshmi</p>
+                            <h5>Head, IT<br>Convenor - Hacksavvy 26</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="container">
+                        <div class="details">
+                            <img src="leaders/3.jpg" alt="Prof. M. Ramabai" class="circle-img">
+                            <p>Prof. M. Ramabai</p>
+                            <h5>Head, ET<br>Convenor - Hacksavvy 26</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="container">
+                        <div class="details">
+                            <img src="leaders/4.jpg" alt="Prof. D. Venkat Reddy" class="circle-img">
+                            <p>Prof .D. Venkat Reddy</p>
+                            <h5>Head, ECE<br>Convenor - Hacksavvy 26</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+    </section><!-- End Leaders Section -->
 
     <!-- ======= Guidelines Section ======= -->
     <section id="guidelines" class="about">
@@ -902,7 +1139,7 @@
                     <p>Each team should consist of 2-5 members.We encourage collaboration and diversity in skill sets
                         for a well-rounded team.</p>
                     <h3>Registration Fee:</h3>
-                    <p>A non-refundable fee of Rs. 2500 per team is required for registration.Payment details will be
+                    <p>A non-refundable fee of Rs. 2500 per team is required for regill be
                         provided upon registration.</p>
                     <h3>Eligibility:</h3>
                     <p>This event is open to all college students.A valid college ID and a government-issued ID are
@@ -925,13 +1162,14 @@
                     <p>Meals (Breakfast, lunch, and dinner) will be provided to keep participants energized.Snacks and
                         beverages, including tea and coffee, will also be available.</p>
                     <h3>Before You Begin:</h3>
-                    <p>Please ensure you have the following ready for a smooth registration process:<br>
-                    <p>Team details (names, email addresses, college IDs, etc.).</p>
+                    <p>Please ensure you have the following ready for a smooth registration process:names, email
+                        addresses, college IDs, etc.).</p>
                     <p>Proof of payment for the registration fee (Rs. 2500 per team).</p>
                 </div>
             </div>
         </div>
     </section><!-- End About Section -->
+
 
     <!-- ======= Schedule Section ======= -->
     <section id="schedule" class="about">
@@ -1017,8 +1255,179 @@
             </div>
         </div>
     </section>
+    <!-- End Schedule Section -->
 
+    <!-- ======= Team Section ======= -->
+    <section id="team" class="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Meet the Team</h2>
+                    <p style="text-align: justify;">Our dedicated team of organizers and volunteers work tirelessly
+                        behind the scenes to ensure HackSavvy-26 is a seamless and unforgettable experience for all
+                        participants. Get to know the passionate individuals who bring this event to life!</p>
+                    <h3>Faculty Co-ordinators</h3>
+                </div>
+            </div>
 
+            <div class="team-slider">
+                <div class="team-track">
+                    <div class="team-card">
+                        <img src="faculty/1.jpg" alt="Dr. Ch. Ramesh Babu">
+                        <h4>Dr. Ch. Ramesh Babu</h4>
+                        <p>Faculty Co-ordinator</p>
+                        <phone>+91 9985677767</phone>
+                    </div>
+
+                    <div class="team-card">
+                        <img src="faculty/2.jpg" alt="Dr. V. Subba Ramaiaha">
+                        <h4>Dr. V. Subba Ramaiaha</h4>
+                        <p>Faculty Co-ordinator</p>
+                        <phone>+91 9393005221</phone>
+                    </div>
+
+                    <div class="team-card">
+                        <img src="faculty/3.jpg" alt="Dr. A. Ratna Raju">
+                        <h4>Dr. A. Ratna Raju</h4>
+                        <p>Faculty Co-ordinator</p>
+                        <phone>+91 8328255486</phone>
+                    </div>
+
+                    <div class="team-card">
+                        <img src="faculty/4.jpg" alt="Dr. K. Madubabu">
+                        <h4>Dr. K. Madubabu</h4>
+                        <p>Faculty Co-ordinator</p>
+                        <phone>+91 7780327440</phone>
+                    </div>
+
+                    <div class="team-card">
+                        <img src="faculty/5.jpg" alt="Dr. Meera Alphy">
+                        <h4>Dr. Meera Alphy</h4>
+                        <p>Faculty Co-ordinator</p>
+                        <phone>+91 8547586410</phone>
+                    </div>
+
+                    <div class="team-card">
+                        <img src="faculty/6.jpg" alt="Mr. R. Srinivas">
+                        <h4>Mr. R. Srinivas</h4>
+                        <p>Faculty Co-ordinator</p>
+                        <phone>+91 9666660028</phone>
+                    </div>
+
+                    <div class="team-card">
+                        <img src="faculty/7.jpg" alt="Dr. B. Yadaiah">
+                        <h4>Dr. B. Yadaiah</h4>
+                        <p>Faculty Co-ordinator</p>
+                        <phone>+91 9030007577</phone>
+                    </div>
+
+                    <div class="team-card">
+                        <img src="faculty/15.jpg" alt="Ms. J Hima Bindu">
+                        <h4>Ms. J Hima Bindu</h4>
+                        <p>Faculty Co-ordinator</p>
+                        <phone>+91 9346530034</phone>
+                    </div>
+
+                    <div class="team-card">
+                        <img src="faculty/8.jpg" alt="Mrs. V Veena">
+                        <h4>Mrs. V Veena</h4>
+                        <p>Faculty Co-ordinator</p>
+                        <phone>+91 7893213140</phone>
+                    </div>
+
+                    <div class="team-card">
+                        <img src="faculty/9.jpg" alt="A. Bal raju">
+                        <h4>A. Bal raju</h4>
+                        <p>Faculty Co-ordinator</p>
+                        <phone>+91 9951992097</phone>
+                    </div>
+
+                    <div class="team-card">
+                        <img src="faculty/10.jpg" alt="Dr. S Siva Reddy">
+                        <h4>Dr. S Siva Reddy</h4>
+                        <p>Faculty Co-ordinator</p>
+                        <phone>+91 9505242497</phone>
+                    </div>
+
+                    <div class="team-card">
+                        <img src="faculty/11.jpg" alt="Mr. Sheri Abhishek">
+                        <h4>Mr. Sheri Abhishek</h4>
+                        <p>Faculty Co-ordinator</p>
+                        <phone>+91 9885813113</phone>
+                    </div>
+                    <div class="team-card">
+                        <img src="faculty/12.jpg" alt="Mr. P. Shankar Kumar">
+                        <h4>Mr. P. Shankar Kumar</h4>
+                        <p>Faculty Co-ordinator</p>
+                        <phone>+91 9550501616</phone>
+                    </div>
+
+                    <div class="team-card">
+                        <img src="faculty/13.jpg" alt="Dr. Asheesh Kumar">
+                        <h4>Dr. Asheesh Kumar</h4>
+                        <p>Faculty Co-ordinator</p>
+                        <phone>+91 9542531035</phone>
+                    </div>
+
+                    <div class="team-card">
+                        <img src="faculty/14.jpg" alt="Mr. Bhoomik Ketari">
+                        <h4>Mr. Bhoomik Ketari</h4>
+                        <p>Faculty Co-ordinator</p>
+                        <phone>+91 9866456825</phone>
+                    </div>
+
+                </div>
+            </div>
+            <h3>Student Co-ordinators</h3>
+        </div>
+        </div>
+        </div>
+    </section><!-- End Team Section -->
+
+    <!-- ======= FAQ Section ======= -->
+    <section id="faq" class="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>FAQ's</h2>
+                    <h3>Who can participate?</h3>
+                    <p>This event is open to all undergraduate and postgraduate college students. A valid college ID and
+                        a government-issued ID are mandatory for verification at the event.</p>
+
+                    <h3>When will the applications close?</h3>
+                    <p>Applications are accepted on a first-come, first-served basis due to limited seats. Registration
+                        will close once we reach our capacity (the registration form will become unresponsive).</p>
+
+                    <h3>How does the application process work?</h3>
+                    <p>For a detailed explanation of the application process, please <a href="#schedule">view our
+                            schedule</a>.</p>
+
+                    <h3>How much does it cost?</h3>
+                    <p>The participation fee is Rs 2500 per team.</p>
+
+                    <h3>Can we apply as a team?</h3>
+                    <p>Yes, teams can have a minimum of 2 and a maximum of 5 members. You are also welcome to form teams
+                        with students from other colleges. Note: If two teams with the same problem statement receive
+                        equal marks, priority will be given to the team with fewer members.</p>
+
+                    <h3>What if I don't have a team or an idea?</h3>
+                    <p>For guidance on forming a team or generating ideas, please <a href="#guidelines">refer to our
+                            guidelines</a>.</p>
+
+                    <h3>Do you provide accommodation for participants?</h3>
+                    <p>Yes, we provide limited accommodation on a first-come, first-served basis, prioritizing those who
+                        email us first. Accommodation includes food, snacks, tea/coffee, and a nap area.</p>
+
+                    <h3>Can I change my theme after registration?</h3>
+                    <p>Yes, but you need to send an email to hacksavvy@mgit.ac.in before registration closes.</p>
+
+                    <h3>Can you provide travel assistance (TA) for students?</h3>
+                    <p>No, we do not provide travel assistance.</p>
+
+                </div>
+            </div>
+        </div>
+    </section><!-- End FAQ Section -->
 
     <!-- Contact Section -->
     <section id="contact" class="about">
@@ -1052,27 +1461,66 @@
     <section id="projects" class="section">
         <h2>Media & Highlights</h2>
         <div class="projects-container">
-            <div class="project-slide">
-                <img src="https://images.unsplash.com/photo-1682687220937-3a9641b8a9a2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    alt="Hackathon Promo Video">
-                <div class="project-overlay">Hackathon Promo Video</div>
+
+                        <div class="project-slide">
+                <img src="media/1.jpg" alt="Media from hacksavvy-25">
+                <div class="project-overlay">Organizing Committee</div>
             </div>
+
             <div class="project-slide">
-                <img src="https://images.unsplash.com/photo-1703845846654-1841409650b3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    alt="Previous Event Highlights">
-                <div class="project-overlay">Previous Event Highlights</div>
+                <img src="media/2.jpg" alt="Media from hacksavvy-25">
+                <div class="project-overlay">Technical Workshop of HackSavvy-25</div>
             </div>
+
             <div class="project-slide">
-                <img src="https://images.unsplash.com/photo-1704622352158-038409456b77?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    alt="Innovation Showcases">
-                <div class="project-overlay">Innovation Showcases</div>
+                <img src="media/3.jpg" alt="Media from hacksavvy-25">
+                <div class="project-overlay">Inaugural Function of Hacksavvy-25</div>
             </div>
+
             <div class="project-slide">
-                <img src="https://images.unsplash.com/photo-1621905244108-699f4d36994c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    alt="Technology Demonstrations">
-                <div class="project-overlay">Technology Demonstrations</div>
+                <img src="media/4.jpg" alt="Media from hacksavvy-25">
+                <div class="project-overlay">Award Ceremony</div>
             </div>
-            <!-- Add more project slides here -->
+
+            <div class="project-slide">
+                <img src="media/5.jpg" alt="Media from hacksavvy-25">
+                <div class="project-overlay">Lamp Lighting Ceremony</div>
+            </div>
+
+            <div class="project-slide">
+                <img src="media/6.jpg" alt="Media from hacksavvy-25">
+                <div class="project-overlay">Award Ceremony</div>
+            </div>
+
+            <div class="project-slide">
+                <img src="media/1.jpg" alt="Media from hacksavvy-25">
+                <div class="project-overlay">Organizing Committee</div>
+            </div>
+
+            <div class="project-slide">
+                <img src="media/2.jpg" alt="Media from hacksavvy-25">
+                <div class="project-overlay">Technical Workshop of HackSavvy-25</div>
+            </div>
+
+            <div class="project-slide">
+                <img src="media/3.jpg" alt="Media from hacksavvy-25">
+                <div class="project-overlay">Inaugural Function of Hacksavvy-25</div>
+            </div>
+
+            <div class="project-slide">
+                <img src="media/4.jpg" alt="Media from hacksavvy-25">
+                <div class="project-overlay">Award Ceremony</div>
+            </div>
+
+            <div class="project-slide">
+                <img src="media/5.jpg" alt="Media from hacksavvy-25">
+                <div class="project-overlay">Lamp Lighting Ceremony</div>
+            </div>
+
+            <div class="project-slide">
+                <img src="media/6.jpg" alt="Media from hacksavvy-25">
+                <div class="project-overlay">Award Ceremony</div>
+            </div>
         </div>
     </section>
 
