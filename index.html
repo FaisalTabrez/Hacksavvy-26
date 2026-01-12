@@ -82,79 +82,89 @@
             color: white;
         }
 
-        /* Slider container */
-        .team-slider {
-            width: 100%;
-            overflow: hidden;
-            padding: 30px 0;
-        }
-
-        /* Moving track */
-        .team-track {
-            display: flex;
-            gap: 30px;
-            width: max-content;
-            animation: scroll-left 18s linear infinite;
-        }
-
-        /* Card */
-        .team-card {
-            min-width: 260px;
-            background: #333132;
-            border-radius: 16px;
-            padding: 22px 18px;
-            text-align: center;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-        }
-
-        /* Image */
-        .team-card img {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 12px;
-        }
-
-        /* Text */
-        .team-card h4,
-        .team-card phone {
-            margin: 6px 0 4px;
-            font-weight: 600;
-            color: black;
-        }
-
-        .team-card p {
-            margin: 0;
-            font-size: 14px;
-            color: #666;
-        }
-
-        .team-slider:hover .team-track {
-            animation-play-state: paused;
-        }
-
-        /* Animation */
-        @keyframes scroll-left {
-            from {
-                transform: translateX(0);
-            }
-
-            to {
-                transform: translateX(-25%);
-            }
-        }
-
-        /* 📱 Mobile optimization */
         @media (max-width: 768px) {
-            .team-card {
-                min-width: 220px;
-            }
-
-            .team-track {
-                animation-duration: 240s;
-            }
+        .details {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+}
+    /* ================= TEAM SLIDER ================= */
+
+/* Slider wrapper */
+.team-slider {
+    width: 100%;
+    overflow: hidden;
+    padding: 30px 0;
+}
+
+/* Track */
+.team-track {
+    display: flex;
+    gap: 30px;
+    width: max-content;
+    animation: scroll-left 40s linear infinite;
+}
+
+/* Card */
+.team-card {
+    min-width: 260px;
+    background: #333132;
+    border-radius: 16px;
+    padding: 22px 18px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* Image */
+.team-card img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 12px;
+}
+
+/* Text */
+.team-card h4 {
+    margin: 6px 0 4px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.team-card p {
+    margin: 0;
+    font-size: 14px;
+    color: #ccc;
+}
+
+/* Pause animation on hover */
+.team-slider:hover .team-track {
+    animation-play-state: paused;
+}
+
+/* Scroll animation */
+@keyframes scroll-left {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%); /* move by half, then loop */
+    }
+}
+
+/* Mobile tweaks */
+@media (max-width: 768px) {
+    .team-card {
+        min-width: 220px;
+    }
+
+    .team-track {
+        animation-duration: 60s; /* slower scroll on small screens */
+    }
+}
+
 
 
         @media (max-width: 768px) {
@@ -1379,6 +1389,53 @@
                 </div>
             </div>
             <h3>Student Co-ordinators</h3>
+
+            <div class="team-slider">
+                <div class="team-track">
+                    <div class="team-card">
+                        <img src="student/1.jpg" alt="Junaid Ahmed Khan">
+                        <h4>Junaid Ahmed Khan</h4>
+                        <p>Student Co-ordinator</p>
+                        <phone>+91  8008800401</phone>
+                    </div>
+
+                    <div class="team-card">
+                        <img src="student/2.jpg" alt="Sai Amrutha Polu ">
+                        <h4>Sai Amrutha Polu </h4>
+                        <p>Student Co-ordinator</p>
+                        <phone>+91   8464085246</phone>
+                    </div>
+
+                    <div class="team-card">
+                        <img src="student/3.jpg" alt="Maneesha Kallepalli">
+                        <h4>Maneesha Kallepalli</h4>
+                        <p>Student Co-ordinator</p>
+                        <phone>+91  9393005221</phone>
+                    </div>
+
+                    <div class="team-card">
+                        <img src="student/4.jpg" alt="Shreya Reddy Thangella">
+                        <h4>Shreya Reddy Thangella</h4>
+                        <p>Student Co-ordinator</p>
+                        <phone>+91  8919290101</phone>
+                    </div>
+
+                    <div class="team-card">
+                        <img src="student/5.jpg" alt="Kriti Karunam">
+                        <h4>Kriti Karunam</h4>
+                        <p>Student Co-ordinator</p>
+                        <phone>+91  9966430309</phone>
+                    </div>
+
+                    <div class="team-card">
+                        <img src="student/6.jpg" alt="Vrundha Reddy Panga">
+                        <h4>Vrundha Reddy Panga</h4>
+                        <p>Student Co-ordinator</p>
+                        <phone>+91   9133199706</phone>
+                    </div>
+
+                </div>
+            </div>
         </div>
         </div>
         </div>
