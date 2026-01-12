@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MGIT – HACKSAVVY</title>
     <meta name="description"
-        content="Join HackSavvy-26, the premier national-level hackathon by MGIT, Hyderabad, on February 12–13, 2026. Compete in AI, Cybersecurity, IoT, and more for a prize pool of ₹2 Lakhs.">
+        content="Join HackSavvy-26, the premier national-level hackathon by MGIT, Hyderabad, on February 12–13, 2026. Compete in AI, Cybersecurity, IoT, and more for a prize pool of ₹2.5 Lakhs.">
     <style>
         /* CSS Reset */
         html,
@@ -83,89 +83,117 @@
         }
 
         @media (max-width: 768px) {
-        .details {
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            .details {
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
         }
-}
-    /* ================= TEAM SLIDER ================= */
 
-/* Slider wrapper */
-.team-slider {
-    width: 100%;
-    overflow: hidden;
-    padding: 30px 0;
-}
+        /* TEAM SLIDER */
+        /* Slider wrapper */
+        .team-slider-wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
 
-/* Track */
-.team-track {
-    display: flex;
-    gap: 30px;
-    width: max-content;
-    animation: scroll-left 40s linear infinite;
-}
+        /* Navigation buttons */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            border: none;
+            font-size: 26px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            transition: background 0.3s;
+        }
 
-/* Card */
-.team-card {
-    min-width: 260px;
-    background: #333132;
-    border-radius: 16px;
-    padding: 22px 18px;
-    text-align: center;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-}
+        .nav-btn.prev {
+            left: 10px;
+        }
 
-/* Image */
-.team-card img {
-    width: 110px;
-    height: 110px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 12px;
-}
+        .nav-btn.next {
+            right: 10px;
+        }
 
-/* Text */
-.team-card h4 {
-    margin: 6px 0 4px;
-    font-weight: 600;
-    color: #fff;
-}
+        .nav-btn:hover {
+            background: rgba(0, 0, 0, 0.85);
+        }
 
-.team-card p {
-    margin: 0;
-    font-size: 14px;
-    color: #ccc;
-}
+        .team-slider {
+            width: 100%;
+            overflow: hidden;
+            padding: 30px 0;
+        }
 
-/* Pause animation on hover */
-.team-slider:hover .team-track {
-    animation-play-state: paused;
-}
+        .team-track {
+            display: flex;
+            gap: 30px;
+            width: max-content;
+            animation: scroll-left 40s linear infinite;
+        }
 
-/* Scroll animation */
-@keyframes scroll-left {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(-50%); /* move by half, then loop */
-    }
-}
+        .team-track.manual-control {
+            animation: none !important;
+        }
 
-/* Mobile tweaks */
-@media (max-width: 768px) {
-    .team-card {
-        min-width: 220px;
-    }
+        .team-card {
+            min-width: 260px;
+            background: #333132;
+            border-radius: 16px;
+            padding: 22px 18px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+        }
 
-    .team-track {
-        animation-duration: 60s; /* slower scroll on small screens */
-    }
-}
+        .team-card img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 12px;
+        }
 
+        .team-card h4 {
+            margin: 6px 0 4px;
+            font-weight: 600;
+            color: #fff;
+        }
 
+        .team-card p {
+            margin: 0;
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        @keyframes scroll-left {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Mobile tweaks */
+        @media (max-width: 768px) {
+            .team-card {
+                min-width: 220px;
+            }
+
+            .team-track {
+                animation-duration: 60s;
+            }
+        }
 
         @media (max-width: 768px) {
             :root {
@@ -179,6 +207,7 @@
         }
 
         a {
+            color: #f82249;
             font-family: 'Inter', sans-serif;
         }
 
@@ -237,11 +266,9 @@
             margin: 0 auto;
             margin-top: -120px;
             margin-left: calc(50%);
-            /* Shifts right by 40px from center */
             transform: translateX(-50%);
         }
 
-        /* Added padding-top to push content lower */
         .hero-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 4em;
@@ -281,7 +308,6 @@
 
         .hero-image {
             width: 180px;
-            /* adjust as needed */
             height: 180px;
             object-fit: cover;
             display: block;
@@ -323,7 +349,7 @@
         }
 
 
-        /* About/Contact */
+        /* About */
         .about {
             scroll-margin-top: calc(1.25 * var(--navbar-height));
             padding: 80px 20px;
@@ -352,7 +378,11 @@
             text-align: left;
         }
 
-        /* Large screens and up */
+        .about .c1 {
+            color: #f82249;
+        }
+
+        /* Large screens */
         @media (min-width: 992px) {
             .about .col-lg-6 {
                 flex: 0 0 60%;
@@ -436,136 +466,125 @@
             line-height: 1.7;
         }
 
-       /* PROJECTS SECTION */
+        /* PROJECTS SECTION */
 
+        #projects {
+            overflow: hidden;
+        }
 
-#projects {
-    overflow: hidden; /* hide overflow during auto-scroll */
-}
+        .projects-container {
+            display: flex;
+            gap: 30px;
+            width: max-content;
 
-/* Container that moves */
-.projects-container {
-    display: flex;
-    gap: 30px;
-    width: max-content;
+            animation: media-scroll 80s linear infinite;
+        }
 
-    /* VERY SLOW AUTO SCROLL */
-    animation: media-scroll 80s linear infinite;
-}
+        .projects-container:hover {
+            animation-play-state: paused;
+        }
 
-/* Pause animation on hover (important UX) */
-.projects-container:hover {
-    animation-play-state: paused;
-}
+        /* Each media card */
+        .project-slide {
+            flex-shrink: 0;
+            width: 320px;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
 
-/* Each media card */
-.project-slide {
-    flex-shrink: 0;
-    width: 320px;
-    height: 200px;
-    position: relative;
-    overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+            border-radius: 14px;
+            background: #000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
 
-    border-radius: 14px;
-    background: #000;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-}
+        .project-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s ease-out;
+        }
 
-/* Image */
-.project-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+        .project-slide:hover img {
+            transform: scale(1.08);
+        }
 
-    /* Slow zoom */
-    transition: transform 1s ease-out;
-}
+        .project-overlay {
+            position: absolute;
+            inset: 0;
 
-/* Hover zoom */
-.project-slide:hover img {
-    transform: scale(1.08);
-}
+            background: rgba(0, 0, 0, 0.35);
+            color: #fff;
 
-/* Overlay */
-.project-overlay {
-    position: absolute;
-    inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-    background: rgba(0, 0, 0, 0.35);
-    color: #fff;
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-align: center;
+            padding: 15px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+            opacity: 0;
 
-    font-size: 1.3rem;
-    font-weight: 600;
-    text-align: center;
-    padding: 15px;
+            /* Slow fade */
+            transition: opacity 1s ease-in-out;
 
-    opacity: 0;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+        }
 
-    /* Slow fade */
-    transition: opacity 1s ease-in-out;
+        /* Show overlay */
+        .project-slide:hover .project-overlay {
+            opacity: 1;
+        }
 
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
-}
+        /* AUTO SCROLL KEYFRAMES
+   
+        @keyframes media-scroll {
+            from {
+                transform: translateX(0);
+            }
 
-/* Show overlay */
-.project-slide:hover .project-overlay {
-    opacity: 1;
-}
+            to {
+                transform: translateX(-50%);
+            }
+        }
 
-/* ===============================
-   AUTO SCROLL KEYFRAMES
-   =============================== */
+        /* MOBILE OPTIMIZATION */
 
-@keyframes media-scroll {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(-50%);
-    }
-}
+        @media (max-width: 768px) {
+            .projects-container {
+                animation-duration: 120s;
 
-/* ===============================
-   MOBILE OPTIMIZATION
-   =============================== */
+            }
 
-@media (max-width: 768px) {
-    .projects-container {
-        animation-duration: 120s; /* EVEN SLOWER ON MOBILE */
-    }
+            .project-slide {
+                width: 260px;
+                height: 160px;
+            }
 
-    .project-slide {
-        width: 260px;
-        height: 160px;
-    }
+            .project-overlay {
+                font-size: 1.1rem;
+            }
+        }
 
-    .project-overlay {
-        font-size: 1.1rem;
-    }
-}
+        @media (max-width: 480px) {
+            .project-slide {
+                width: 220px;
+                height: 140px;
+            }
+        }
 
-@media (max-width: 480px) {
-    .project-slide {
-        width: 220px;
-        height: 140px;
-    }
-}
-
-/* Touch devices: always show overlay text */
-@media (hover: none) {
-    .project-overlay {
-        opacity: 1;
-        background: rgba(0, 0, 0, 0.25);
-    }
-}
+        /* Touch devices: always show overlay text */
+        @media (hover: none) {
+            .project-overlay {
+                opacity: 1;
+                background: rgba(0, 0, 0, 0.25);
+            }
+        }
 
 
         /* Headings & Tracks */
@@ -729,13 +748,11 @@
             bottom: 10px;
             width: 100%;
             background: #f82249;
-            /* #f82249 */
             overflow: hidden;
             padding: 10px 0;
             z-index: 10;
         }
 
-        /* Moving text only */
         .ticker {
             display: flex;
             width: max-content;
@@ -815,7 +832,6 @@
             font-weight: 700;
             font-size: 1.1em;
             color: #ab0017;
-            /* accent color for times */
             text-align: right;
         }
 
@@ -873,7 +889,7 @@
 </head>
 
 <body>
-    <!-- ======= Header ======= -->
+    <!-- Header -->
     <header id="header" class="d-flex align-items-center">
         <div class="container-fluid container-xxl d-flex align-items-center justify-content-between">
 
@@ -929,14 +945,14 @@
         <div class="ticker-wrap" id="ticker-wrap">
             <div class="ticker">
                 <span>24 Hour Hackathon • </span>
-                <span>Price Pool: ₹ 2,00,000 • </span>
+                <span>Price Pool: ₹ 2,50,000 • </span>
                 <span>National Level Event • </span>
                 <span>Industry Expert Mentors • </span>
                 <span>Exciting Domains & Tracks • </span>
                 <span>Networking Opportunities • </span>
                 <!-- Duplicate spans for seamless loop -->
                 <span>24 Hour Hackathon • </span>
-                <span>Price Pool: ₹ 2,00,000 • </span>
+                <span>Price Pool: ₹ 2,50,000 • </span>
                 <span>National Level Event • </span>
                 <span>Industry Expert Mentors • </span>
                 <span>Exciting Domains & Tracks • </span>
@@ -945,7 +961,7 @@
         </div>
     </section>
 
-    <!-- ======= About Section ======= -->
+    <!-- About Section -->
     <section id="about" class="about">
         <div class="container">
             <div class="row">
@@ -982,8 +998,8 @@
         </div>
     </section><!-- End About Section -->
 
-    <!--====== ABOUT PART START ======-->
-    <!-- ======= About Section ======= -->
+    <!-- ABOUT PART START -->
+    <!-- About Section -->
     <section id="about" class="about">
         <div class="container">
             <div class="row">
@@ -1013,9 +1029,9 @@
         </div>
         </div>
     </section><!-- End About Section -->
-    <!--====== ABOUT PART END ======-->
+    <!-- ABOUT PART END -->
 
-    <!-- ======= Themes Section ======= -->
+    <!-- Themes Section -->
     <section id="theme" class="about">
         <div class="container">
             <div class="row">
@@ -1083,7 +1099,7 @@
         </div>
     </section><!-- End Themes Section -->
 
-    <!-- ======= Leaders Section ======= -->
+    <!-- Leaders Section -->
     <section id="leaders" class="about">
         <div class="container">
             <div class="row">
@@ -1139,7 +1155,7 @@
         </div>
     </section><!-- End Leaders Section -->
 
-    <!-- ======= Guidelines Section ======= -->
+    <!-- Guidelines Section -->
     <section id="guidelines" class="about">
         <div class="container">
             <div class="row">
@@ -1164,6 +1180,8 @@
                     <p>Teams must submit their project by the end of the hackathon period for evaluation.</p>
                     <h3>Judging Criteria:</h3>
                     <p>Projects will be evaluated based on creativity, technical difficulty, impact, and presentation.
+                        To know more about the judging criteria, visit the <a href="#criteria">Judging Criteria</a>
+                        section.
                     </p>
                     <h3>Awards and Recognition:</h3>
                     <p>Certificates will be awarded to all participants.Special prizes will be given to top-performing
@@ -1172,8 +1190,8 @@
                     <p>Meals (Breakfast, lunch, and dinner) will be provided to keep participants energized.Snacks and
                         beverages, including tea and coffee, will also be available.</p>
                     <h3>Before You Begin:</h3>
-                    <p>Please ensure you have the following ready for a smooth registration process:names, email
-                        addresses, college IDs, etc.).</p>
+                    <p>Please ensure you have the following ready for a smooth registration process: names, email
+                        addresses, college IDs, etc.</p>
                     <p>Proof of payment for the registration fee (Rs. 2500 per team).</p>
                 </div>
             </div>
@@ -1181,7 +1199,7 @@
     </section><!-- End About Section -->
 
 
-    <!-- ======= Schedule Section ======= -->
+    <!-- Schedule Section -->
     <section id="schedule" class="about">
         <div class="container">
             <div class="row">
@@ -1267,7 +1285,7 @@
     </section>
     <!-- End Schedule Section -->
 
-    <!-- ======= Team Section ======= -->
+    <!-- Team Section -->
     <section id="team" class="about">
         <div class="container">
             <div class="row">
@@ -1279,169 +1297,177 @@
                     <h3>Faculty Co-ordinators</h3>
                 </div>
             </div>
+            <div class="team-slider-wrapper">
+                <button class="nav-btn prev">&#10094;</button>
 
-            <div class="team-slider">
-                <div class="team-track">
-                    <div class="team-card">
-                        <img src="faculty/1.jpg" alt="Dr. Ch. Ramesh Babu">
-                        <h4>Dr. Ch. Ramesh Babu</h4>
-                        <p>Faculty Co-ordinator</p>
-                        <phone>+91 9985677767</phone>
-                    </div>
+                <div class="team-slider">
+                    <div class="team-track">
+                        <div class="team-card">
+                            <img src="faculty/1.jpg" alt="Dr. Ch. Ramesh Babu">
+                            <h4>Dr. Ch. Ramesh Babu</h4>
+                            <p>Faculty Co-ordinator</p>
+                            <phone>+91 9985677767</phone>
+                        </div>
 
-                    <div class="team-card">
-                        <img src="faculty/2.jpg" alt="Dr. V. Subba Ramaiaha">
-                        <h4>Dr. V. Subba Ramaiaha</h4>
-                        <p>Faculty Co-ordinator</p>
-                        <phone>+91 9393005221</phone>
-                    </div>
+                        <div class="team-card">
+                            <img src="faculty/2.jpg" alt="Dr. V. Subba Ramaiaha">
+                            <h4>Dr. V. Subba Ramaiaha</h4>
+                            <p>Faculty Co-ordinator</p>
+                            <phone>+91 9393005221</phone>
+                        </div>
 
-                    <div class="team-card">
-                        <img src="faculty/3.jpg" alt="Dr. A. Ratna Raju">
-                        <h4>Dr. A. Ratna Raju</h4>
-                        <p>Faculty Co-ordinator</p>
-                        <phone>+91 8328255486</phone>
-                    </div>
+                        <div class="team-card">
+                            <img src="faculty/3.jpg" alt="Dr. A. Ratna Raju">
+                            <h4>Dr. A. Ratna Raju</h4>
+                            <p>Faculty Co-ordinator</p>
+                            <phone>+91 8328255486</phone>
+                        </div>
 
-                    <div class="team-card">
-                        <img src="faculty/4.jpg" alt="Dr. K. Madubabu">
-                        <h4>Dr. K. Madubabu</h4>
-                        <p>Faculty Co-ordinator</p>
-                        <phone>+91 7780327440</phone>
-                    </div>
+                        <div class="team-card">
+                            <img src="faculty/4.jpg" alt="Dr. K. Madubabu">
+                            <h4>Dr. K. Madubabu</h4>
+                            <p>Faculty Co-ordinator</p>
+                            <phone>+91 7780327440</phone>
+                        </div>
 
-                    <div class="team-card">
-                        <img src="faculty/5.jpg" alt="Dr. Meera Alphy">
-                        <h4>Dr. Meera Alphy</h4>
-                        <p>Faculty Co-ordinator</p>
-                        <phone>+91 8547586410</phone>
-                    </div>
+                        <div class="team-card">
+                            <img src="faculty/5.jpg" alt="Dr. Meera Alphy">
+                            <h4>Dr. Meera Alphy</h4>
+                            <p>Faculty Co-ordinator</p>
+                            <phone>+91 8547586410</phone>
+                        </div>
 
-                    <div class="team-card">
-                        <img src="faculty/6.jpg" alt="Mr. R. Srinivas">
-                        <h4>Mr. R. Srinivas</h4>
-                        <p>Faculty Co-ordinator</p>
-                        <phone>+91 9666660028</phone>
-                    </div>
+                        <div class="team-card">
+                            <img src="faculty/6.jpg" alt="Mr. R. Srinivas">
+                            <h4>Mr. R. Srinivas</h4>
+                            <p>Faculty Co-ordinator</p>
+                            <phone>+91 9666660028</phone>
+                        </div>
 
-                    <div class="team-card">
-                        <img src="faculty/7.jpg" alt="Dr. B. Yadaiah">
-                        <h4>Dr. B. Yadaiah</h4>
-                        <p>Faculty Co-ordinator</p>
-                        <phone>+91 9030007577</phone>
-                    </div>
+                        <div class="team-card">
+                            <img src="faculty/7.jpg" alt="Dr. B. Yadaiah">
+                            <h4>Dr. B. Yadaiah</h4>
+                            <p>Faculty Co-ordinator</p>
+                            <phone>+91 9030007577</phone>
+                        </div>
 
-                    <div class="team-card">
-                        <img src="faculty/15.jpg" alt="Ms. J Hima Bindu">
-                        <h4>Ms. J Hima Bindu</h4>
-                        <p>Faculty Co-ordinator</p>
-                        <phone>+91 9346530034</phone>
-                    </div>
+                        <div class="team-card">
+                            <img src="faculty/15.jpg" alt="Ms. J Hima Bindu">
+                            <h4>Ms. J Hima Bindu</h4>
+                            <p>Faculty Co-ordinator</p>
+                            <phone>+91 9346530034</phone>
+                        </div>
 
-                    <div class="team-card">
-                        <img src="faculty/8.jpg" alt="Mrs. V Veena">
-                        <h4>Mrs. V Veena</h4>
-                        <p>Faculty Co-ordinator</p>
-                        <phone>+91 7893213140</phone>
-                    </div>
+                        <div class="team-card">
+                            <img src="faculty/8.jpg" alt="Mrs. V Veena">
+                            <h4>Mrs. V Veena</h4>
+                            <p>Faculty Co-ordinator</p>
+                            <phone>+91 7893213140</phone>
+                        </div>
 
-                    <div class="team-card">
-                        <img src="faculty/9.jpg" alt="A. Bal raju">
-                        <h4>A. Bal raju</h4>
-                        <p>Faculty Co-ordinator</p>
-                        <phone>+91 9951992097</phone>
-                    </div>
+                        <div class="team-card">
+                            <img src="faculty/9.jpg" alt="A. Bal raju">
+                            <h4>A. Bal raju</h4>
+                            <p>Faculty Co-ordinator</p>
+                            <phone>+91 9951992097</phone>
+                        </div>
 
-                    <div class="team-card">
-                        <img src="faculty/10.jpg" alt="Dr. S Siva Reddy">
-                        <h4>Dr. S Siva Reddy</h4>
-                        <p>Faculty Co-ordinator</p>
-                        <phone>+91 9505242497</phone>
-                    </div>
+                        <div class="team-card">
+                            <img src="faculty/10.jpg" alt="Dr. S Siva Reddy">
+                            <h4>Dr. S Siva Reddy</h4>
+                            <p>Faculty Co-ordinator</p>
+                            <phone>+91 9505242497</phone>
+                        </div>
 
-                    <div class="team-card">
-                        <img src="faculty/11.jpg" alt="Mr. Sheri Abhishek">
-                        <h4>Mr. Sheri Abhishek</h4>
-                        <p>Faculty Co-ordinator</p>
-                        <phone>+91 9885813113</phone>
-                    </div>
-                    <div class="team-card">
-                        <img src="faculty/12.jpg" alt="Mr. P. Shankar Kumar">
-                        <h4>Mr. P. Shankar Kumar</h4>
-                        <p>Faculty Co-ordinator</p>
-                        <phone>+91 9550501616</phone>
-                    </div>
+                        <div class="team-card">
+                            <img src="faculty/11.jpg" alt="Mr. Sheri Abhishek">
+                            <h4>Mr. Sheri Abhishek</h4>
+                            <p>Faculty Co-ordinator</p>
+                            <phone>+91 9885813113</phone>
+                        </div>
+                        <div class="team-card">
+                            <img src="faculty/12.jpg" alt="Mr. P. Shankar Kumar">
+                            <h4>Mr. P. Shankar Kumar</h4>
+                            <p>Faculty Co-ordinator</p>
+                            <phone>+91 9550501616</phone>
+                        </div>
 
-                    <div class="team-card">
-                        <img src="faculty/13.jpg" alt="Dr. Asheesh Kumar">
-                        <h4>Dr. Asheesh Kumar</h4>
-                        <p>Faculty Co-ordinator</p>
-                        <phone>+91 9542531035</phone>
-                    </div>
+                        <div class="team-card">
+                            <img src="faculty/13.jpg" alt="Dr. Asheesh Kumar">
+                            <h4>Dr. Asheesh Kumar</h4>
+                            <p>Faculty Co-ordinator</p>
+                            <phone>+91 9542531035</phone>
+                        </div>
 
-                    <div class="team-card">
-                        <img src="faculty/14.jpg" alt="Mr. Bhoomik Ketari">
-                        <h4>Mr. Bhoomik Ketari</h4>
-                        <p>Faculty Co-ordinator</p>
-                        <phone>+91 9866456825</phone>
-                    </div>
+                        <div class="team-card">
+                            <img src="faculty/14.jpg" alt="Mr. Bhoomik Ketari">
+                            <h4>Mr. Bhoomik Ketari</h4>
+                            <p>Faculty Co-ordinator</p>
+                            <phone>+91 9866456825</phone>
+                        </div>
 
+                    </div>
                 </div>
+                <button class="nav-btn next">&#10095;</button>
             </div>
             <h3>Student Co-ordinators</h3>
 
-            <div class="team-slider">
-                <div class="team-track">
-                    <div class="team-card">
-                        <img src="student/1.jpg" alt="Junaid Ahmed Khan">
-                        <h4>Junaid Ahmed Khan</h4>
-                        <p>Student Co-ordinator</p>
-                        <phone>+91  8008800401</phone>
-                    </div>
+            <div class="team-slider-wrapper">
+                <button class="nav-btn prev">&#10094;</button>
 
-                    <div class="team-card">
-                        <img src="student/2.jpg" alt="Sai Amrutha Polu ">
-                        <h4>Sai Amrutha Polu </h4>
-                        <p>Student Co-ordinator</p>
-                        <phone>+91   8464085246</phone>
-                    </div>
+                <div class="team-slider">
+                    <div class="team-track">
+                        <div class="team-card">
+                            <img src="student/1.jpg" alt="Junaid Ahmed Khan">
+                            <h4>Junaid Ahmed Khan</h4>
+                            <p>Student Co-ordinator</p>
+                            <phone>+91 8008800401</phone>
+                        </div>
 
-                    <div class="team-card">
-                        <img src="student/3.jpg" alt="Maneesha Kallepalli">
-                        <h4>Maneesha Kallepalli</h4>
-                        <p>Student Co-ordinator</p>
-                        <phone>+91  9393005221</phone>
-                    </div>
+                        <div class="team-card">
+                            <img src="student/2.jpg" alt="Sai Amrutha Polu ">
+                            <h4>Sai Amrutha Polu </h4>
+                            <p>Student Co-ordinator</p>
+                            <phone>+91 8464085246</phone>
+                        </div>
 
-                    <div class="team-card">
-                        <img src="student/4.jpg" alt="Shreya Reddy Thangella">
-                        <h4>Shreya Reddy Thangella</h4>
-                        <p>Student Co-ordinator</p>
-                        <phone>+91  8919290101</phone>
-                    </div>
+                        <div class="team-card">
+                            <img src="student/3.jpg" alt="Maneesha Kallepalli">
+                            <h4>Maneesha Kallepalli</h4>
+                            <p>Student Co-ordinator</p>
+                            <phone>+91 9393005221</phone>
+                        </div>
 
-                    <div class="team-card">
-                        <img src="student/5.jpg" alt="Kriti Karunam">
-                        <h4>Kriti Karunam</h4>
-                        <p>Student Co-ordinator</p>
-                        <phone>+91  9966430309</phone>
-                    </div>
+                        <div class="team-card">
+                            <img src="student/4.jpg" alt="Shreya Reddy Thangella">
+                            <h4>Shreya Reddy Thangella</h4>
+                            <p>Student Co-ordinator</p>
+                            <phone>+91 8919290101</phone>
+                        </div>
 
-                    <div class="team-card">
-                        <img src="student/6.jpg" alt="Vrundha Reddy Panga">
-                        <h4>Vrundha Reddy Panga</h4>
-                        <p>Student Co-ordinator</p>
-                        <phone>+91   9133199706</phone>
+                        <div class="team-card">
+                            <img src="student/5.jpg" alt="Kriti Karunam">
+                            <h4>Kriti Karunam</h4>
+                            <p>Student Co-ordinator</p>
+                            <phone>+91 9966430309</phone>
+                        </div>
+
+                        <div class="team-card">
+                            <img src="student/6.jpg" alt="Vrundha Reddy Panga">
+                            <h4>Vrundha Reddy Panga</h4>
+                            <p>Student Co-ordinator</p>
+                            <phone>+91 9133199706</phone>
+                        </div>
+
                     </div>
 
                 </div>
+                <button class="nav-btn next">&#10095;</button>
             </div>
-        </div>
-        </div>
         </div>
     </section><!-- End Team Section -->
 
-    <!-- ======= FAQ Section ======= -->
+    <!-- FAQ Section -->
     <section id="faq" class="about">
         <div class="container">
             <div class="row">
@@ -1486,32 +1512,46 @@
         </div>
     </section><!-- End FAQ Section -->
 
-    <!-- Contact Section -->
-    <section id="contact" class="about">
+    <!-- Judging Criteria Section -->
+    <section id="criteria" class="about">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6">
-                    <h2>Contact Us</h2>
-                    <p style="text-align: justify;">Reach Out, Connect, and Explore Possibilities Together!</p>
+                <div class="col-lg-12" style="text-align: justify;">
+                    <h2>Judging Criteria</h2>
+                    <p>With a grand prize pool of <span class="c1">₹2,50,000</span> Lakhs, HackSavvy-26 sets a high bar
+                        for excellence. Projects will be evaluated by an esteemed panel of judges based on innovation,
+                        technical implementation, problem relevance, scalability, and overall impact. Teams are
+                        encouraged to present solutions that are not only creative but also practical, user-centric, and
+                        sustainable in real-world scenarios.</p>
+                    <p><strong style="font-weight: bold">Innovation and Creativity: </strong>
+                        Judges will assess the originality of theidea and the creativity demonstrated in solving the
+                        problem.</p>
 
+                    <p><strong style="font-weight: bold">Technical Complexity: </strong>
+                        The technical depth and sophistication of the solution will be evaluated, including the use of
+                        advanced technologies and coding practices.</p>
+
+                    <p><strong style="font-weight: bold">Impact and Feasibility: </strong>
+                        The potential impact of the project on users and its feasibility for real-world application will
+                        be considered.</p>
+
+                    <p><strong style="font-weight: bold">User Experience and Design: </strong>
+                        The usability, design aesthetics, and overall user experience of the project will be judged.</p>
+                    <br>
+
+                    <p><strong style="font-weight: bold">Presentation and Communication: </strong>
+                        Participants will be evaluated on their ability to effectively communicate their ideas,
+                        demonstrate their project, and answer questions from judges.</p>
+
+                    <p><span class="c1"><strong style="font-weight: bold">Three Prizes will be awarded to the top teams
+                                in each domain based on the judging criteria
+                                mentioned above.</strong></span></p>
                 </div>
-                <div class="col-lg-2">
-                    <h3>Phone Number</h3>
-                    <p><a href="tel:+91 8019923406">+91 8019923406</a></p>
-                    <p><a href="tel:+91 9666660051">+91 9666660051</a></p>
-                    <p><a href="tel:+91 8142781437">+91 8142781437</a></p>
-                    <p><a href="tel:+91 9985329931">+91 9985329931</a></p>
 
-                    <h3>Email</h3>
-                    <p><a href="mailto:hacksavvy@mgit.ac.in ">hacksavvy@mgit.ac.in </a></p>
-
-                    <h3>Address</h3>
-                    <address>Mahatma Gandhi Institute of Technology, Gandipet, Hyderabad, Telangana.</address>
-
-                </div>
             </div>
         </div>
-    </section><!-- End Contact Section -->
+    </section><!-- End Judging Section -->
+
 
 
     <!-- Media & Highlights Section (Horizontal Scroll) -->
@@ -1519,7 +1559,7 @@
         <h2>Media & Highlights</h2>
         <div class="projects-container">
 
-                        <div class="project-slide">
+            <div class="project-slide">
                 <img src="media/1.jpg" alt="Media from hacksavvy-25">
                 <div class="project-overlay">Organizing Committee</div>
             </div>
@@ -1581,14 +1621,89 @@
         </div>
     </section>
 
+    <!-- Contact Section -->
+    <section id="contact" class="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2>Contact Us</h2>
+                    <p style="text-align: justify;">Reach Out, Connect, and Explore Possibilities Together!</p>
+
+                </div>
+                <div class="col-lg-2">
+                    <h3>Phone Number</h3>
+                    <p>Junaid Ahmed Khan: <a href="tel:+91 8008800401">+91 8008800401</a></p>
+                    <p>Vrundha Reddy Panga: <a href="tel:+91 9133199706">+91 9133199706</a></p>
+                    <p>Sai Amrutha Polu: <a href="tel:+91 8464085246">+91 8464085246</a></p>
+
+                    <h3>Email</h3>
+                    <p><a href="mailto:hacksavvy@mgit.ac.in ">hacksavvy@mgit.ac.in</a></p>
+
+                    <h3>Address</h3>
+                    <address>Mahatma Gandhi Institute of Technology, Gandipet, Hyderabad, Telangana.</address>
+
+                </div>
+            </div>
+        </div>
+    </section><!-- End Contact Section -->
+
 
     </div>
     <footer>
-        HackSavvy-26 <br> Organized by MGIT, Hyderabad
+        HackSavvy-26 <br> Organized by MGIT, Hyderabad <br> Developed by Kriti Karunam
     </footer>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
 
+            const track = document.querySelector('.team-track');
+            const prevBtn = document.querySelector('.nav-btn.prev');
+            const nextBtn = document.querySelector('.nav-btn.next');
+
+            let currentOffset = 0;
+            const slideAmount = 290; // card width (260) + gap (30)
+            let resumeTimer = null;
+
+            function stopAnimation() {
+                track.classList.add('manual-control');
+                track.style.transform = `translateX(${currentOffset}px)`;
+
+                // Clear existing timer
+                if (resumeTimer) {
+                    clearTimeout(resumeTimer);
+                }
+            }
+
+            function scheduleResume() {
+                resumeTimer = setTimeout(() => {
+                    track.classList.remove('manual-control');
+                    track.style.transform = '';
+                    currentOffset = 0;
+                }, 5000);
+            }
+
+            prevBtn.addEventListener('click', function () {
+                stopAnimation();
+                currentOffset += slideAmount;
+
+                // Allow going back a reasonable amount
+                const maxRight = slideAmount * 3;
+                if (currentOffset > maxRight) currentOffset = maxRight;
+
+                track.style.transform = `translateX(${currentOffset}px)`;
+                scheduleResume();
+            });
+
+            nextBtn.addEventListener('click', function () {
+                stopAnimation();
+                currentOffset -= slideAmount;
+
+                // Prevent going too far
+                const maxLeft = -(track.scrollWidth / 2);
+                if (currentOffset < maxLeft) currentOffset = maxLeft;
+
+                track.style.transform = `translateX(${currentOffset}px)`;
+                scheduleResume();
+            });
             // Hero Section Animations
             gsap.fromTo(".hero-title", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1, delay: 0.5 });
             gsap.fromTo(".hero-subtitle", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1, delay: 1 });
