@@ -1,0 +1,130 @@
+'use server'
+
+import { createClient } from '@/utils/supabase/server'
+import { registrationSchema } from './schema'
+import { redirect } from 'next/navigation'
+import { sendEmail } from '@/app/actions/email'
+
+export async function registerTeam(formData: FormData) {
+    const supabase = await createClient()
+
+    // 1. Validate Form Data
+    const rawData: any = {
+        teamName: formData.get('teamName'),
+        track: formData.get('track'),
+        teamSize: formData.get('teamSize'),
+        upiReference: formData.get('upiReference'),
+        paymentScreenshot: formData.getAll('paymentScreenshot'), // getAll for file input
+        members: [],
+    }
+
+    // Parse members from formData
+    const members: any[] = []
+    const teamSize = parseInt(rawData.teamSize as string)
+    for (let i = 0; i < teamSize; i++) {
+        members.push({
+            name: formData.get(`members.${i}.name`),
+            email: formData.get(`members.${i}.email`),
+            phone: formData.get(`members.${i}.phone`),
+            college: formData.get(`members.${i}.college`),
+            rollNo: formData.get(`members.${i}.rollNo`) || undefined,
+            branch: formData.get(`members.${i}.branch`) || undefined,
+            accommodation: formData.get(`members.${i}.accommodation`) === 'true',
+            food: formData.get(`members.${i}.food`),
+        })
+    }
+    rawData.members = members
+
+    // Validate with Zod
+    const validatedFields = registrationSchema.safeParse(rawData)
+
+    if (!validatedFields.success) {
+        return {
+            error: 'Validation failed',
+            issues: validatedFields.error.issues,
+        }
+    }
+
+    const { data } = validatedFields
+
+    // 2. Get User
+    const {
+        data: { user },
+    } = await supabase.auth.getUser()
+
+    if (!user) {
+        return { error: 'You must be logged in to register.' }
+    }
+
+    // 3. Upload Payment Screenshot
+    const file = data.paymentScreenshot[0] as File
+    const fileExt = file.name.split('.').pop()
+    const fileName = `${user.id}-${Date.now()}.${fileExt}`
+    const { error: uploadError, data: uploadData } = await supabase.storage
+        .from('payments')
+        .upload(fileName, file)
+
+    if (uploadError) {
+        return { error: 'Failed to upload payment screenshot.' }
+    }
+
+    const screenshotUrl = uploadData.path
+
+    // 4. Insert Team
+    const { data: teamData, error: teamError } = await supabase
+        .from('teams')
+        .insert({
+            name: data.teamName,
+            track: data.track,
+            size: parseInt(data.teamSize),
+            upi_reference: data.upiReference,
+            payment_screenshot_url: screenshotUrl,
+            user_id: user.id,
+        })
+        .select()
+        .single()
+
+    if (teamError) {
+        return { error: 'Failed to create team.' }
+    }
+
+    // 5. Insert Members
+    const membersToInsert = data.members.map((member, index) => ({
+        team_id: teamData.id,
+        name: member.name,
+        email: member.email,
+        phone: member.phone,
+        college: member.college,
+        roll_no: member.rollNo,
+        branch: member.branch,
+        accommodation: member.accommodation,
+        food_preference: member.food,
+        is_leader: index === 0,
+    }))
+
+    const { error: membersError } = await supabase
+        .from('members')
+        .insert(membersToInsert)
+
+    if (membersError) {
+        // Ideally rollback team creation here, but for simplicity we'll just return error
+        return { error: 'Failed to add members.' }
+    }
+
+    // Send Registration Email
+    const leader = membersToInsert.find(m => m.is_leader)
+    if (leader) {
+        await sendEmail({
+            to: leader.email,
+            subject: 'HackSavvy Registration Received',
+            type: 'Registration',
+            data: {
+                leaderName: leader.name,
+                teamName: teamData.name,
+                members: membersToInsert
+            }
+        })
+    }
+
+    redirect('/dashboard?registered=true')
+}
