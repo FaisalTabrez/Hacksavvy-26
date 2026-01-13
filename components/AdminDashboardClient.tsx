@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { verifyTeamPayment, rejectTeamPayment } from '@/app/admin/actions'
+import { verifyTeamPayment, rejectTeamPayment, getConfirmedParticipants } from '@/app/admin/actions'
 
 interface Member {
     id: string
@@ -64,13 +64,58 @@ export default function AdminDashboardClient({ teams: initialTeams }: AdminDashb
         setProcessingId(null)
     }
 
+    const handleExport = async () => {
+        const confirmedTeams = await getConfirmedParticipants()
+        if (!confirmedTeams || confirmedTeams.length === 0) {
+            alert('No confirmed participants found.')
+            return
+        }
+
+        const csvRows = [
+            ['Team Name', 'Leader Name', 'Leader Phone', 'Member Name', 'Food Pref', 'Accommodation']
+        ]
+
+        confirmedTeams.forEach((team: any) => {
+            const leader = team.members.find((m: any) => m.is_leader)
+            team.members.forEach((member: any) => {
+                csvRows.push([
+                    team.name,
+                    leader?.name || 'N/A',
+                    leader?.phone || 'N/A',
+                    member.name,
+                    member.food,
+                    member.accommodation ? 'Yes' : 'No'
+                ])
+            })
+        })
+
+        const csvContent = csvRows.map(e => e.join(",")).join("\n")
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
+        const url = URL.createObjectURL(blob)
+        const link = document.createElement("a")
+        link.setAttribute("href", url)
+        link.setAttribute("download", "hacksavvy-participants.csv")
+        link.style.visibility = 'hidden'
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+    }
+
     const getPublicUrl = (path: string) => {
         return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/payments/${path}`
     }
 
     return (
         <div className="max-w-7xl mx-auto py-8 px-4">
-            <h1 className="text-3xl font-bold text-white mb-8">Admin Dashboard - Pending Payments</h1>
+            <div className="flex justify-between items-center mb-8">
+                <h1 className="text-3xl font-bold text-white">Admin Dashboard - Pending Payments</h1>
+                <button
+                    onClick={handleExport}
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+                >
+                    Export Data
+                </button>
+            </div>
 
             {teams.length === 0 ? (
                 <div className="text-gray-400 text-center py-12 bg-gray-800 rounded-lg">

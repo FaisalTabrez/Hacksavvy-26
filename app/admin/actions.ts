@@ -19,6 +19,21 @@ export async function getPendingTeams() {
     return data
 }
 
+export async function getConfirmedParticipants() {
+    const supabase = await createClient()
+    const { data, error } = await supabase
+        .from('teams')
+        .select('*, members(*)')
+        .eq('payment_status', 'verified')
+        .order('created_at', { ascending: false })
+
+    if (error) {
+        console.error('Error fetching confirmed participants:', error)
+        return []
+    }
+    return data
+}
+
 export async function verifyTeamPayment(teamId: string, teamName: string, leaderEmail: string, leaderName: string) {
     const supabase = await createClient()
     const { error } = await supabase
