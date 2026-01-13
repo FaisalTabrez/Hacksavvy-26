@@ -886,6 +886,46 @@
             color: #ffffff;
         }
 
+        .themes-row {
+            font-family: 'Inter', sans-serif;
+            padding-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            /* 5 equal columns */
+            gap: 20px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .theme-box {
+            background: #000;
+            /* optional */
+            padding: 20px 10px;
+            border-radius: 12px;
+        }
+
+        .theme-subtitle {
+            font-family: Orbitron, sans-serif;
+            color:#f82249;
+            font-weight: bold;
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 992px) {
+            .themes-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .themes-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
         /* Footer */
         footer {
             background-color: #000;
@@ -992,6 +1032,31 @@
             <p class="hero-subtitle">National-Level Hackathon <br><br> MGIT, Hyderabad <br> February 12th-13th 2026</p>
         </div>
 
+        <div class="themes-row">
+            <div class="theme-box">
+                <p class="theme-subtitle">AI, Automation, Robotics & <br>Drone Technology</p>
+            </div>
+
+            <div class="theme-box">
+                <p class="theme-subtitle">Cybersecurity & <br>Blockchain</p>
+            </div>
+
+            <div class="theme-box">
+                <p class="theme-subtitle">IoT, VLSI & <br>Embedded Systems</p>
+            </div>
+
+            <div class="theme-box">
+                <p class="theme-subtitle">Sustainability & <br>Environment</p>
+            </div>
+
+            <div class="theme-box">
+                <p class="theme-subtitle">Open Innovation</p>
+            </div>
+
+
+        </div>
+
+
         <div class="ticker-wrap" id="ticker-wrap">
             <div class="ticker">
                 <span>24 Hour Hackathon • </span>
@@ -1011,75 +1076,6 @@
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <h2>About The Event</h2>
-                    <p style="text-align: justify;">Join us at HackSavvy, exclusively hosted by the Mahatma Gandhi
-                        Institute of Technology, for a premier national-level 24-hour hackathon dedicated to students
-                        passionate about advancing the frontiers of innovation. Immerse yourself in the realm of
-                        technology, exploring a wide range of themes including Artificial Intelligence (AI),
-                        Cybersecurity, Internet of Things (IoT), Machine Learning, Blockchain Technology, Drone
-                        Technology, Robotics, and Sustainable Infrastructure. This national event provides a unique
-                        platform for students from across the country to engage in deep collaboration, guided by
-                        industry experts, to turn innovative ideas into practical solutions. HackSavvy is the ideal
-                        stage for students to challenge the status quo, enhance their technical prowess, and achieve
-                        significant breakthroughs. Circle the date for an extraordinary experience of learning, growth,
-                        and the exhilaration of making a tangible difference through technological innovation at a
-                        national scale.</p>
-                </div>
-                <div class="col-lg-2">
-                    <div class="about_image bg_cover"
-                        style="background-image: url('https://mgit.ac.in/wp-content/themes/CBIT/hackassets/img/aboutmgit.png'); height: 400px; background-size: cover; background-position: center;">
-                    </div> <!-- about image -->
-                    <div class="col-lg-6">
-                        <p><span style=" text-decoration: underline; font-weight: 600;">Where</span>: MGIT, Hyderabad
-                        </p>
-                        <p>
-                            <span style=" text-decoration: underline; font-weight: 600;">When</span>: Thursday –
-                            Friday<br>12th – 13th Feb 2026
-                        </p>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </section><!-- End About Section -->
-
-    <!-- ABOUT PART START -->
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-7">
-                    <h2>About MGIT</h2>
-                    <p>Knowledge is Power</p>
-                    <p style="text-align: justify;">Mahatma Gandhi Institute of Technology (MGIT) has experienced rapid
-                        growth since its establishment in 1997 by the Chaitanya Bharathi Educational Society (CBES) in
-                        the serene and tranquil surroundings of Gandipet, Hyderabad. </p>
-                    <p style="text-align: justify;">MGIT is an autonomous engineering institute accredited by NAAC with
-                        A++ grade and approved by AICTE, with several NBA-accredited programs. It is consistently ranked
-                        among notable engineering
-                        colleges and offers strong placement outcomes with good industry connections.</p>
-                    <p style="text-align: justify;">In its two decades and more, all the stakeholders
-                        of the Institute, relentlessly endeavoured to position MGIT as a Leader and an Innovator in the
-                        ecosystem of technical education.
-                        The Institute has established excellent Infrastructure such as state-of-the-art laboratories,
-                        spacious library with a collection of printed and digital books & journals,
-                        sports & hostel facilities along with Infrastructure for extra and co-curricular engagements in
-                        pursuit of academic excellence.
-                        MGIT has scaled greater heights both Nationally & Internationally and made its mark in Industry
-                        and in academia. </p>
-                    <a href="https://mgit.ac.in/" class="buy-tickets">Know More</a>
-                </div>
-
-            </div>
-        </div>
-        </div>
-    </section><!-- End About Section -->
-    <!-- ABOUT PART END -->
 
     <!-- Themes Section -->
     <section id="theme" class="about">
@@ -1162,6 +1158,78 @@
             </div>
         </div>
     </section><!-- End Themes Section -->
+
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2>About The Event</h2>
+                    <p style="text-align: justify;">Join us at HackSavvy, exclusively hosted by the Mahatma Gandhi
+                        Institute of Technology, for a premier national-level 24-hour hackathon dedicated to students
+                        passionate about advancing the frontiers of innovation. Immerse yourself in the realm of
+                        technology, exploring a wide range of themes including Artificial Intelligence (AI),
+                        Cybersecurity, Internet of Things (IoT), Machine Learning, Blockchain Technology, Drone
+                        Technology, Robotics, and Sustainable Infrastructure. This national event provides a unique
+                        platform for students from across the country to engage in deep collaboration, guided by
+                        industry experts, to turn innovative ideas into practical solutions. HackSavvy is the ideal
+                        stage for students to challenge the status quo, enhance their technical prowess, and achieve
+                        significant breakthroughs. Circle the date for an extraordinary experience of learning, growth,
+                        and the exhilaration of making a tangible difference through technological innovation at a
+                        national scale.</p>
+                </div>
+                <div class="col-lg-2">
+                    <div class="about_image bg_cover"
+                        style="background-image: url('https://mgit.ac.in/wp-content/themes/CBIT/hackassets/img/aboutmgit.png'); height: 400px; background-size: cover; background-position: center;">
+                    </div> <!-- about image -->
+                    <div class="col-lg-6">
+                        <p><span style=" text-decoration: underline; font-weight: 600;">Where</span>: MGIT, Hyderabad
+                        </p>
+                        <p>
+                            <span style=" text-decoration: underline; font-weight: 600;">When</span>: Thursday –
+                            Friday<br>12th – 13th Feb 2026
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section><!-- End About Section -->
+
+    <!-- ABOUT PART START -->
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7">
+                    <h2>About MGIT</h2>
+                    <p>Knowledge is Power</p>
+                    <p style="text-align: justify;">Mahatma Gandhi Institute of Technology (MGIT) has experienced rapid
+                        growth since its establishment in 1997 by the Chaitanya Bharathi Educational Society (CBES) in
+                        the serene and tranquil surroundings of Gandipet, Hyderabad. </p>
+                    <p style="text-align: justify;">MGIT is an autonomous engineering institute accredited by NAAC with
+                        A++ grade and approved by AICTE, with several NBA-accredited programs. It is consistently ranked
+                        among notable engineering
+                        colleges and offers strong placement outcomes with good industry connections.</p>
+                    <p style="text-align: justify;">In its two decades and more, all the stakeholders
+                        of the Institute, relentlessly endeavoured to position MGIT as a Leader and an Innovator in the
+                        ecosystem of technical education.
+                        The Institute has established excellent Infrastructure such as state-of-the-art laboratories,
+                        spacious library with a collection of printed and digital books & journals,
+                        sports & hostel facilities along with Infrastructure for extra and co-curricular engagements in
+                        pursuit of academic excellence.
+                        MGIT has scaled greater heights both Nationally & Internationally and made its mark in Industry
+                        and in academia. </p>
+                    <a href="https://mgit.ac.in/" class="buy-tickets">Know More</a>
+                </div>
+
+            </div>
+        </div>
+        </div>
+    </section><!-- End About Section -->
+    <!-- ABOUT PART END -->
+
 
     <!-- Leaders Section -->
     <section id="leaders" class="about">
@@ -2368,7 +2436,10 @@
                 <div class="col-lg-12">
                     <h2>Guidelines for Open Innovation Hackathon</h2>
                     <h3>Problem Statement:</h3>
-                    
+                    <p>• Teams must clearly define a real-world problem they aim to solve.</p>
+                    <p>• The problem can belong to any industry or sector which hasn't been mentioned already</p>
+                    <p>• The problem should demonstrate relevance, urgency, or potential future impact.</p>
+
                 </div>
             </div>
         </div>
@@ -2449,8 +2520,6 @@
                 <img src="media/8.jpg" alt="Media from hacksavvy-25">
                 <div class="project-overlay">Faculty Co-ordinators</div>
             </div>
-
-
 
         </div>
     </section>
