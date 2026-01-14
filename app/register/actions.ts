@@ -4,6 +4,7 @@ import { createClient } from '@/utils/supabase/server'
 import { registrationSchema } from './schema'
 import { redirect } from 'next/navigation'
 import { sendEmail } from '@/app/actions/email'
+import { randomUUID } from 'crypto'
 
 export async function registerTeam(formData: FormData) {
     const supabase = await createClient()
@@ -70,9 +71,11 @@ export async function registerTeam(formData: FormData) {
     }
 
     // 3. Upload Payment Screenshot
+    const teamId = randomUUID()
     const file = data.paymentScreenshot[0] as File
     const fileExt = file.name.split('.').pop()
-    const fileName = `${user.id}-${Date.now()}.${fileExt}`
+    const fileName = `${teamId}_${Date.now()}.${fileExt}`
+    
     const { error: uploadError, data: uploadData } = await supabase.storage
         .from('payments')
         .upload(fileName, file)
@@ -87,6 +90,7 @@ export async function registerTeam(formData: FormData) {
     const { data: teamData, error: teamError } = await supabase
         .from('teams')
         .insert({
+            id: teamId,
             name: data.teamName,
             track: data.track,
             size: parseInt(data.teamSize),

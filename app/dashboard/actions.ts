@@ -137,3 +137,83 @@ export async function updateTeamDetails(formData: FormData, teamId: string) {
     revalidatePath('/dashboard')
     return { success: true }
 }
+
+export async function addMemberToTeam(formData: FormData, teamId: string) {
+    const supabase = await createClient()
+
+    // 1. Auth check
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) return { error: 'Unauthorized' }
+
+    // 2. Verify leadership & team capacity
+    const { data: team, error: teamFetchError } = await supabase
+        .from('teams')
+        .select('user_id, size')
+        .eq('id', teamId)
+        .single()
+    
+    if (teamFetchError || !team) return { error: 'Team not found' }
+    if (team.user_id !== user.id) return { error: 'Only the team leader can add members.' }
+    
+    // Check current member count
+    const { count, error: countError } = await supabase
+        .from('members')
+        .select('*', { count: 'exact', head: true })
+        .eq('team_id', teamId)
+    
+    if (countError) return { error: 'Failed to check team size' }
+    if ((count || 0) >= 5) return { error: 'Team is already full (max 5 members).' }
+
+    // 3. Extract & Validate Data
+    const email = formData.get('email') as string
+    const name = formData.get('name') as string
+    const phone = formData.get('phone') as string
+    const college = formData.get('college') as string
+    const rollNo = formData.get('rollNo') as string
+    const branch = formData.get('branch') as string
+    const accommodation = formData.get('accommodation') === 'true'
+    const food = formData.get('food') as string
+
+    if (!email || !name || !phone || !college || !food) {
+        return { error: 'Missing required fields' }
+    }
+
+    // 4. Duplicate Email Check
+    const { data: existingMember } = await supabase
+        .from('members')
+        .select('email')
+        .eq('email', email)
+        .maybeSingle()
+
+    if (existingMember) {
+        return { error: `User ${email} is already part of another team.` }
+    }
+
+    // 5. Insert Member
+    const { error: insertError } = await supabase
+        .from('members')
+        .insert({
+            team_id: teamId,
+            name,
+            email,
+            phone,
+            college,
+            roll_no: rollNo,
+            branch: branch,
+            accommodation,
+            food_preference: food,
+            is_leader: false
+        })
+
+    if (insertError) return { error: insertError.message }
+
+    // Update team size metadata if needed, though 'size' in teams table might be intended as "max size" or "registered size" 
+    // If it tracks current count, we should update it. 
+    // Given the registration form logic, 'size' seems to be the INTENDED size.
+    // But let's also update the team size validation to be consistent if it means "current count".
+    // For now, we won't touch the 'size' column in teams unless strictly defined as "count".
+
+    revalidatePath('/dashboard')
+    return { success: true }
+}
+

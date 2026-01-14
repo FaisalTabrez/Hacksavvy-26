@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-export const MAX_FILE_SIZE = 2000000; // 2MB
-export const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png"];
+export const MAX_FILE_SIZE = 4000000; // 4MB
+export const ACCEPTED_FILE_TYPES = ["image/jpeg", "image/jpg", "image/png", "application/pdf"];
 
 export const memberSchema = z.object({
     name: z.string().min(2, "Name must be at least 2 characters"),
@@ -25,14 +25,15 @@ export const registrationSchema = z.object({
         .refine((files) => files?.length == 1, "Payment screenshot is required.")
         .refine(
             (files) => files?.[0]?.size <= MAX_FILE_SIZE,
-            `Max file size is 2MB.`
+            `Max file size is 4MB.`
         )
         .refine(
-            (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-            ".jpg, .jpeg, and .png files are accepted."
+            (files) => ACCEPTED_FILE_TYPES.includes(files?.[0]?.type),
+            ".jpg, .jpeg, .png and .pdf files are accepted."
         ),
 }).superRefine((data, ctx) => {
     // Validate leader (Member 1) specific fields
+
     if (!data.members[0].rollNo) {
         ctx.addIssue({
             code: z.ZodIssueCode.custom,

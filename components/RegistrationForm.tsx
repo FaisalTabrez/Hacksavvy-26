@@ -94,7 +94,26 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
         formData.append('upiReference', data.upiReference)
 
         if (data.paymentScreenshot && data.paymentScreenshot.length > 0) {
-            formData.append('paymentScreenshot', data.paymentScreenshot[0])
+            let file = data.paymentScreenshot[0]
+            
+            // Compression Logic for Images
+            if (file.type.startsWith('image/')) {
+                try {
+                const imageCompression = (await import('browser-image-compression')).default;
+                const options = {
+                    maxSizeMB: 1,
+                    maxWidthOrHeight: 1920,
+                    useWebWorker: true
+                }
+                const compressedFile = await imageCompression(file, options);
+                // Create a new file with the original name but compressed content
+                file = new File([compressedFile], file.name, { type: file.type });
+                } catch (error) {
+                    console.error('Image compression failed, using original file:', error);
+                }
+            }
+            
+            formData.append('paymentScreenshot', file)
         }
 
         data.members.forEach((member, index) => {

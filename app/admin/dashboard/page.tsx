@@ -22,10 +22,11 @@ export default async function AdminDashboardPage() {
     }
 
     const pendingTeams = await getPendingTeams()
+    const confirmedTeams = await getConfirmedParticipants()
 
     return (
         <div className="min-h-screen bg-gray-900 text-white">
-            <AdminDashboardClient teams={pendingTeams} />
+            <AdminDashboardClient teams={pendingTeams} confirmedTeams={confirmedTeams} />
         </div>
     )
 }

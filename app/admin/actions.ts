@@ -67,3 +67,16 @@ export async function rejectTeamPayment(teamId: string) {
     revalidatePath('/admin/dashboard')
     return { success: true }
 }
+
+export async function toggleCheckIn(memberId: string, currentStatus: boolean) {
+    const supabase = await createClient()
+    const { error } = await supabase
+        .from('members')
+        .update({ checked_in: !currentStatus })
+        .eq('id', memberId)
+
+    if (error) return { error: error.message }
+    
+    revalidatePath('/admin/dashboard')
+    return { success: true }
+}
