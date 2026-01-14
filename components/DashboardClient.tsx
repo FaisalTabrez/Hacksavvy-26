@@ -67,18 +67,23 @@ export default function DashboardClient({ team, isLeader, user }: DashboardClien
 
         return (
             <PremiumBackground>
-                <div className="max-w-4xl mx-auto py-12 px-4">
-                    <div className="flex flex-col items-center mb-12">
-                        <h2 className="text-5xl font-black text-white mb-4 uppercase tracking-widest drop-shadow-[0_0_10px_rgba(255,255,255,0.1)]">Edit Protocol</h2>
-                        <div className="h-1 w-32 bg-gradient-to-r from-transparent via-red-600 to-transparent"></div>
-                    </div>
-                    <div className="backdrop-blur-sm rounded-3xl overflow-hidden">
-                        <RegistrationForm
-                            initialData={initialData}
-                            isEditing={true}
-                            teamId={team.id}
-                            onCancel={() => setIsEditing(false)}
-                        />
+                <div className="flex min-h-screen items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+                    <div className="w-full max-w-4xl flex flex-col items-center">
+                        <div className="text-center mb-16 w-full max-w-2xl">
+                            <h2 className="text-5xl md:text-7xl font-black bg-gradient-to-r from-white via-red-200 to-red-600 bg-clip-text text-transparent tracking-tighter drop-shadow-[0_0_20px_rgba(220,38,38,0.4)] mb-6 font-[family-name:var(--font-orbitron)] uppercase">
+                                Edit Protocol
+                            </h2>
+                            <div className="mx-auto h-1.5 w-40 bg-gradient-to-r from-transparent via-red-600 to-transparent rounded-full shadow-[0_0_15px_#dc2626] mb-8"></div>
+                        </div>
+                        
+                        <div className="w-full backdrop-blur-sm rounded-3xl overflow-hidden">
+                            <RegistrationForm
+                                initialData={initialData}
+                                isEditing={true}
+                                teamId={team.id}
+                                onCancel={() => setIsEditing(false)}
+                            />
+                        </div>
                     </div>
                 </div>
             </PremiumBackground>
