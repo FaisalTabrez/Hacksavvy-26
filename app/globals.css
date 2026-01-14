@@ -462,7 +462,7 @@ address {
     display: flex;
     gap: 30px;
     width: max-content;
-    /* Animation handled by GSAP */
+    animation: media-scroll 60s linear infinite;
 }
 
 .projects-container:hover {
