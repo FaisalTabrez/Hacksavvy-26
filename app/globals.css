@@ -455,11 +455,8 @@ address {
     line-height: 1.7;
 }
 
-/* PROJECTS SECTION */
 
-#projects {
-    overflow: hidden;
-}
+/* PROJECTS SECTION */
 
 .projects-container {
     display: flex;
