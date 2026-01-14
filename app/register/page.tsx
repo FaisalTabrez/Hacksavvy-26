@@ -11,6 +11,30 @@ export default async function RegisterPage() {
         redirect('/login')
     }
 
+    // Check if user is already a leader
+    const { data: asLeader } = await supabase
+        .from('teams')
+        .select('id')
+        .eq('leader_id', user.id)
+        .maybeSingle()
+
+    if (asLeader) {
+        redirect('/dashboard')
+    }
+
+    // Check if user is already a member
+    if (user.email) {
+        const { data: asMember } = await supabase
+            .from('members')
+            .select('id')
+            .eq('email', user.email)
+            .maybeSingle()
+
+        if (asMember) {
+            redirect('/dashboard')
+        }
+    }
+
     return (
         <PremiumBackground>
             <div className="flex min-h-screen items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
