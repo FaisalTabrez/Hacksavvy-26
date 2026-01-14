@@ -31,46 +31,46 @@ export default function LoginPage() {
                         ease: "easeInOut"
                     }
                 }}
-                className="relative z-10 w-full max-w-md"
+                className="relative z-10 w-full max-w-xl"
             >
                 {/* Red Neon Backlight Glow */}
-                <div className="absolute -inset-4 z-[-1] rounded-[2.5rem] bg-red-600/40 blur-[120px]"></div>
+                <div className="absolute -inset-6 z-[-1] rounded-[3rem] bg-red-600/40 blur-[130px]"></div>
 
                 {/* The Glassmorphism Card */}
-                <div className="relative overflow-hidden rounded-3xl border border-red-600/30 bg-black/40 backdrop-blur-2xl px-8 py-12 shadow-2xl">
+                <div className="relative overflow-hidden rounded-[2.5rem] border border-red-600/30 bg-black/40 backdrop-blur-2xl px-12 py-16 shadow-2xl">
 
                     {/* Top Accent Line */}
                     <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
 
                     {/* Logo/Header Section */}
-                    <div className="text-center mb-10">
+                    <div className="text-center mb-12">
                         <motion.div
                             initial={{ scale: 0.9 }}
                             animate={{ scale: 1 }}
-                            className="inline-block mb-4"
+                            className="inline-block mb-6"
                         >
-                            <div className="flex items-center justify-center space-x-2">
-                                <span className="h-3 w-3 rounded-full bg-red-600 animate-pulse shadow-[0_0_10px_rgba(220,38,38,0.8)]"></span>
-                                <span className="text-xs font-mono tracking-[0.3em] text-red-500 uppercase">Antigravity Proto</span>
+                            <div className="flex items-center justify-center space-x-3">
+                                <span className="h-4 w-4 rounded-full bg-red-600 animate-pulse shadow-[0_0_15px_rgba(220,38,38,0.8)]"></span>
+                                <span className="text-sm font-black tracking-[0.4em] text-red-500 uppercase">Antigravity Proto</span>
                             </div>
                         </motion.div>
 
-                        <h1 className="text-5xl font-black tracking-tighter text-white mb-2">
+                        <h1 className="text-6xl font-black tracking-tighter text-white mb-4">
                             HACK<span className="text-red-600">SAVVY</span>
                         </h1>
-                        <p className="text-neutral-400 font-medium tracking-tight">
+                        <p className="text-neutral-300 font-bold tracking-tight text-lg">
                             Accessing Secure Environment
                         </p>
                     </div>
 
                     {/* OAuth Form */}
-                    <form action={loginWithGoogle} className="space-y-4">
+                    <form action={loginWithGoogle} className="space-y-6">
                         <button
                             type="submit"
-                            className="group relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900/50 px-6 py-4 text-sm font-bold uppercase tracking-widest text-white transition-all duration-300 hover:border-red-600/50 hover:bg-red-600/10 hover:shadow-[0_0_20px_rgba(220,38,38,0.2)]"
+                            className="group relative flex w-full items-center justify-center gap-4 overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900/50 px-8 py-5 text-base font-black uppercase tracking-widest text-white transition-all duration-300 hover:border-red-600/50 hover:bg-red-600/10 hover:shadow-[0_0_30px_rgba(220,38,38,0.3)]"
                         >
                             {/* SVG Icon */}
-                            <svg className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24">
+                            <svg className="h-6 w-6 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24">
                                 <path
                                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
                                     fill="#4285F4"
@@ -96,8 +96,8 @@ export default function LoginPage() {
                     </form>
 
                     {/* Footer decoration */}
-                    <div className="mt-10 pt-8 border-t border-neutral-800/50">
-                        <div className="flex justify-between items-center text-[10px] uppercase tracking-widest text-neutral-500 font-mono">
+                    <div className="mt-12 pt-10 border-t border-neutral-800/50">
+                        <div className="flex justify-between items-center text-[11px] uppercase tracking-[0.3em] text-neutral-500 font-black">
                             <span>System Status: Optimal</span>
                             <span className="text-red-900">Encrypted</span>
                         </div>
@@ -105,7 +105,7 @@ export default function LoginPage() {
                 </div>
 
                 {/* Bottom Reflection/Shadow Effect (Optional but cool) */}
-                <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 w-48 h-4 bg-red-600/20 blur-xl rounded-full scale-x-150"></div>
+                <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-64 h-6 bg-red-600/20 blur-2xl rounded-full scale-x-150"></div>
             </motion.div>
         </div>
     )
