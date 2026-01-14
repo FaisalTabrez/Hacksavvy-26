@@ -18,10 +18,10 @@ const mono = JetBrains_Mono({
 export default function LoginPage() {
     return (
         <PremiumBackground>
-            {/* Main Layout: Full Screen, No Scroll, Flex Column */}
+            {/* Main Layout: Full Screen, Flex Column, Centered */}
             <div className={cn("relative flex h-screen w-full flex-col items-center justify-center overflow-hidden", orbitron.variable, mono.variable)}>
                 
-                {/* --- HUD: TOP LEFT --- */}
+                {/* --- HUD: TOP LEFT (Unchanged) --- */}
                 <div className="absolute top-6 left-6 md:top-12 md:left-12 z-20">
                     <div className={cn(mono.className, "flex flex-col gap-1")}>
                         <span className="text-[10px] text-red-500 uppercase tracking-[0.3em] font-bold">Protocol</span>
@@ -29,7 +29,7 @@ export default function LoginPage() {
                     </div>
                 </div>
 
-                {/* --- HUD: TOP RIGHT --- */}
+                {/* --- HUD: TOP RIGHT (Unchanged) --- */}
                 <div className="absolute top-6 right-6 md:top-12 md:right-12 z-20 text-right">
                     <div className={cn(mono.className, "flex flex-col gap-1")}>
                         <span className="text-[10px] text-red-500 uppercase tracking-[0.3em] font-bold">System Status</span>
@@ -43,47 +43,46 @@ export default function LoginPage() {
                     </div>
                 </div>
 
-                {/* --- CENTER STAGE --- */}
-                <div className="relative z-10 flex flex-col items-center justify-center w-full px-4">
+                {/* --- CENTER STAGE (DECLUTTERED) --- */}
+                {/* Added 'gap-10' to force spacing between elements */}
+                <div className="relative z-10 flex flex-col items-center justify-center w-full px-4 gap-10">
                     
-                    {/* 1. The Pre-Title */}
-                    <p className={cn(mono.className, "mb-4 text-xs md:text-sm text-neutral-400 uppercase tracking-[0.5em] animate-pulse")}>
-                        Identity Verification Required
-                    </p>
+                    {/* 1. The Pre-Title (Moved Up & Spaced Out) */}
+                    <div className="flex flex-col items-center gap-2">
+                        <p className={cn(mono.className, "text-[10px] md:text-xs text-red-500 font-bold uppercase tracking-[0.4em] animate-pulse")}>
+                            [ Secure Connection Established ]
+                        </p>
+                        <p className={cn(mono.className, "text-xs md:text-sm text-neutral-400 uppercase tracking-[0.6em]")}>
+                            Identity Verification Required
+                        </p>
+                    </div>
 
-                    {/* 2. The MASSIVE Title (Responsive VW units) */}
-                    <div className="relative group">
-                        {/* Background Glow behind text */}
-                        <div className="absolute -inset-10 bg-red-600/20 blur-[100px] opacity-50 group-hover:opacity-70 transition-opacity duration-1000 rounded-full"></div>
+                    {/* 2. The MASSIVE Title (Forced Size & Visibility) */}
+                    <div className="relative group text-center py-4">
+                        {/* Glow effect */}
+                        <div className="absolute inset-0 bg-red-600/10 blur-[80px] rounded-full pointer-events-none"></div>
                         
-                        <h1 className={cn(orbitron.className, "text-[12vw] md:text-[10vw] leading-[0.85] font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-neutral-500 select-none")}>
-                            HACKSAVVY
-                        </h1>
-                        
-                        {/* Glitch Overlay Effect (Optional visual flair) */}
-                        <h1 className={cn(orbitron.className, "absolute inset-0 text-[12vw] md:text-[10vw] leading-[0.85] font-black tracking-tighter text-red-600 opacity-0 group-hover:opacity-20 group-hover:translate-x-1 transition-all duration-100 mix-blend-screen select-none")}>
+                        <h1 className={cn(orbitron.className, "relative z-10 text-[12vw] md:text-[9rem] leading-none font-black tracking-tighter text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] select-none")}>
                             HACKSAVVY
                         </h1>
                     </div>
 
-                    {/* 3. The Date Scroller */}
-                    <div className="mt-8 mb-16 overflow-hidden h-6">
-                        <div className={cn(mono.className, "flex gap-8 text-xs text-red-500 font-bold tracking-widest uppercase opacity-80")}>
-                            <span>Feb 12-13</span>
-                            <span>//</span>
-                            <span>2026</span>
-                            <span>//</span>
-                            <span>Hyderabad</span>
-                            <span>//</span>
-                            <span>Sector 7</span>
-                        </div>
+                    {/* 3. The Date Scroller (More Breathing Room) */}
+                    <div className={cn(mono.className, "flex flex-wrap justify-center gap-x-8 gap-y-2 text-xs md:text-sm text-neutral-300 font-medium tracking-widest uppercase")}>
+                        <span>Feb 12-13</span>
+                        <span className="text-red-600/50">//</span>
+                        <span>2026</span>
+                        <span className="text-red-600/50">//</span>
+                        <span>Hyderabad</span>
+                        <span className="text-red-600/50">//</span>
+                        <span>Sector 7</span>
                     </div>
 
-                    {/* 4. The Action (Floating Pill) */}
-                    <form action={loginWithGoogle}>
+                    {/* 4. The Action (Pushed Down Further with margin-top) */}
+                    <form action={loginWithGoogle} className="mt-8">
                         <button
                             type="submit"
-                            className="group relative flex items-center gap-4 rounded-full border border-white/20 bg-white/5 px-8 py-4 backdrop-blur-md transition-all duration-300 hover:bg-white hover:border-white hover:scale-105"
+                            className="group relative flex items-center gap-4 rounded-full border border-white/20 bg-white/5 px-10 py-5 backdrop-blur-md transition-all duration-300 hover:bg-white hover:border-white hover:scale-105 active:scale-95"
                         >
                             {/* Icon Circle */}
                             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-black transition-colors group-hover:bg-black group-hover:text-white">
@@ -95,14 +94,11 @@ export default function LoginPage() {
                             <span className={cn(mono.className, "text-sm font-bold uppercase tracking-widest text-white group-hover:text-black")}>
                                 Initialize Access
                             </span>
-
-                            {/* Hover Trail */}
-                            <div className="absolute inset-0 -z-10 rounded-full bg-white opacity-0 blur-lg transition-opacity duration-500 group-hover:opacity-30"></div>
                         </button>
                     </form>
                 </div>
 
-                {/* --- HUD: BOTTOM LEFT --- */}
+                {/* --- HUD: BOTTOM LEFT (Unchanged) --- */}
                 <div className="absolute bottom-6 left-6 md:bottom-12 md:left-12 z-20">
                     <div className="h-px w-24 bg-gradient-to-r from-red-500 to-transparent mb-2"></div>
                     <p className={cn(mono.className, "text-[10px] text-neutral-500 uppercase tracking-widest")}>
@@ -110,7 +106,7 @@ export default function LoginPage() {
                     </p>
                 </div>
 
-                {/* --- HUD: BOTTOM RIGHT --- */}
+                {/* --- HUD: BOTTOM RIGHT (Unchanged) --- */}
                 <div className="absolute bottom-6 right-6 md:bottom-12 md:right-12 z-20 text-right">
                     <div className="h-px w-24 bg-gradient-to-l from-red-500 to-transparent mb-2 ml-auto"></div>
                     <p className={cn(mono.className, "text-[10px] text-neutral-500 uppercase tracking-widest")}>
