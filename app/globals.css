@@ -256,7 +256,7 @@ a {
     justify-content: center;
     max-width: 800px;
     margin: 0 auto;
-    margin-top: -120px;
+    margin-top: 0px;
     margin-left: calc(50%);
     transform: translateX(-50%);
 }
