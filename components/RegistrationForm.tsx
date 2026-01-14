@@ -140,10 +140,10 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                 
                 {/* PAGE HEADER */}
                 <div className="flex flex-col gap-4 border-l-4 border-red-600 pl-8">
-                    <h1 className={cn(orbitron.className, "text-4xl md:text-6xl font-black text-white uppercase tracking-tighter")}>
+                    <h1 className={cn(orbitron.className, "text-3xl md:text-5xl font-black text-white uppercase tracking-tighter")}>
                         {isEditing ? 'MODIFY PROTOCOL' : 'INITIALIZE REGISTRATION'}
                     </h1>
-                    <p className={cn(mono.className, "text-sm text-neutral-400 uppercase tracking-[0.2em]")}>
+                    <p className={cn(mono.className, "text-xs md:text-sm text-neutral-400 uppercase tracking-[0.2em]")}>
                         Secure Channel // Sector 7 Access Grant
                     </p>
                 </div>
@@ -159,17 +159,16 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                 {/* --------------------------------------------------------- */}
                 <section className="space-y-12">
                     <div className="relative">
-                        {/* REDUCED SIZE: text-2xl md:text-3xl */}
-                        <h2 className={cn(orbitron.className, "text-2xl md:text-3xl font-black text-red-600 uppercase tracking-tighter z-10 relative")}>
+                        {/* REDUCED SIZE: text-xl md:text-2xl */}
+                        <h2 className={cn(orbitron.className, "text-xl md:text-2xl font-black text-red-600 uppercase tracking-tighter z-10 relative")}>
                             01 // INFRASTRUCTURE
                         </h2>
-                        <div className="absolute -bottom-4 left-0 w-24 h-1 bg-gradient-to-r from-red-600 to-transparent"></div>
+                        <div className="absolute -bottom-4 left-0 w-16 h-1 bg-gradient-to-r from-red-600 to-transparent"></div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                         {/* Team Name */}
                         <div className="space-y-4">
-                            {/* INCREASED LABEL SIZE: text-sm md:text-base font-bold */}
                             <label className={cn(mono.className, "text-sm md:text-base font-bold text-neutral-300 uppercase tracking-[0.1em]")}>
                                 Identity Tag (Team Name)
                             </label>
@@ -225,10 +224,11 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                 {/* --------------------------------------------------------- */}
                 <section className="space-y-12">
                      <div className="relative">
-                        <h2 className={cn(orbitron.className, "text-2xl md:text-3xl font-black text-red-600 uppercase tracking-tighter z-10 relative")}>
+                        {/* REDUCED SIZE: text-xl md:text-2xl */}
+                        <h2 className={cn(orbitron.className, "text-xl md:text-2xl font-black text-red-600 uppercase tracking-tighter z-10 relative")}>
                             02 // PERSONNEL MANIFEST
                         </h2>
-                        <div className="absolute -bottom-4 left-0 w-24 h-1 bg-gradient-to-r from-red-600 to-transparent"></div>
+                        <div className="absolute -bottom-4 left-0 w-16 h-1 bg-gradient-to-r from-red-600 to-transparent"></div>
                     </div>
 
                     <div className="flex flex-col gap-8">
@@ -243,7 +243,7 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                                     {index === 0 ? 'Project_Lead' : `Operative_0${index + 1}`}
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-4">
                                     {/* Name */}
                                     <div className="space-y-3">
                                         <label className={cn(mono.className, "text-sm md:text-base font-bold text-red-500/80 uppercase tracking-[0.1em]")}>Legal Name</label>
@@ -336,10 +336,11 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                 {/* --------------------------------------------------------- */}
                 <section className="space-y-12">
                      <div className="relative">
-                        <h2 className={cn(orbitron.className, "text-2xl md:text-3xl font-black text-red-600 uppercase tracking-tighter z-10 relative")}>
+                        {/* REDUCED SIZE: text-xl md:text-2xl */}
+                        <h2 className={cn(orbitron.className, "text-xl md:text-2xl font-black text-red-600 uppercase tracking-tighter z-10 relative")}>
                             03 // TRANSACTION NODE
                         </h2>
-                        <div className="absolute -bottom-4 left-0 w-24 h-1 bg-gradient-to-r from-red-600 to-transparent"></div>
+                        <div className="absolute -bottom-4 left-0 w-16 h-1 bg-gradient-to-r from-red-600 to-transparent"></div>
                     </div>
 
                     <div className="bg-zinc-950 border border-white/10 p-8 md:p-12 relative overflow-hidden">
@@ -351,9 +352,9 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                             {/* Payment Info */}
                             <div className="space-y-8">
                                 <div className="p-6 bg-red-950/20 border-l-4 border-red-600">
-                                    <p className={cn(mono.className, "text-sm text-red-200 uppercase tracking-widest mb-2")}>Transfer Protocol:</p>
+                                    <p className={cn(mono.className, "text-sm font-bold text-red-200 uppercase tracking-widest mb-2")}>Transfer Protocol:</p>
                                     <p className={cn(orbitron.className, "text-4xl text-white font-black")}>₹2500.00</p>
-                                    <p className={cn(mono.className, "text-[10px] text-red-400 mt-2 uppercase")}>Dest: MGIT_HACKATHON_CORP</p>
+                                    <p className={cn(mono.className, "text-xs text-red-400 mt-2 uppercase font-bold")}>Dest: MGIT_HACKATHON_CORP</p>
                                 </div>
 
                                 <div className="space-y-4">
@@ -370,28 +371,25 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                                 </div>
                             </div>
 
-                            {/* Upload Area - FIXED */}
+                            {/* Upload Area - FIXED TRUNCATION */}
                             <div className="space-y-4">
                                 <label className={cn(mono.className, "text-sm md:text-base font-bold text-neutral-300 uppercase tracking-[0.1em]")}>
                                     Proof of Transfer (Screenshot)
                                 </label>
-                                <label className="relative flex flex-col items-center justify-center w-full h-64 border-2 border-dashed border-white/20 bg-black/20 hover:bg-white/5 hover:border-red-600 cursor-pointer transition-all group overflow-hidden">
-                                    
+                                <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed border-white/20 bg-black/20 hover:bg-white/5 hover:border-red-600 cursor-pointer transition-all group overflow-hidden">
                                     <div className="flex flex-col items-center justify-center pt-5 pb-6 text-center w-full px-4">
                                         <svg className="w-12 h-12 text-neutral-600 group-hover:text-red-500 mb-4 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-                                        
                                         <p className={cn(mono.className, "text-sm text-neutral-400 uppercase tracking-widest group-hover:text-white font-bold mb-2")}>
                                             <span className="text-red-500">Click to Upload</span> or Drag and Drop
                                         </p>
                                         
-                                        {/* FIX: max-w-xs to restrict width, and 'truncate' to cut off long text with ... */}
+                                        {/* Truncated File Name Display */}
                                         <div className="max-w-[200px] md:max-w-xs bg-black/50 rounded px-3 py-1 border border-white/10">
                                             <p className={cn(mono.className, "text-[10px] text-neutral-500 truncate")}>
                                                 {watch('paymentScreenshot')?.[0]?.name || 'NO_DATA_PRESENT'}
                                             </p>
                                         </div>
                                     </div>
-                                    
                                     <input type="file" accept="image/*" {...register('paymentScreenshot')} disabled={isEditing} className="hidden" />
                                 </label>
                                 {errors.paymentScreenshot && <span className="text-red-500 text-xs font-mono block mt-2">Error: {errors.paymentScreenshot.message as string}</span>}
@@ -416,7 +414,8 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                     <button 
                         type="submit" 
                         disabled={isSubmitting}
-                        className={cn(orbitron.className, "flex-1 bg-red-600 hover:bg-red-700 text-white text-xl md:text-3xl font-black py-8 uppercase tracking-[0.1em] transition-all hover:shadow-[0_0_50px_rgba(220,38,38,0.6)] disabled:opacity-50 disabled:cursor-not-allowed clip-path-polygon")}
+                        // REDUCED SIZE: text-lg md:text-2xl, py-6
+                        className={cn(orbitron.className, "flex-1 bg-red-600 hover:bg-red-700 text-white text-lg md:text-2xl font-black py-6 uppercase tracking-[0.1em] transition-all hover:shadow-[0_0_50px_rgba(220,38,38,0.6)] disabled:opacity-50 disabled:cursor-not-allowed clip-path-polygon")}
                     >
                         {isSubmitting ? 'PROCESSING...' : (isEditing ? 'COMMIT CHANGES' : 'EXECUTE REGISTRATION')}
                     </button>
