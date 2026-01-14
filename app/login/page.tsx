@@ -1,115 +1,99 @@
-'use client'
-
 import { loginWithGoogle } from './actions'
-import { motion } from 'framer-motion'
-import { cn } from '@/utils/cn'
+import PremiumBackground from '@/components/PremiumBackground'
 
 export default function LoginPage() {
     return (
-        <div className="relative min-h-screen w-full overflow-hidden bg-neutral-950 flex items-center justify-center p-4">
-            {/* Ambient Background Elements */}
-            <div className="absolute inset-0 z-0">
-                {/* Subtle Grid */}
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]"></div>
-                {/* Radial Gradient overlay */}
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.8)_100%)]"></div>
-            </div>
+        <PremiumBackground>
+            <div className="flex min-h-screen flex-col items-center justify-center p-4">
+                {/* Main Interactive Container - WIDER CARD (approx 16:9 aspect equivalent layout) */}
+                <div className="relative w-full max-w-5xl aspect-[16/9] flex flex-col items-center justify-center">
+                    
+                    {/* Decorative Elements - Cyber Lines */}
+                    <div className="absolute -top-16 -left-16 h-32 w-32 border-l-4 border-t-4 border-red-600/30 opacity-50 transition-all duration-700 hover:border-red-500 hover:opacity-100"></div>
+                    <div className="absolute -bottom-16 -right-16 h-32 w-32 border-r-4 border-b-4 border-red-600/30 opacity-50 transition-all duration-700 hover:border-red-500 hover:opacity-100"></div>
 
-            {/* Antigravity Floating Card Container */}
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{
-                    opacity: 1,
-                    y: [-10, 10],
-                }}
-                transition={{
-                    opacity: { duration: 1 },
-                    y: {
-                        duration: 6,
-                        repeat: Infinity,
-                        repeatType: "reverse",
-                        ease: "easeInOut"
-                    }
-                }}
-                className="relative z-10 w-full max-w-xl"
-            >
-                {/* Red Neon Backlight Glow */}
-                <div className="absolute -inset-6 z-[-1] rounded-[3rem] bg-red-600/40 blur-[130px]"></div>
+                    {/* Glass Card */}
+                    <div className="relative h-full w-full overflow-hidden rounded-3xl border border-red-500/50 bg-black/60 shadow-[0_0_120px_rgba(220,38,38,0.5)] backdrop-blur-xl flex flex-col">
+                        
+                        {/* Top Gradient Bar */}
+                        <div className="absolute top-0 h-2 w-full bg-gradient-to-r from-transparent via-red-600 to-transparent opacity-80"></div>
 
-                {/* The Glassmorphism Card */}
-                <div className="relative overflow-hidden rounded-[3rem] border border-red-600/30 bg-black/40 backdrop-blur-2xl px-16 py-24 shadow-2xl">
-
-                    {/* Top Accent Line */}
-                    <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
-
-                    {/* Logo/Header Section */}
-                    <div className="text-center mb-16">
-                        <motion.div
-                            initial={{ scale: 0.9 }}
-                            animate={{ scale: 1 }}
-                            className="inline-block mb-12"
-                        >
-                            <div className="flex items-center justify-center space-x-6">
-                                <span className="h-6 w-6 rounded-full bg-red-600 animate-pulse shadow-[0_0_30px_rgba(220,38,38,1)]"></span>
-                                <h1 className="text-7xl font-black tracking-tighter text-white uppercase leading-none">
-                                    HACK<span className="text-red-600">SAVVY</span>
-                                </h1>
+                        <div className="flex-1 flex flex-col items-center justify-center p-12 text-center">
+                            {/* Brand Header */}
+                            {/* Gap increased (mr-6), Font Bolded */}
+                            <div className="mb-6 inline-flex items-center justify-center rounded-full bg-red-500/10 px-6 py-2 backdrop-blur-sm">
+                                <span className="mr-6 relative flex h-3 w-3">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                                </span>
+                                <span className="text-sm font-black uppercase tracking-[0.2em] text-red-500">System Ready</span>
                             </div>
-                        </motion.div>
 
-                        <p className="text-neutral-200 font-black tracking-[0.4em] text-2xl uppercase">
-                            Secure Access Required
-                        </p>
-                    </div>
+                            {/* Increased Font Size */}
+                            <h1 className="mb-4 mt-4 text-7xl font-black tracking-tighter text-white sm:text-8xl md:text-9xl">
+                                HACK<span className="text-red-600">SAVVY</span>
+                            </h1>
+                            
+                            {/* Bold Initialize Sequence */}
+                            <p className="mb-12 text-2xl font-bold text-gray-400">
+                                Initialize Sequence <span className="font-mono text-red-500 md:text-3xl">2.0.2.6</span>
+                            </p>
 
-                    {/* OAuth Form */}
-                    <form action={loginWithGoogle} className="space-y-8">
-                        <button
-                            type="submit"
-                            className="group relative flex w-full items-center justify-center gap-5 overflow-hidden rounded-3xl border border-neutral-700 bg-neutral-900/50 px-10 py-6 text-lg font-black uppercase tracking-[0.2em] text-white transition-all duration-300 hover:border-red-600 hover:bg-red-600/10 hover:shadow-[0_0_50px_rgba(220,38,38,0.5)]"
-                        >
-                            {/* SVG Icon */}
-                            <svg className="h-8 w-8 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24">
-                                <path
-                                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                                    fill="#4285F4"
-                                />
-                                <path
-                                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                                    fill="#34A853"
-                                />
-                                <path
-                                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-                                    fill="#FBBC05"
-                                />
-                                <path
-                                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-                                    fill="#EA4335"
-                                />
-                            </svg>
-                            <span>Continue with Google</span>
+                            {/* Login Action - Smaller Button (w-auto) */}
+                            <form action={loginWithGoogle}>
+                                <button
+                                    type="submit"
+                                    className="group relative flex items-center justify-center gap-4 overflow-hidden rounded-full bg-white text-black px-12 py-5 text-base font-black uppercase tracking-wider transition-all duration-300 hover:scale-105 hover:bg-gray-100 hover:shadow-[0_0_40px_rgba(255,255,255,0.4)] focus:outline-none focus:ring-4 focus:ring-red-500/50"
+                                >
+                                    <svg className="h-6 w-6" viewBox="0 0 24 24">
+                                        <path
+                                            d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                                            fill="#4285F4"
+                                        />
+                                        <path
+                                            d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                                            fill="#34A853"
+                                        />
+                                        <path
+                                            d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                                            fill="#FBBC05"
+                                        />
+                                        <path
+                                            d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                                            fill="#EA4335"
+                                        />
+                                    </svg>
+                                    <span>Continue with Google</span>
+                                    
+                                    {/* Shine effect */}
+                                    <div className="absolute -inset-full top-0 block h-full w-1/2 -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-40 group-hover:animate-shine" />
+                                </button>
+                            </form>
 
-                            {/* Inner Glow on Hover */}
-                            <div className="absolute inset-0 z-[-1] bg-gradient-to-r from-red-600/0 via-red-600/10 to-red-600/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
-                        </button>
-                    </form>
-
-                    {/* Footer decoration */}
-                    <div className="mt-16 pt-12 border-t border-neutral-800">
-                        <div className="flex justify-between items-center text-[12px] uppercase tracking-[0.4em] text-neutral-400 font-black">
-                            <span className="flex items-center gap-2">
-                                <span className="h-1.5 w-1.5 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)]"></span>
-                                System: Optimal
-                            </span>
-                            <span className="text-red-700">AES-256 Armed</span>
+                            {/* Terms */}
+                            <p className="mt-8 text-sm text-gray-600 font-medium">
+                                By accessing the system, you agree to our{' '}
+                                <a href="#" className="text-gray-500 hover:text-red-500 hover:underline hover:text-shadow-glow">protocols</a>.
+                            </p>
+                        </div>
+                        
+                        {/* Card Footer Decoration */}
+                        <div className="flex h-3 w-full">
+                            <div className="h-full w-1/3 bg-red-600/30"></div>
+                            <div className="h-full w-1/3 bg-red-600/50"></div>
+                            <div className="h-full w-1/3 bg-red-600/80"></div>
                         </div>
                     </div>
-                </div>
 
-                {/* Bottom Reflection/Shadow Effect (Optional but cool) */}
-                <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-64 h-6 bg-red-600/20 blur-2xl rounded-full scale-x-150"></div>
-            </motion.div>
-        </div>
+                    {/* Bottom Info */}
+                    <div className="absolute -bottom-16 w-full flex justify-between px-4 text-sm font-bold uppercase tracking-[0.3em] text-red-500/60 mix-blend-plus-lighter">
+                        <span>MGIT, HYD</span>
+                        <span>FEB 12-13</span>
+                    </div>
+
+                </div>
+            </div>
+        </PremiumBackground>
     )
 }
 
