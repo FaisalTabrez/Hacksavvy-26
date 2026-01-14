@@ -19,7 +19,7 @@ export default async function DashboardPage() {
     const { team, isLeader } = await getTeamForUser(user.id, user.email || '')
 
     return (
-        <div className="min-h-screen bg-gray-900 text-white">
+        <div className="min-h-screen bg-black text-white">
             <DashboardClient team={team} isLeader={isLeader} user={user} />
         </div>
     )

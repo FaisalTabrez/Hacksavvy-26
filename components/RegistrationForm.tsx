@@ -127,57 +127,64 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 bg-gray-800 p-8 rounded-lg shadow-lg text-white">
+        <form onSubmit={handleSubmit(onSubmit)} className="relative group overflow-hidden rounded-2xl bg-gray-900/50 p-8 shadow-2xl backdrop-blur-xl transition-all duration-300 border border-white/5 hover:border-red-500/20">
+            {/* Card glow effect */}
+            <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-red-500/50 to-transparent"></div>
+
             {serverError && (
-                <div className="p-4 bg-red-500/20 border border-red-500 rounded text-red-200">
+                <div className="p-4 bg-red-500/10 border border-red-500/50 rounded-xl text-red-200 mb-8 animate-shake">
                     {serverError}
                 </div>
             )}
 
             {/* Team Details */}
-            <div className="space-y-4">
-                <h2 className="text-xl font-bold border-b border-gray-700 pb-2">Team Details</h2>
+            <div className="space-y-6">
+                <div className="flex items-center gap-4">
+                    <div className="h-8 w-1 bg-red-500 rounded-full"></div>
+                    <h2 className="text-2xl font-bold text-white uppercase tracking-wider">Team Details</h2>
+                </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label className="block text-sm font-medium mb-1">Team Name</label>
+                        <label className="block text-sm font-medium text-gray-400 mb-2">Team Name</label>
                         <input
                             {...register('teamName')}
                             disabled={isEditing}
-                            className={`w-full bg-gray-700 rounded border border-gray-600 p-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 ${isEditing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            placeholder="Enter team name"
+                            className={`w-full bg-black/40 rounded-xl border border-white/10 p-3 text-white transition-all focus:border-red-500/50 focus:ring-1 focus:ring-red-500/50 outline-none placeholder:text-gray-600 ${isEditing ? 'opacity-50 cursor-not-allowed' : 'hover:border-white/20'}`}
                         />
-                        {errors.teamName && <p className="text-red-400 text-sm mt-1">{errors.teamName.message}</p>}
+                        {errors.teamName && <p className="text-red-400 text-xs mt-2 ml-1">{errors.teamName.message}</p>}
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium mb-1">Track</label>
+                        <label className="block text-sm font-medium text-gray-400 mb-2">Track</label>
                         <select
                             {...register('track')}
-                            className="w-full bg-gray-700 rounded border border-gray-600 p-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                            className="w-full bg-black/40 rounded-xl border border-white/10 p-3 text-white transition-all focus:border-red-500/50 focus:ring-1 focus:ring-red-500/50 outline-none hover:border-white/20 appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M5%207L10%2012L15%207%22%20stroke%3D%22%236B7280%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E')] bg-[position:right_1rem_center] bg-no-repeat"
                         >
-                            <option value="AI">AI, Automation & Robotics</option>
-                            <option value="IoT">IoT & Embedded Systems</option>
-                            <option value="Blockchain">Cybersecurity & Blockchain</option>
-                            <option value="Open Innovation">Open Innovation</option>
+                            <option value="AI" className="bg-gray-900">AI, Automation & Robotics</option>
+                            <option value="IoT" className="bg-gray-900">IoT & Embedded Systems</option>
+                            <option value="Blockchain" className="bg-gray-900">Cybersecurity & Blockchain</option>
+                            <option value="Open Innovation" className="bg-gray-900">Open Innovation</option>
                         </select>
-                        {errors.track && <p className="text-red-400 text-sm mt-1">{errors.track.message}</p>}
+                        {errors.track && <p className="text-red-400 text-xs mt-2 ml-1">{errors.track.message}</p>}
                     </div>
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium mb-2">Team Size</label>
-                    <div className="flex gap-4">
+                    <label className="block text-sm font-medium text-gray-400 mb-3">Team Size</label>
+                    <div className="flex flex-wrap gap-4">
                         {['2', '3', '4', '5'].map((size) => (
-                            <label key={size} className="flex items-center gap-2 cursor-pointer">
+                            <label key={size} className="relative flex items-center gap-3 cursor-pointer group/radio">
                                 <input
                                     type="radio"
                                     value={size}
                                     {...register('teamSize')}
-                                    className="text-blue-500 focus:ring-blue-500"
+                                    className="peer sr-only"
                                 />
-                                <span>{size} Members</span>
+                                <div className="px-4 py-2 rounded-lg bg-black/40 border border-white/10 text-gray-400 transition-all peer-checked:bg-red-500/10 peer-checked:border-red-500/50 peer-checked:text-white hover:border-white/20">
+                                    {size} Members
+                                </div>
                             </label>
                         ))}
                     </div>
@@ -185,164 +192,202 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
             </div>
 
             {/* Member Details */}
-            <div className="space-y-6">
-                <h2 className="text-xl font-bold border-b border-gray-700 pb-2">Member Details</h2>
+            <div className="space-y-8 mt-12">
+                <div className="flex items-center gap-4">
+                    <div className="h-8 w-1 bg-red-500 rounded-full"></div>
+                    <h2 className="text-2xl font-bold text-white uppercase tracking-wider">Member Details</h2>
+                </div>
 
-                {fields.map((field, index) => (
-                    <div key={field.id} className="bg-gray-700/50 p-4 rounded-lg space-y-4">
-                        <h3 className="font-semibold text-lg text-blue-400">
-                            {index === 0 ? 'Team Leader (Member 1)' : `Member ${index + 1}`}
-                        </h3>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label className="block text-sm font-medium mb-1">Full Name</label>
-                                <input
-                                    {...register(`members.${index}.name`)}
-                                    className="w-full bg-gray-700 rounded border border-gray-600 p-2"
-                                />
-                                {errors.members?.[index]?.name && (
-                                    <p className="text-red-400 text-sm mt-1">{errors.members[index]?.name?.message}</p>
-                                )}
+                <div className="grid grid-cols-1 gap-8">
+                    {fields.map((field, index) => (
+                        <div key={field.id} className="relative overflow-hidden bg-white/[0.02] border border-white/5 p-6 rounded-2xl transition-all hover:bg-white/[0.04] hover:border-white/10">
+                            <div className="flex items-center justify-between mb-6">
+                                <h3 className="text-lg font-semibold text-red-500 flex items-center gap-2">
+                                    <span className="flex items-center justify-center w-6 h-6 rounded-full bg-red-500/10 text-xs">
+                                        {index + 1}
+                                    </span>
+                                    {index === 0 ? 'Team Leader' : `Member ${index + 1}`}
+                                </h3>
+                                {index === 0 && <span className="text-[10px] uppercase tracking-widest text-gray-500 font-bold px-2 py-1 rounded bg-white/5 border border-white/10">Primary Contact</span>}
                             </div>
 
-                            <div>
-                                <label className="block text-sm font-medium mb-1">Email</label>
-                                <input
-                                    {...register(`members.${index}.email`)}
-                                    readOnly={index === 0 && !!user} // Leader email read-only if logged in
-                                    className={`w-full bg-gray-700 rounded border border-gray-600 p-2 ${index === 0 && user ? 'opacity-70 cursor-not-allowed' : ''}`}
-                                />
-                                {errors.members?.[index]?.email && (
-                                    <p className="text-red-400 text-sm mt-1">{errors.members[index]?.email?.message}</p>
-                                )}
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-medium mb-1">Phone (WhatsApp)</label>
-                                <input
-                                    {...register(`members.${index}.phone`)}
-                                    className="w-full bg-gray-700 rounded border border-gray-600 p-2"
-                                />
-                                {errors.members?.[index]?.phone && (
-                                    <p className="text-red-400 text-sm mt-1">{errors.members[index]?.phone?.message}</p>
-                                )}
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-medium mb-1">College Name</label>
-                                <input
-                                    {...register(`members.${index}.college`)}
-                                    className="w-full bg-gray-700 rounded border border-gray-600 p-2"
-                                />
-                                {errors.members?.[index]?.college && (
-                                    <p className="text-red-400 text-sm mt-1">{errors.members[index]?.college?.message}</p>
-                                )}
-                            </div>
-
-                            {/* Leader Specific Fields */}
-                            {index === 0 && (
-                                <>
-                                    <div>
-                                        <label className="block text-sm font-medium mb-1">Roll Number</label>
-                                        <input
-                                            {...register(`members.${index}.rollNo`)}
-                                            className="w-full bg-gray-700 rounded border border-gray-600 p-2"
-                                        />
-                                        {errors.members?.[index]?.rollNo && (
-                                            <p className="text-red-400 text-sm mt-1">{errors.members[index]?.rollNo?.message}</p>
-                                        )}
-                                    </div>
-
-                                    <div>
-                                        <label className="block text-sm font-medium mb-1">Branch</label>
-                                        <input
-                                            {...register(`members.${index}.branch`)}
-                                            className="w-full bg-gray-700 rounded border border-gray-600 p-2"
-                                        />
-                                        {errors.members?.[index]?.branch && (
-                                            <p className="text-red-400 text-sm mt-1">{errors.members[index]?.branch?.message}</p>
-                                        )}
-                                    </div>
-                                </>
-                            )}
-
-                            {/* Logistics */}
-                            <div className="md:col-span-2 flex gap-6 items-center mt-2">
-                                <label className="flex items-center gap-2 cursor-pointer">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Full Name</label>
                                     <input
-                                        type="checkbox"
-                                        {...register(`members.${index}.accommodation`)}
-                                        className="rounded bg-gray-700 border-gray-600 text-blue-500 focus:ring-blue-500"
+                                        {...register(`members.${index}.name`)}
+                                        placeholder="Enter name"
+                                        className="w-full bg-black/40 rounded-xl border border-white/10 p-3 text-white transition-all focus:border-red-500/50 focus:ring-1 focus:ring-red-500/50 outline-none placeholder:text-gray-700"
                                     />
-                                    <span>Accommodation Required</span>
-                                </label>
+                                    {errors.members?.[index]?.name && (
+                                        <p className="text-red-400 text-[10px] mt-2 ml-1">{errors.members[index]?.name?.message}</p>
+                                    )}
+                                </div>
 
-                                <div className="flex items-center gap-2">
-                                    <span className="text-sm">Food:</span>
-                                    <select
-                                        {...register(`members.${index}.food`)}
-                                        className="bg-gray-700 rounded border border-gray-600 p-1 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                                    >
-                                        <option value="Veg">Veg</option>
-                                        <option value="Non-Veg">Non-Veg</option>
-                                    </select>
+                                <div>
+                                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Email</label>
+                                    <input
+                                        {...register(`members.${index}.email`)}
+                                        readOnly={index === 0 && !!user}
+                                        placeholder="Enter email"
+                                        className={`w-full bg-black/40 rounded-xl border border-white/10 p-3 text-white transition-all focus:border-red-500/50 focus:ring-1 focus:ring-red-500/50 outline-none placeholder:text-gray-700 ${index === 0 && user ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                    />
+                                    {errors.members?.[index]?.email && (
+                                        <p className="text-red-400 text-[10px] mt-2 ml-1">{errors.members[index]?.email?.message}</p>
+                                    )}
+                                </div>
+
+                                <div>
+                                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">WhatsApp Number</label>
+                                    <input
+                                        {...register(`members.${index}.phone`)}
+                                        placeholder="+91"
+                                        className="w-full bg-black/40 rounded-xl border border-white/10 p-3 text-white transition-all focus:border-red-500/50 focus:ring-1 focus:ring-red-500/50 outline-none placeholder:text-gray-700"
+                                    />
+                                    {errors.members?.[index]?.phone && (
+                                        <p className="text-red-400 text-[10px] mt-2 ml-1">{errors.members[index]?.phone?.message}</p>
+                                    )}
+                                </div>
+
+                                <div>
+                                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">College Name</label>
+                                    <input
+                                        {...register(`members.${index}.college`)}
+                                        placeholder="Enter college"
+                                        className="w-full bg-black/40 rounded-xl border border-white/10 p-3 text-white transition-all focus:border-red-500/50 focus:ring-1 focus:ring-red-500/50 outline-none placeholder:text-gray-700"
+                                    />
+                                    {errors.members?.[index]?.college && (
+                                        <p className="text-red-400 text-[10px] mt-2 ml-1">{errors.members[index]?.college?.message}</p>
+                                    )}
+                                </div>
+
+                                {index === 0 && (
+                                    <>
+                                        <div>
+                                            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Roll Number</label>
+                                            <input
+                                                {...register(`members.${index}.rollNo`)}
+                                                placeholder="Enter roll no"
+                                                className="w-full bg-black/40 rounded-xl border border-white/10 p-3 text-white transition-all focus:border-red-500/50 focus:ring-1 focus:ring-red-500/50 outline-none placeholder:text-gray-700"
+                                            />
+                                            {errors.members?.[index]?.rollNo && (
+                                                <p className="text-red-400 text-[10px] mt-2 ml-1">{errors.members[index]?.rollNo?.message}</p>
+                                            )}
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Branch</label>
+                                            <input
+                                                {...register(`members.${index}.branch`)}
+                                                placeholder="Enter branch"
+                                                className="w-full bg-black/40 rounded-xl border border-white/10 p-3 text-white transition-all focus:border-red-500/50 focus:ring-1 focus:ring-red-500/50 outline-none placeholder:text-gray-700"
+                                            />
+                                            {errors.members?.[index]?.branch && (
+                                                <p className="text-red-400 text-[10px] mt-2 ml-1">{errors.members[index]?.branch?.message}</p>
+                                            )}
+                                        </div>
+                                    </>
+                                )}
+
+                                <div className="md:col-span-2 flex flex-wrap gap-6 items-center pt-2">
+                                    <label className="flex items-center gap-3 cursor-pointer group/toggle">
+                                        <div className="relative">
+                                            <input
+                                                type="checkbox"
+                                                {...register(`members.${index}.accommodation`)}
+                                                className="peer sr-only"
+                                            />
+                                            <div className="w-10 h-5 bg-white/10 rounded-full border border-white/10 transition-all peer-checked:bg-red-500/50"></div>
+                                            <div className="absolute left-1 top-1 w-3 h-3 bg-gray-400 rounded-full transition-all peer-checked:left-6 peer-checked:bg-white"></div>
+                                        </div>
+                                        <span className="text-sm text-gray-400 group-hover/toggle:text-white transition-colors">Accommodation Req.</span>
+                                    </label>
+
+                                    <div className="flex items-center gap-3">
+                                        <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Food:</span>
+                                        <div className="flex bg-black/40 rounded-lg p-1 border border-white/5">
+                                            {['Veg', 'Non-Veg'].map((opt) => (
+                                                <label key={opt} className="cursor-pointer">
+                                                    <input
+                                                        type="radio"
+                                                        value={opt}
+                                                        {...register(`members.${index}.food`)}
+                                                        className="peer sr-only"
+                                                    />
+                                                    <div className="px-3 py-1 rounded-md text-[10px] font-bold uppercase transition-all text-gray-500 peer-checked:bg-white/5 peer-checked:text-red-500">
+                                                        {opt}
+                                                    </div>
+                                                </label>
+                                            ))}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
 
             {/* Payment Section */}
-            <div className="space-y-4">
-                <h2 className="text-xl font-bold border-b border-gray-700 pb-2">Payment</h2>
+            <div className="space-y-6 mt-12 bg-black/40 border border-white/10 p-8 rounded-3xl backdrop-blur-md">
+                <div className="flex items-center gap-4">
+                    <div className="h-8 w-1 bg-red-500 rounded-full shadow-[0_0_10px_#ef4444]"></div>
+                    <h2 className="text-2xl font-bold text-white uppercase tracking-wider">Payment Verification</h2>
+                </div>
 
-                <div className="flex flex-col md:flex-row gap-8 items-start">
-                    <div className="w-48 h-48 bg-white p-2 rounded-lg flex-shrink-0">
-                        <img src="/qr.png" alt="Payment QR Code" className="w-full h-full object-contain" />
+                <div className="flex flex-col md:flex-row gap-12 items-start">
+                    <div className="relative group/qr">
+                        <div className="absolute -inset-1 bg-gradient-to-r from-red-500 to-pink-500 rounded-2xl blur opacity-25 group-hover/qr:opacity-50 transition duration-1000 group-hover/qr:duration-200"></div>
+                        <div className="relative w-48 h-48 bg-white p-3 rounded-2xl flex-shrink-0">
+                            <img src="/qr.png" alt="Payment QR Code" className="w-full h-full object-contain" />
+                        </div>
+                        <p className="mt-4 text-center text-[10px] text-gray-500 uppercase tracking-tighter font-bold">Scan to pay</p>
                     </div>
 
-                    <div className="flex-grow space-y-4 w-full">
-                        <div className="bg-blue-900/30 p-4 rounded border border-blue-500/30">
-                            <p className="text-sm text-blue-200">
-                                Please scan the QR code to pay the registration fee of <strong>₹2500</strong> per team.
-                                After payment, enter the UPI Reference ID and upload a screenshot.
+                    <div className="flex-grow space-y-6 w-full">
+                        <div className="bg-red-500/5 p-4 rounded-xl border border-red-500/20">
+                            <p className="text-sm text-red-100/80 leading-relaxed">
+                                Please pay the registration fee of <strong className="text-red-500 font-black">₹2500</strong> per team.
+                                Enter the <span className="underline decoration-red-500/50 underline-offset-4">Transaction ID</span> and upload the receipt below.
                             </p>
                         </div>
 
-                        <div>
-                            <label className="block text-sm font-medium mb-1">UPI Reference ID</label>
-                            <input
-                                {...register('upiReference')}
-                                disabled={isEditing}
-                                placeholder="e.g. 123456789012"
-                                className={`w-full bg-gray-700 rounded border border-gray-600 p-2 ${isEditing ? 'opacity-50 cursor-not-allowed' : ''}`}
-                            />
-                            {errors.upiReference && <p className="text-red-400 text-sm mt-1">{errors.upiReference?.message}</p>}
-                        </div>
+                        <div className="grid grid-cols-1 gap-6">
+                            <div>
+                                <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">UPI Reference ID</label>
+                                <input
+                                    {...register('upiReference')}
+                                    disabled={isEditing}
+                                    placeholder="e.g. 123456789012"
+                                    className={`w-full bg-black/40 rounded-xl border border-white/10 p-3 text-white transition-all focus:border-red-500/50 focus:ring-1 focus:ring-red-500/50 outline-none placeholder:text-gray-700 ${isEditing ? 'opacity-50 cursor-not-allowed' : 'hover:border-white/20'}`}
+                                />
+                                {errors.upiReference && <p className="text-red-400 text-[10px] mt-2 ml-1">{errors.upiReference?.message}</p>}
+                            </div>
 
-                        <div>
-                            <label className="block text-sm font-medium mb-1">Payment Screenshot</label>
-                            <input
-                                type="file"
-                                accept="image/*"
-                                {...register('paymentScreenshot')}
-                                disabled={isEditing}
-                                className={`w-full bg-gray-700 rounded border border-gray-600 p-2 text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 ${isEditing ? 'opacity-50 cursor-not-allowed' : ''}`}
-                            />
-                            {errors.paymentScreenshot && <p className="text-red-400 text-sm mt-1">{errors.paymentScreenshot?.message as string}</p>}
+                            <div>
+                                <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Payment Receipt</label>
+                                <div className="relative group/file">
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        {...register('paymentScreenshot')}
+                                        disabled={isEditing}
+                                        className={`w-full bg-black/40 rounded-xl border border-white/10 p-3 text-sm text-gray-400 transition-all file:mr-4 file:py-1 file:px-4 file:rounded-lg file:border-0 file:text-[10px] file:font-black file:uppercase file:bg-red-500/10 file:text-red-500 hover:file:bg-red-500/20 ${isEditing ? 'opacity-50 cursor-not-allowed' : 'hover:border-white/20'}`}
+                                    />
+                                </div>
+                                {errors.paymentScreenshot && <p className="text-red-400 text-[10px] mt-2 ml-1">{errors.paymentScreenshot?.message as string}</p>}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 mt-12">
                 {isEditing && onCancel && (
                     <button
                         type="button"
                         onClick={onCancel}
-                        className="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg transition-all"
+                        className="flex-1 bg-white/5 hover:bg-white/10 text-white font-bold py-4 px-8 rounded-xl transition-all border border-white/10"
                     >
                         Cancel
                     </button>
@@ -350,11 +395,14 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                 <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-[1.01] disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex-1 group relative overflow-hidden rounded-xl bg-red-600 px-8 py-4 text-base font-bold text-white transition-all duration-300 hover:bg-red-700 hover:shadow-[0_0_30px_rgba(220,38,38,0.5)] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed border border-red-500/50"
                 >
-                    {isSubmitting ? 'Saving...' : (isEditing ? 'Update Details' : 'Complete Registration')}
+                    <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-red-900 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <span className="relative z-10 tracking-wider uppercase">
+                        {isSubmitting ? 'Processing...' : (isEditing ? 'Save Changes' : 'Confirm Registration')}
+                    </span>
                 </button>
             </div>
-        </form >
+        </form>
     )
 }
