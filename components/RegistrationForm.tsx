@@ -132,271 +132,290 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
 
     return (
         <motion.div
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className={cn("w-full max-w-5xl mx-auto h-full", orbitron.variable, mono.variable)}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className={cn("w-full min-h-screen pt-12 pb-32 px-4 md:px-8 max-w-7xl mx-auto", orbitron.variable, mono.variable)}
         >
-            {/* Main Container - The "Console" */}
-            <form 
-                onSubmit={handleSubmit(onSubmit)} 
-                className="relative flex flex-col w-full h-[85vh] bg-[#09090b] border border-white/10 rounded-xl overflow-hidden shadow-2xl"
-            >
-                {/* 1. Header Bar (Fixed) */}
-                <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-black/50 backdrop-blur-md z-20">
-                    <div className="flex items-center gap-3">
-                        <div className="h-2 w-2 bg-red-600 rounded-full animate-pulse"></div>
-                        <h2 className={cn(orbitron.className, "text-lg font-bold text-white tracking-widest uppercase")}>
-                            {isEditing ? 'Modify_Protocol' : 'Initialize_Registration'}
-                        </h2>
-                    </div>
-                    <div className={cn(mono.className, "text-[10px] text-neutral-500 uppercase tracking-widest")}>
-                        SECURE_CHANNEL_ESTABLISHED
-                    </div>
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-24">
+                
+                {/* PAGE HEADER */}
+                <div className="flex flex-col gap-4 border-l-4 border-red-600 pl-8">
+                    <h1 className={cn(orbitron.className, "text-5xl md:text-7xl font-black text-white uppercase tracking-tighter")}>
+                        {isEditing ? 'MODIFY PROTOCOL' : 'INITIALIZE REGISTRATION'}
+                    </h1>
+                    <p className={cn(mono.className, "text-sm text-neutral-400 uppercase tracking-[0.2em]")}>
+                        Secure Channel // Sector 7 Access Grant
+                    </p>
                 </div>
 
-                {/* 2. Scrollable Content Area */}
-                {/* Custom Scrollbar CSS applied via Tailwind arbitrary values */}
-                <div className="flex-1 overflow-y-auto p-6 md:p-10 space-y-12 
-                    scrollbar-thin scrollbar-track-black scrollbar-thumb-red-900 hover:scrollbar-thumb-red-600">
-                    
-                    {serverError && (
-                        <div className={cn(mono.className, "p-4 bg-red-950/30 border-l-2 border-red-600 text-red-400 text-xs")}>
-                            ERROR: {serverError}
-                        </div>
-                    )}
+                {serverError && (
+                    <div className={cn(mono.className, "p-6 bg-red-950/30 border border-red-600 text-red-400 text-sm font-bold uppercase tracking-wide")}>
+                        [SYSTEM ERROR]: {serverError}
+                    </div>
+                )}
 
-                    {/* SECTION 1: INFRASTRUCTURE */}
-                    <div className="space-y-6">
-                        <div className="flex items-end gap-4 border-b border-white/10 pb-2">
-                            <h3 className={cn(orbitron.className, "text-2xl text-white/90 uppercase tracking-wider")}>
-                                01 // Infrastructure
-                            </h3>
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            {/* Team Name */}
-                            <div className="space-y-2 group">
-                                <label className={cn(mono.className, "text-[10px] text-red-500 uppercase tracking-widest group-focus-within:text-white transition-colors")}>
-                                    Identity Tag
-                                </label>
-                                <input
-                                    {...register('teamName')}
-                                    disabled={isEditing}
-                                    placeholder="ENTER_SQUAD_NAME"
-                                    className={cn(mono.className, "w-full bg-white/5 border border-white/10 rounded-md p-3 text-sm text-white placeholder:text-neutral-700 focus:bg-black focus:border-red-500 focus:outline-none transition-all")}
-                                />
-                                {errors.teamName && <span className="text-red-500 text-[10px]">{errors.teamName.message}</span>}
-                            </div>
-
-                            {/* Track Selection */}
-                            <div className="space-y-2 group">
-                                <label className={cn(mono.className, "text-[10px] text-red-500 uppercase tracking-widest group-focus-within:text-white transition-colors")}>
-                                    Operational Track
-                                </label>
-                                <div className="relative">
-                                    <select
-                                        {...register('track')}
-                                        className={cn(mono.className, "w-full bg-white/5 border border-white/10 rounded-md p-3 text-sm text-white focus:bg-black focus:border-red-500 focus:outline-none appearance-none transition-all cursor-pointer")}
-                                    >
-                                        <option value="AI" className="bg-zinc-900">AI, AUTOMATION & ROBOTICS</option>
-                                        <option value="IoT" className="bg-zinc-900">IOT & EMBEDDED SYSTEMS</option>
-                                        <option value="Blockchain" className="bg-zinc-900">CYBERSECURITY & BLOCKCHAIN</option>
-                                        <option value="Open Innovation" className="bg-zinc-900">OPEN INNOVATION</option>
-                                    </select>
-                                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-neutral-500">▼</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Team Size */}
-                        <div className="space-y-2">
-                            <label className={cn(mono.className, "text-[10px] text-red-500 uppercase tracking-widest")}>
-                                Squad Magnitude
-                            </label>
-                            <div className="flex border border-white/10 rounded-md overflow-hidden w-fit">
-                                {['2', '3', '4', '5'].map((size) => (
-                                    <label key={size} className="cursor-pointer relative">
-                                        <input type="radio" value={size} {...register('teamSize')} className="peer sr-only" />
-                                        <div className={cn(mono.className, "w-16 h-10 flex items-center justify-center text-sm font-bold bg-white/5 text-neutral-500 border-r border-white/5 hover:bg-white/10 peer-checked:bg-red-600 peer-checked:text-white transition-all")}>
-                                            {size}
-                                        </div>
-                                    </label>
-                                ))}
-                            </div>
-                        </div>
+                {/* --------------------------------------------------------- */}
+                {/* SECTION 01: INFRASTRUCTURE */}
+                {/* --------------------------------------------------------- */}
+                <section className="space-y-12">
+                    <div className="relative">
+                        <h2 className={cn(orbitron.className, "text-4xl md:text-5xl font-black text-red-600 uppercase tracking-tighter z-10 relative")}>
+                            01 // INFRASTRUCTURE
+                        </h2>
+                        <div className="absolute -bottom-4 left-0 w-32 h-1 bg-gradient-to-r from-red-600 to-transparent"></div>
                     </div>
 
-                    {/* SECTION 2: MANIFEST */}
-                    <div className="space-y-6">
-                        <div className="flex items-end gap-4 border-b border-white/10 pb-2">
-                            <h3 className={cn(orbitron.className, "text-2xl text-white/90 uppercase tracking-wider")}>
-                                02 // Personnel Manifest
-                            </h3>
-                        </div>
-
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        {/* Team Name */}
                         <div className="space-y-4">
-                            <AnimatePresence>
-                                {fields.map((field, index) => (
-                                    <motion.div
-                                        key={field.id}
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        className="relative bg-white/[0.02] border-l-2 border-white/10 p-6 hover:border-red-600 hover:bg-white/[0.04] transition-all"
-                                    >
-                                        <div className="absolute top-0 right-0 p-2 bg-white/5 text-[10px] text-neutral-400 font-mono tracking-widest">
-                                            {index === 0 ? 'LEADER' : `UNIT_0${index + 1}`}
-                                        </div>
+                            <label className={cn(mono.className, "text-xs text-neutral-400 uppercase tracking-[0.2em]")}>
+                                Identity Tag (Team Name)
+                            </label>
+                            <input
+                                {...register('teamName')}
+                                disabled={isEditing}
+                                placeholder="ENTER_SQUAD_NAME"
+                                className={cn(mono.className, "w-full bg-black/40 border-2 border-white/10 p-6 text-lg text-white placeholder:text-neutral-700 focus:border-red-600 focus:outline-none focus:bg-black/60 transition-all uppercase")}
+                            />
+                            {errors.teamName && <span className="text-red-500 text-xs font-mono block mt-2">Error: {errors.teamName.message}</span>}
+                        </div>
 
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                            {/* Name */}
-                                            <div className="space-y-1">
-                                                <input
-                                                    {...register(`members.${index}.name`)}
-                                                    placeholder="FULL_NAME"
-                                                    className={cn(mono.className, "w-full bg-transparent border-b border-white/10 py-2 text-sm text-white placeholder:text-neutral-700 focus:border-red-500 focus:outline-none transition-colors")}
-                                                />
-                                                {errors.members?.[index]?.name && <span className="text-red-500 text-[9px]">{errors.members[index]?.name?.message}</span>}
-                                            </div>
-
-                                            {/* Email */}
-                                            <div className="space-y-1">
-                                                <input
-                                                    {...register(`members.${index}.email`)}
-                                                    readOnly={index === 0 && !!user}
-                                                    placeholder="EMAIL_ADDRESS"
-                                                    className={cn(mono.className, "w-full bg-transparent border-b border-white/10 py-2 text-sm text-white placeholder:text-neutral-700 focus:border-red-500 focus:outline-none transition-colors", index === 0 && user && "text-neutral-500")}
-                                                />
-                                                {errors.members?.[index]?.email && <span className="text-red-500 text-[9px]">{errors.members[index]?.email?.message}</span>}
-                                            </div>
-
-                                            {/* Phone */}
-                                            <div className="space-y-1">
-                                                <input
-                                                    {...register(`members.${index}.phone`)}
-                                                    placeholder="+91_MOBILE"
-                                                    className={cn(mono.className, "w-full bg-transparent border-b border-white/10 py-2 text-sm text-white placeholder:text-neutral-700 focus:border-red-500 focus:outline-none transition-colors")}
-                                                />
-                                            </div>
-
-                                            {/* College */}
-                                            <div className="space-y-1">
-                                                <input
-                                                    {...register(`members.${index}.college`)}
-                                                    placeholder="INSTITUTION"
-                                                    className={cn(mono.className, "w-full bg-transparent border-b border-white/10 py-2 text-sm text-white placeholder:text-neutral-700 focus:border-red-500 focus:outline-none transition-colors")}
-                                                />
-                                            </div>
-
-                                            {/* Leader Only Extra Fields */}
-                                            {index === 0 && (
-                                                <>
-                                                    <div className="space-y-1">
-                                                        <input {...register(`members.${index}.rollNo`)} placeholder="ROLL_NUMBER" className={cn(mono.className, "w-full bg-transparent border-b border-white/10 py-2 text-sm text-white placeholder:text-neutral-700 focus:border-red-500 focus:outline-none")} />
-                                                    </div>
-                                                    <div className="space-y-1">
-                                                        <input {...register(`members.${index}.branch`)} placeholder="BRANCH" className={cn(mono.className, "w-full bg-transparent border-b border-white/10 py-2 text-sm text-white placeholder:text-neutral-700 focus:border-red-500 focus:outline-none")} />
-                                                    </div>
-                                                </>
-                                            )}
-                                        </div>
-
-                                        {/* Toggles (Food/Accom) */}
-                                        <div className="mt-4 flex gap-6">
-                                            <label className="flex items-center gap-2 cursor-pointer">
-                                                <input type="checkbox" {...register(`members.${index}.accommodation`)} className="peer sr-only" />
-                                                <div className="w-3 h-3 border border-white/30 peer-checked:bg-red-600 peer-checked:border-red-600"></div>
-                                                <span className={cn(mono.className, "text-[10px] text-neutral-400 peer-checked:text-white")}>STAY_REQ</span>
-                                            </label>
-                                            <div className="flex gap-2 items-center">
-                                                 <span className={cn(mono.className, "text-[10px] text-neutral-500")}>RATIONS:</span>
-                                                 {['Veg', 'Non-Veg'].map((opt) => (
-                                                     <label key={opt} className="cursor-pointer">
-                                                         <input type="radio" value={opt} {...register(`members.${index}.food`)} className="peer sr-only" />
-                                                         <span className={cn(mono.className, "text-[10px] text-neutral-400 hover:text-white peer-checked:text-red-500 font-bold")}>{opt}</span>
-                                                     </label>
-                                                 ))}
-                                            </div>
-                                        </div>
-                                    </motion.div>
-                                ))}
-                            </AnimatePresence>
+                        {/* Track Selection */}
+                        <div className="space-y-4">
+                            <label className={cn(mono.className, "text-xs text-neutral-400 uppercase tracking-[0.2em]")}>
+                                Operational Track
+                            </label>
+                            <div className="relative">
+                                <select
+                                    {...register('track')}
+                                    className={cn(mono.className, "w-full bg-black/40 border-2 border-white/10 p-6 text-lg text-white focus:border-red-600 focus:outline-none appearance-none cursor-pointer uppercase")}
+                                >
+                                    <option value="AI" className="bg-black">AI, AUTOMATION & ROBOTICS</option>
+                                    <option value="IoT" className="bg-black">IOT & EMBEDDED SYSTEMS</option>
+                                    <option value="Blockchain" className="bg-black">CYBERSECURITY & BLOCKCHAIN</option>
+                                    <option value="Open Innovation" className="bg-black">OPEN INNOVATION</option>
+                                </select>
+                                <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-red-600">▼</div>
+                            </div>
                         </div>
                     </div>
 
-                    {/* SECTION 3: TRANSACTION */}
-                    <div className="space-y-6">
-                        <div className="flex items-end gap-4 border-b border-white/10 pb-2">
-                            <h3 className={cn(orbitron.className, "text-2xl text-white/90 uppercase tracking-wider")}>
-                                03 // Transaction Node
-                            </h3>
-                        </div>
-
-                        <div className="bg-zinc-900/50 border border-white/5 p-6 rounded-lg relative overflow-hidden">
-                            {/* Receipt Pattern Background */}
-                            <div className="absolute top-0 right-0 p-4 opacity-10">
-                                <svg width="100" height="100" viewBox="0 0 24 24" fill="currentColor" className="text-white transform rotate-12">
-                                    <path d="M3 3h18v18H3V3zm16 16V5H5v14h14zm-6-8h-2v2h2v-2zm0-4h-2v2h2V7zm0 8h-2v2h2v-2z" />
-                                </svg>
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
-                                <div className="space-y-4">
-                                    <div className="p-3 bg-red-900/20 border-l-2 border-red-500">
-                                        <p className={cn(mono.className, "text-xs text-red-200")}>
-                                            TRANSFER AMT: <span className="font-bold text-white">₹2500.00</span>
-                                        </p>
-                                        <p className={cn(mono.className, "text-[10px] text-red-400 mt-1")}>
-                                            DESTINATION: MGIT_HACKATHON_CORP
-                                        </p>
+                    {/* Team Size */}
+                    <div className="space-y-4">
+                        <label className={cn(mono.className, "text-xs text-neutral-400 uppercase tracking-[0.2em]")}>
+                            Squad Magnitude
+                        </label>
+                        <div className="flex flex-wrap gap-4">
+                            {['2', '3', '4', '5'].map((size) => (
+                                <label key={size} className="cursor-pointer relative group">
+                                    <input type="radio" value={size} {...register('teamSize')} className="peer sr-only" />
+                                    <div className={cn(mono.className, "w-24 h-16 flex items-center justify-center text-xl font-bold bg-black/40 border-2 border-white/10 text-neutral-600 hover:border-white/40 peer-checked:bg-red-600 peer-checked:border-red-600 peer-checked:text-white transition-all")}>
+                                        {size}
                                     </div>
-                                    
-                                    <div className="space-y-2 group">
-                                        <label className={cn(mono.className, "text-[10px] text-red-500 uppercase tracking-widest")}>
-                                            UPI Reference ID
-                                        </label>
+                                    <div className="absolute -bottom-8 left-0 w-full text-center text-[9px] text-red-500 opacity-0 peer-checked:opacity-100 transition-opacity uppercase font-mono">
+                                        Active
+                                    </div>
+                                </label>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* --------------------------------------------------------- */}
+                {/* SECTION 02: PERSONNEL MANIFEST */}
+                {/* --------------------------------------------------------- */}
+                <section className="space-y-12">
+                     <div className="relative">
+                        <h2 className={cn(orbitron.className, "text-4xl md:text-5xl font-black text-red-600 uppercase tracking-tighter z-10 relative")}>
+                            02 // PERSONNEL MANIFEST
+                        </h2>
+                        <div className="absolute -bottom-4 left-0 w-32 h-1 bg-gradient-to-r from-red-600 to-transparent"></div>
+                    </div>
+
+                    <div className="flex flex-col gap-8">
+                        {fields.map((field, index) => (
+                            <motion.div
+                                key={field.id}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                className="relative bg-black/20 border-l-4 border-white/10 p-8 md:p-10 hover:border-red-600 hover:bg-black/40 transition-all group"
+                            >
+                                <div className="absolute top-0 right-0 px-4 py-2 bg-white/5 border-b border-l border-white/10 text-xs text-neutral-500 font-mono tracking-widest uppercase">
+                                    {index === 0 ? 'Project_Lead' : `Operative_0${index + 1}`}
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
+                                    {/* Name */}
+                                    <div className="space-y-2">
+                                        <label className={cn(mono.className, "text-[10px] text-red-600/70 uppercase tracking-widest")}>Legal Name</label>
                                         <input
-                                            {...register('upiReference')}
-                                            disabled={isEditing}
-                                            placeholder="12_DIGIT_SEQ"
-                                            className={cn(mono.className, "w-full bg-black border border-white/20 rounded-md p-3 text-sm text-white placeholder:text-neutral-700 focus:border-red-500 focus:outline-none transition-all tracking-widest")}
+                                            {...register(`members.${index}.name`)}
+                                            placeholder="FULL NAME"
+                                            className={cn(mono.className, "w-full bg-transparent border-b-2 border-white/10 py-3 text-lg text-white placeholder:text-neutral-800 focus:border-red-600 focus:outline-none transition-colors uppercase")}
+                                        />
+                                        {errors.members?.[index]?.name && <span className="text-red-500 text-[10px] block">{errors.members[index]?.name?.message}</span>}
+                                    </div>
+
+                                    {/* Email */}
+                                    <div className="space-y-2">
+                                        <label className={cn(mono.className, "text-[10px] text-red-600/70 uppercase tracking-widest")}>Comm Channel</label>
+                                        <input
+                                            {...register(`members.${index}.email`)}
+                                            readOnly={index === 0 && !!user}
+                                            placeholder="EMAIL ADDRESS"
+                                            className={cn(mono.className, "w-full bg-transparent border-b-2 border-white/10 py-3 text-lg text-white placeholder:text-neutral-800 focus:border-red-600 focus:outline-none transition-colors", index === 0 && user && "text-neutral-500")}
                                         />
                                     </div>
+
+                                    {/* Phone */}
+                                    <div className="space-y-2">
+                                        <label className={cn(mono.className, "text-[10px] text-red-600/70 uppercase tracking-widest")}>Signal ID</label>
+                                        <input
+                                            {...register(`members.${index}.phone`)}
+                                            placeholder="+91 XXXXX XXXXX"
+                                            className={cn(mono.className, "w-full bg-transparent border-b-2 border-white/10 py-3 text-lg text-white placeholder:text-neutral-800 focus:border-red-600 focus:outline-none transition-colors")}
+                                        />
+                                    </div>
+
+                                    {/* College */}
+                                    <div className="space-y-2">
+                                        <label className={cn(mono.className, "text-[10px] text-red-600/70 uppercase tracking-widest")}>Institution</label>
+                                        <input
+                                            {...register(`members.${index}.college`)}
+                                            placeholder="COLLEGE NAME"
+                                            className={cn(mono.className, "w-full bg-transparent border-b-2 border-white/10 py-3 text-lg text-white placeholder:text-neutral-800 focus:border-red-600 focus:outline-none transition-colors uppercase")}
+                                        />
+                                    </div>
+
+                                    {/* Leader Specifics */}
+                                    {index === 0 && (
+                                        <>
+                                            <div className="space-y-2">
+                                                 <label className={cn(mono.className, "text-[10px] text-red-600/70 uppercase tracking-widest")}>ID Code (Roll No)</label>
+                                                <input {...register(`members.${index}.rollNo`)} placeholder="ROLL NUMBER" className={cn(mono.className, "w-full bg-transparent border-b-2 border-white/10 py-3 text-lg text-white placeholder:text-neutral-800 focus:border-red-600 focus:outline-none uppercase")} />
+                                            </div>
+                                            <div className="space-y-2">
+                                                 <label className={cn(mono.className, "text-[10px] text-red-600/70 uppercase tracking-widest")}>Department</label>
+                                                <input {...register(`members.${index}.branch`)} placeholder="BRANCH" className={cn(mono.className, "w-full bg-transparent border-b-2 border-white/10 py-3 text-lg text-white placeholder:text-neutral-800 focus:border-red-600 focus:outline-none uppercase")} />
+                                            </div>
+                                        </>
+                                    )}
                                 </div>
 
-                                <div className="space-y-2">
-                                     <label className={cn(mono.className, "text-[10px] text-red-500 uppercase tracking-widest")}>
-                                        Proof of Transfer
-                                    </label>
-                                    <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-white/10 rounded-lg hover:border-red-500/50 hover:bg-white/5 transition-all cursor-pointer">
-                                        <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                                            <svg className="w-8 h-8 text-neutral-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                                            <p className={cn(mono.className, "text-[10px] text-neutral-400 uppercase")}>
-                                                {watch('paymentScreenshot')?.[0]?.name || 'UPLOAD_RECEIPT_IMG'}
-                                            </p>
+                                {/* Logistics Toggles */}
+                                <div className="mt-8 pt-6 border-t border-white/5 flex flex-wrap gap-8">
+                                    <label className="flex items-center gap-4 cursor-pointer group/accom">
+                                        <div className="relative">
+                                            <input type="checkbox" {...register(`members.${index}.accommodation`)} className="peer sr-only" />
+                                            <div className="w-12 h-6 bg-black border border-white/20 peer-checked:border-red-600 peer-checked:bg-red-600/20 transition-all"></div>
+                                            <div className="absolute top-1 left-1 w-4 h-4 bg-white/30 peer-checked:bg-red-600 peer-checked:translate-x-6 transition-all"></div>
                                         </div>
-                                        <input type="file" accept="image/*" {...register('paymentScreenshot')} disabled={isEditing} className="hidden" />
+                                        <span className={cn(mono.className, "text-xs text-neutral-400 group-hover/accom:text-white uppercase tracking-widest")}>Accommodation Required</span>
                                     </label>
+
+                                    <div className="flex items-center gap-4">
+                                        <span className={cn(mono.className, "text-xs text-neutral-500 uppercase tracking-widest")}>Rations:</span>
+                                        <div className="flex gap-2">
+                                            {['Veg', 'Non-Veg'].map((opt) => (
+                                                <label key={opt} className="cursor-pointer">
+                                                    <input type="radio" value={opt} {...register(`members.${index}.food`)} className="peer sr-only" />
+                                                    <span className={cn(mono.className, "px-3 py-1 border border-white/10 text-[10px] text-neutral-500 peer-checked:bg-red-600 peer-checked:text-white peer-checked:border-red-600 uppercase font-bold transition-all")}>
+                                                        {opt}
+                                                    </span>
+                                                </label>
+                                            ))}
+                                        </div>
+                                    </div>
                                 </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* --------------------------------------------------------- */}
+                {/* SECTION 03: TRANSACTION NODE */}
+                {/* --------------------------------------------------------- */}
+                <section className="space-y-12">
+                     <div className="relative">
+                        <h2 className={cn(orbitron.className, "text-4xl md:text-5xl font-black text-red-600 uppercase tracking-tighter z-10 relative")}>
+                            03 // TRANSACTION NODE
+                        </h2>
+                        <div className="absolute -bottom-4 left-0 w-32 h-1 bg-gradient-to-r from-red-600 to-transparent"></div>
+                    </div>
+
+                    <div className="bg-zinc-950 border border-white/10 p-8 md:p-12 relative overflow-hidden">
+                        {/* Background Deco */}
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-red-600/5 blur-3xl pointer-events-none"></div>
+                        <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 blur-3xl pointer-events-none"></div>
+
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 relative z-10">
+                            {/* Payment Info */}
+                            <div className="space-y-8">
+                                <div className="p-6 bg-red-950/20 border-l-4 border-red-600">
+                                    <p className={cn(mono.className, "text-sm text-red-200 uppercase tracking-widest mb-2")}>Transfer Protocol:</p>
+                                    <p className={cn(orbitron.className, "text-4xl text-white font-black")}>₹2500.00</p>
+                                    <p className={cn(mono.className, "text-[10px] text-red-400 mt-2 uppercase")}>Dest: MGIT_HACKATHON_CORP</p>
+                                </div>
+
+                                <div className="space-y-4">
+                                    <label className={cn(mono.className, "text-xs text-neutral-400 uppercase tracking-[0.2em]")}>
+                                        UPI Reference ID (12-Digit)
+                                    </label>
+                                    <input
+                                        {...register('upiReference')}
+                                        disabled={isEditing}
+                                        placeholder="XXXXXXXXXXXX"
+                                        className={cn(mono.className, "w-full bg-black border-2 border-white/10 p-6 text-xl text-white placeholder:text-neutral-800 focus:border-red-600 focus:outline-none tracking-[0.2em] transition-all")}
+                                    />
+                                    {errors.upiReference && <span className="text-red-500 text-xs font-mono block mt-2">Error: {errors.upiReference.message}</span>}
+                                </div>
+                            </div>
+
+                            {/* Upload Area */}
+                            <div className="space-y-4">
+                                <label className={cn(mono.className, "text-xs text-neutral-400 uppercase tracking-[0.2em]")}>
+                                    Proof of Transfer (Screenshot)
+                                </label>
+                                <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed border-white/20 bg-black/20 hover:bg-white/5 hover:border-red-600 cursor-pointer transition-all group">
+                                    <div className="flex flex-col items-center justify-center pt-5 pb-6 text-center px-4">
+                                        <svg className="w-12 h-12 text-neutral-600 group-hover:text-red-500 mb-4 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                        <p className={cn(mono.className, "text-xs text-neutral-400 uppercase tracking-widest group-hover:text-white")}>
+                                            <span className="font-bold text-red-500">Click to Upload</span> or Drag and Drop
+                                        </p>
+                                        <p className={cn(mono.className, "text-[10px] text-neutral-600 mt-2 max-w-full truncate px-4")}>
+                                            {watch('paymentScreenshot')?.[0]?.name || 'NO_DATA_PRESENT'}
+                                        </p>
+                                    </div>
+                                    <input type="file" accept="image/*" {...register('paymentScreenshot')} disabled={isEditing} className="hidden" />
+                                </label>
+                                {errors.paymentScreenshot && <span className="text-red-500 text-xs font-mono block mt-2">Error: {errors.paymentScreenshot.message as string}</span>}
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
 
-                {/* 3. Footer / Action Bar (Fixed) */}
-                <div className="p-6 border-t border-white/10 bg-black/80 backdrop-blur-md z-20 flex gap-4">
+                {/* --------------------------------------------------------- */}
+                {/* FINAL ACTION */}
+                {/* --------------------------------------------------------- */}
+                <div className="pt-12 pb-24 flex gap-6">
                     {isEditing && onCancel && (
-                        <button type="button" onClick={onCancel} className={cn(mono.className, "px-8 py-4 border border-white/10 text-white text-xs hover:bg-white/10 transition-all uppercase tracking-widest")}>
-                            ABORT
+                        <button 
+                            type="button" 
+                            onClick={onCancel} 
+                            className={cn(mono.className, "px-10 py-6 border-2 border-white/10 text-neutral-400 hover:text-white hover:border-white uppercase tracking-[0.2em] font-bold transition-all")}
+                        >
+                            Abort
                         </button>
                     )}
                     <button 
                         type="submit" 
                         disabled={isSubmitting}
-                        className={cn(mono.className, "flex-1 bg-red-600 hover:bg-red-700 text-white text-sm font-bold py-4 uppercase tracking-[0.2em] transition-all hover:shadow-[0_0_20px_rgba(220,38,38,0.5)] disabled:opacity-50")}
+                        className={cn(orbitron.className, "flex-1 bg-red-600 hover:bg-red-700 text-white text-xl md:text-3xl font-black py-8 uppercase tracking-[0.1em] transition-all hover:shadow-[0_0_50px_rgba(220,38,38,0.6)] disabled:opacity-50 disabled:cursor-not-allowed clip-path-polygon")}
                     >
-                        {isSubmitting ? 'PROCESSING_DATA...' : (isEditing ? 'COMMIT_CHANGES' : 'EXECUTE_REGISTRATION')}
+                        {isSubmitting ? 'PROCESSING...' : (isEditing ? 'COMMIT CHANGES' : 'EXECUTE REGISTRATION')}
                     </button>
                 </div>
+
             </form>
         </motion.div>
     )
