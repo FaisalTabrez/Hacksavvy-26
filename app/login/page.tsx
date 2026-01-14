@@ -47,18 +47,17 @@ export default function LoginPage() {
                         <motion.div
                             initial={{ scale: 0.9 }}
                             animate={{ scale: 1 }}
-                            className="inline-block mb-8"
+                            className="inline-block mb-12"
                         >
-                            <div className="flex items-center justify-center space-x-4">
-                                <span className="h-5 w-5 rounded-full bg-red-600 animate-pulse shadow-[0_0_20px_rgba(220,38,38,1)]"></span>
-                                <span className="text-base font-black tracking-[0.5em] text-red-500 uppercase">Antigravity Proto</span>
+                            <div className="flex items-center justify-center space-x-6">
+                                <span className="h-6 w-6 rounded-full bg-red-600 animate-pulse shadow-[0_0_30px_rgba(220,38,38,1)]"></span>
+                                <h1 className="text-7xl font-black tracking-tighter text-white uppercase leading-none">
+                                    HACK<span className="text-red-600">SAVVY</span>
+                                </h1>
                             </div>
                         </motion.div>
 
-                        <h1 className="text-7xl font-black tracking-tighter text-white mb-6 leading-none">
-                            HACK<span className="text-red-600">SAVVY</span>
-                        </h1>
-                        <p className="text-neutral-200 font-black tracking-widest text-xl uppercase">
+                        <p className="text-neutral-200 font-black tracking-[0.4em] text-2xl uppercase">
                             Secure Access Required
                         </p>
                     </div>
