@@ -370,21 +370,28 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                                 </div>
                             </div>
 
-                            {/* Upload Area */}
+                            {/* Upload Area - FIXED */}
                             <div className="space-y-4">
                                 <label className={cn(mono.className, "text-sm md:text-base font-bold text-neutral-300 uppercase tracking-[0.1em]")}>
                                     Proof of Transfer (Screenshot)
                                 </label>
-                                <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed border-white/20 bg-black/20 hover:bg-white/5 hover:border-red-600 cursor-pointer transition-all group">
-                                    <div className="flex flex-col items-center justify-center pt-5 pb-6 text-center px-4">
+                                <label className="relative flex flex-col items-center justify-center w-full h-64 border-2 border-dashed border-white/20 bg-black/20 hover:bg-white/5 hover:border-red-600 cursor-pointer transition-all group overflow-hidden">
+                                    
+                                    <div className="flex flex-col items-center justify-center pt-5 pb-6 text-center w-full px-4">
                                         <svg className="w-12 h-12 text-neutral-600 group-hover:text-red-500 mb-4 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-                                        <p className={cn(mono.className, "text-sm text-neutral-400 uppercase tracking-widest group-hover:text-white font-bold")}>
+                                        
+                                        <p className={cn(mono.className, "text-sm text-neutral-400 uppercase tracking-widest group-hover:text-white font-bold mb-2")}>
                                             <span className="text-red-500">Click to Upload</span> or Drag and Drop
                                         </p>
-                                        <p className={cn(mono.className, "text-[10px] text-neutral-600 mt-2 max-w-full truncate px-4")}>
-                                            {watch('paymentScreenshot')?.[0]?.name || 'NO_DATA_PRESENT'}
-                                        </p>
+                                        
+                                        {/* FIX: max-w-xs to restrict width, and 'truncate' to cut off long text with ... */}
+                                        <div className="max-w-[200px] md:max-w-xs bg-black/50 rounded px-3 py-1 border border-white/10">
+                                            <p className={cn(mono.className, "text-[10px] text-neutral-500 truncate")}>
+                                                {watch('paymentScreenshot')?.[0]?.name || 'NO_DATA_PRESENT'}
+                                            </p>
+                                        </div>
                                     </div>
+                                    
                                     <input type="file" accept="image/*" {...register('paymentScreenshot')} disabled={isEditing} className="hidden" />
                                 </label>
                                 {errors.paymentScreenshot && <span className="text-red-500 text-xs font-mono block mt-2">Error: {errors.paymentScreenshot.message as string}</span>}
