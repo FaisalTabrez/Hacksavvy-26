@@ -12,6 +12,7 @@ interface DashboardClientProps {
 
 export default function DashboardClient({ team, isLeader, user }: DashboardClientProps) {
 
+    // If NO team, show the Full Screen Void Interface
     if (!team) {
         return (
             <PremiumBackground>
@@ -20,9 +21,12 @@ export default function DashboardClient({ team, isLeader, user }: DashboardClien
         )
     }
 
+    // If HAS team, show the Dashboard (We will redesign this next)
     return (
         <PremiumBackground>
-            <TeamDashboard team={team} user={user} isLeader={isLeader} />
+            <div className="min-h-screen w-full"> 
+                <TeamDashboard team={team} user={user} isLeader={isLeader} />
+            </div>
         </PremiumBackground>
     )
 }
