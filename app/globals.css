@@ -976,3 +976,28 @@ footer {
         text-align: left;
     }
 }
+
+/* Custom Scrollbar */
+@layer utilities {
+    .scrollbar-thin {
+        scrollbar-width: thin;
+    }
+    
+    .scrollbar-track-black::-webkit-scrollbar-track {
+        background: #000000;
+    }
+
+    .scrollbar-thumb-red-900::-webkit-scrollbar-thumb {
+        background-color: #7f1d1d;
+        border-radius: 20px;
+        border: 3px solid #000000;
+    }
+
+    .hover\:scrollbar-thumb-red-600:hover::-webkit-scrollbar-thumb {
+        background-color: #dc2626;
+    }
+
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+}
