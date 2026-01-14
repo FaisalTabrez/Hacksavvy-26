@@ -6,7 +6,7 @@ import { cn } from '@/utils/cn'
 // Font Configurations
 const orbitron = Orbitron({ 
   subsets: ["latin"], 
-  weight: ['400', '900'], 
+  weight: ['500', '900'], 
   variable: '--font-orbitron'
 });
 
@@ -18,93 +18,83 @@ const mono = JetBrains_Mono({
 export default function LoginPage() {
     return (
         <PremiumBackground>
-            <div className={cn("flex min-h-screen flex-col items-center justify-center p-4", orbitron.variable, mono.variable)}>
+            <div className={cn("flex min-h-screen items-center justify-center p-4 md:p-8", orbitron.variable, mono.variable)}>
                 
-                {/* Main Card Container - Expanded to max-w-6xl for cinematic feel */}
-                <div className="relative w-full max-w-6xl min-h-[700px] flex flex-col items-center justify-center">
+                {/* Main Card Container - Restrained Width, Tall Aspect Ratio */}
+                <div className="relative w-full max-w-[480px]">
                     
-                    {/* Decorative Corner Lines - Pushed further out for breathing room */}
-                    <div className="absolute -top-16 -left-16 h-32 w-32 border-l-[3px] border-t-[3px] border-red-600/20 transition-all duration-700 hover:border-red-500 hover:scale-110"></div>
-                    <div className="absolute -bottom-16 -right-16 h-32 w-32 border-r-[3px] border-b-[3px] border-red-600/20 transition-all duration-700 hover:border-red-500 hover:scale-110"></div>
-
                     {/* The Glass Card */}
-                    <div className="relative w-full overflow-hidden rounded-[2.5rem] border border-white/5 bg-black/60 shadow-[0_0_100px_-30px_rgba(220,38,38,0.4)] backdrop-blur-3xl flex flex-col items-center">
+                    <div className="relative w-full overflow-hidden rounded-2xl border border-white/10 bg-[#050505]/90 shadow-2xl backdrop-blur-xl">
                         
-                        {/* Subtle Grid overlay inside card */}
-                        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] opacity-20 pointer-events-none"></div>
+                        {/* Top Accent Line (Red) */}
+                        <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-red-600 to-transparent opacity-80"></div>
 
-                        {/* Top Gradient Edge */}
-                        <div className="absolute top-0 h-[1px] w-full bg-gradient-to-r from-transparent via-red-500/50 to-transparent"></div>
-
-                        {/* Content Wrapper */}
-                        <div className="flex flex-col items-center justify-center py-32 px-6 md:px-12 text-center z-10 w-full">
+                        <div className="flex flex-col items-center px-8 py-16 text-center">
                             
-                            {/* 1. Status Line */}
-                            <div className={cn(mono.className, 'text-xs md:text-sm font-bold uppercase tracking-[0.4em] text-red-500/90 mb-6 flex items-center justify-center gap-4')}>
-                                <span className="relative flex h-2 w-2">
-                                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                                  <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                            {/* 1. Status Pill (High Contrast) */}
+                            <div className={cn(mono.className, 'mb-12 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-[10px] font-bold tracking-widest text-neutral-300')}>
+                                <span className="relative flex h-1.5 w-1.5">
+                                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500"></span>
                                 </span>
-                                System Ready // 2.0.2.6
+                                SYSTEM ONLINE // 2.0.2.6
                             </div>
 
-                            {/* 2. Main Title - MASSIVE Scale & Decluttered */}
-                            <h1 className={cn(orbitron.className, 'relative z-20 mb-8 text-7xl md:text-9xl lg:text-[11rem] leading-[0.85] font-black uppercase tracking-tighter text-white drop-shadow-2xl')}>
-                                <span className="bg-gradient-to-b from-white via-neutral-200 to-neutral-500 bg-clip-text text-transparent">
+                            {/* 2. Main Title - "The Hero" (Stacked & Tight) */}
+                            <div className="relative mb-12 flex flex-col items-center leading-[0.8]">
+                                <h1 className={cn(orbitron.className, 'text-7xl font-black tracking-tighter text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.15)]')}>
                                     HACK
-                                </span>
-                                <br />
-                                <span className="bg-gradient-to-b from-white via-neutral-200 to-neutral-500 bg-clip-text text-transparent">
+                                </h1>
+                                <h1 className={cn(orbitron.className, 'text-7xl font-black tracking-tighter text-red-600 drop-shadow-[0_0_15px_rgba(220,38,38,0.5)]')}>
                                     SAVVY
-                                </span>
-                            </h1>
+                                </h1>
+                                
+                                {/* Background Glow behind text */}
+                                <div className="absolute top-1/2 left-1/2 -z-10 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-600/20 blur-[50px]"></div>
+                            </div>
                             
-                            {/* 3. Clean Terminal Subtext (Removed Box) */}
-                            <div className="max-w-lg mx-auto mt-6 mb-20 space-y-2">
-                                <p className={cn(mono.className, 'text-sm md:text-base text-neutral-400 font-medium tracking-wide')}>
-                                    [ SECURE CONNECTION ESTABLISHED ]
+                            {/* 3. Subtext (Minimal) */}
+                            <div className="mb-12 max-w-[260px] space-y-2 text-center">
+                                <p className={cn(mono.className, 'text-xs font-medium text-neutral-400')}>
+                                    [ SECURE GATEWAY DETECTED ]
                                 </p>
-                                <p className={cn(mono.className, 'text-xs md:text-sm text-neutral-600 tracking-wider')}>
-                                    IDENTITY VERIFICATION REQUIRED FOR SECTOR 7 ACCESS
+                                <p className={cn(mono.className, 'text-[10px] text-neutral-600')}>
+                                    Authorized personnel only. Identify via protocol below.
                                 </p>
                             </div>
 
-                            {/* 4. Login Action */}
-                            <form action={loginWithGoogle}>
+                            {/* 4. Login Action (Full Width Button) */}
+                            <form action={loginWithGoogle} className="w-full">
                                 <button
                                     type="submit"
-                                    className="group relative flex items-center justify-center gap-4 overflow-hidden rounded-full border border-white/10 bg-white/5 px-12 py-5 transition-all duration-500 hover:bg-white/10 hover:border-red-500/50 hover:shadow-[0_0_50px_-10px_rgba(220,38,38,0.3)] active:scale-95"
+                                    className="group relative w-full overflow-hidden rounded-lg bg-white py-4 transition-all hover:bg-neutral-200 active:scale-[0.98]"
                                 >
-                                    <svg className="h-6 w-6 text-white/90 transition-transform group-hover:scale-110 group-hover:text-white" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 15.907 0 12.48 0 5.867 0 .533 5.347.533 12S5.867 24 12.48 24c3.44 0 6.04-1.133 7.373-3.36 1.333-2.227 1.253-5.04 1.253-5.04l-8.627-2.68z"/>
-                                    </svg>
+                                    <div className="relative z-10 flex items-center justify-center gap-3">
+                                        {/* Simple Black Google G */}
+                                        <svg className="h-5 w-5 text-black" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 15.907 0 12.48 0 5.867 0 .533 5.347.533 12S5.867 24 12.48 24c3.44 0 6.04-1.133 7.373-3.36 1.333-2.227 1.253-5.04 1.253-5.04l-8.627-2.68z"/>
+                                        </svg>
+                                        <span className={cn(mono.className, "text-sm font-bold tracking-wider text-black")}>
+                                            ACCESS WITH GOOGLE
+                                        </span>
+                                    </div>
                                     
-                                    <span className={cn(mono.className, "text-sm font-bold uppercase tracking-[0.2em] text-white/90 group-hover:text-white")}>
-                                        Initialize Login
-                                    </span>
+                                    {/* Button Hover Glow Effect */}
+                                    <div className="absolute inset-0 -z-10 translate-y-full bg-gradient-to-t from-neutral-200 to-transparent opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"></div>
                                 </button>
                             </form>
                         </div>
                         
-                        {/* Footer Status Bar */}
-                        <div className="absolute bottom-0 w-full flex items-center justify-between px-8 py-4 border-t border-white/5 bg-black/40">
-                             <p className={cn(mono.className, "text-[10px] text-neutral-600 uppercase tracking-widest")}>
-                                Restricted Area
-                            </p>
-                            <div className="flex gap-2">
-                                <div className="h-1.5 w-1.5 rounded-full bg-red-900/40"></div>
-                                <div className="h-1.5 w-1.5 rounded-full bg-red-900/40"></div>
-                                <div className="h-1.5 w-1.5 rounded-full bg-red-600 animate-pulse"></div>
-                            </div>
+                        {/* Footer Bar */}
+                        <div className="flex w-full justify-between border-t border-white/5 bg-black/40 px-6 py-3">
+                            <span className={cn(mono.className, "text-[9px] uppercase tracking-widest text-neutral-600")}>
+                                ID: MGIT-2026
+                            </span>
+                            <span className={cn(mono.className, "text-[9px] uppercase tracking-widest text-neutral-600")}>
+                                SECTOR 7
+                            </span>
                         </div>
                     </div>
-
-                    {/* Exterior Meta Data - Pushed further down */}
-                    <div className={cn(mono.className, "absolute -bottom-24 w-full flex justify-between px-4 text-xs font-bold uppercase tracking-[0.3em] text-neutral-600/50 mix-blend-difference")}>
-                        <span>MGIT // HYD</span>
-                        <span>FEB 12-13 // 2026</span>
-                    </div>
-
                 </div>
             </div>
         </PremiumBackground>
