@@ -56,6 +56,19 @@ export async function registerTeam(formData: FormData) {
         return { error: 'You must be logged in to register.' }
     }
 
+    // Check for duplicate emails
+    const emailsToCheck = data.members.map((m: any) => m.email)
+    if (emailsToCheck.length > 0) {
+        const { data: existingMembers } = await supabase
+            .from('members')
+            .select('email')
+            .in('email', emailsToCheck)
+
+        if (existingMembers && existingMembers.length > 0) {
+            return { error: `User ${existingMembers[0].email} is already part of another team.` }
+        }
+    }
+
     // 3. Upload Payment Screenshot
     const file = data.paymentScreenshot[0] as File
     const fileExt = file.name.split('.').pop()
