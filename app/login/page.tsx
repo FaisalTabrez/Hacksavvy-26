@@ -6,14 +6,14 @@ export default function LoginPage() {
         <PremiumBackground>
             <div className="flex min-h-screen flex-col items-center justify-center p-4">
                 {/* Main Interactive Container */}
-                <div className="relative w-full max-w-md">
+                <div className="relative w-full max-w-xl">
                     
                     {/* Decorative Elements - Cyber Lines */}
                     <div className="absolute -top-12 -left-12 h-24 w-24 border-l-2 border-t-2 border-red-600/30 opacity-50 transition-all duration-700 hover:border-red-500 hover:opacity-100"></div>
                     <div className="absolute -bottom-12 -right-12 h-24 w-24 border-r-2 border-b-2 border-red-600/30 opacity-50 transition-all duration-700 hover:border-red-500 hover:opacity-100"></div>
 
                     {/* Glass Card */}
-                    <div className="relative overflow-hidden rounded-2xl border border-white/5 bg-black/60 shadow-[0_0_50px_rgba(220,38,38,0.1)] backdrop-blur-xl">
+                    <div className="relative overflow-hidden rounded-2xl border border-red-500/50 bg-black/60 shadow-[0_0_100px_rgba(220,38,38,0.4)] backdrop-blur-xl">
                         
                         {/* Top Gradient Bar */}
                         <div className="absolute top-0 h-1 w-full bg-gradient-to-r from-transparent via-red-600 to-transparent opacity-80"></div>
@@ -21,17 +21,17 @@ export default function LoginPage() {
                         <div className="p-10 pt-12 text-center">
                             {/* Brand Header */}
                             <div className="mb-2 inline-flex items-center justify-center rounded-full bg-red-500/10 px-4 py-1.5 backdrop-blur-sm">
-                                <span className="mr-2 relative flex h-2 w-2">
+                                <span className="mr-4 relative flex h-2 w-2">
                                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                                     <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
                                 </span>
-                                <span className="text-xs font-semibold uppercase tracking-widest text-red-400">System Ready</span>
+                                <span className="text-xs font-bold uppercase tracking-widest text-red-400">System Ready</span>
                             </div>
 
                             <h1 className="mb-2 mt-6 text-5xl font-black tracking-tighter text-white sm:text-6xl">
                                 HACK<span className="text-red-600">SAVVY</span>
                             </h1>
-                            <p className="mb-10 text-lg font-light text-gray-400">
+                            <p className="mb-10 text-lg font-bold text-gray-400">
                                 Initialize Sequence <span className="font-mono text-red-500">2.0.2.6</span>
                             </p>
 
