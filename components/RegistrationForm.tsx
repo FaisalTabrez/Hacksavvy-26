@@ -338,8 +338,9 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                 <div className="flex flex-col md:flex-row gap-12 items-start">
                     <div className="relative group/qr">
                         <div className="absolute -inset-1 bg-gradient-to-r from-red-500 to-pink-500 rounded-2xl blur opacity-25 group-hover/qr:opacity-50 transition duration-1000 group-hover/qr:duration-200"></div>
-                        <div className="relative w-48 h-48 bg-white p-3 rounded-2xl flex-shrink-0">
-                            <img src="/qr.png" alt="Payment QR Code" className="w-full h-full object-contain" />
+                        <div className="relative w-48 h-48 bg-black/40 border border-white/10 p-3 rounded-2xl flex-shrink-0 flex items-center justify-center">
+                            <span className="text-gray-500 font-medium text-sm">QR Placeholder</span>
+                            {/* <img src="/qr.png" alt="Payment QR Code" className="w-full h-full object-contain" /> */}
                         </div>
                         <p className="mt-4 text-center text-[10px] text-gray-500 uppercase tracking-tighter font-bold">Scan to pay</p>
                     </div>

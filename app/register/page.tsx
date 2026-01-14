@@ -13,8 +13,8 @@ export default async function RegisterPage() {
 
     return (
         <PremiumBackground>
-            <div className="py-12 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-4xl mx-auto">
+            <div className="flex min-h-screen items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+                <div className="w-full max-w-4xl">
                     <div className="text-center mb-12">
                         <h1 className="text-4xl font-extrabold bg-gradient-to-r from-white via-red-200 to-red-500 bg-clip-text text-transparent sm:text-5xl sm:tracking-tight lg:text-7xl font-orbitron mb-4">
                             Team Registration
