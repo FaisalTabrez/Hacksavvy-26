@@ -38,21 +38,18 @@ export default function About() {
                                 }}
                             ></div>
                             <div className="col-lg-6">
-                                <p>
-                                    <span
-                                        style={{ textDecoration: "underline", fontWeight: 600 }}
-                                    >
-                                        Where
+                                <p style={{ whiteSpace: "nowrap" }}>
+                                    <span style={{ textDecoration: "underline", fontWeight: 600 }}>
+                                    Where
                                     </span>
-                                    : MGIT, Hyderabad
+                                    <span>: MGIT, Hyderabad</span>
                                 </p>
-                                <p>
-                                    <span
-                                        style={{ textDecoration: "underline", fontWeight: 600 }}
-                                    >
-                                        When
+
+                                <p style={{ whiteSpace: "nowrap" }}>
+                                    <span style={{ textDecoration: "underline", fontWeight: 600 }}>
+                                    When
                                     </span>
-                                    : Thursday – Friday
+                                    <span>: Thursday – Friday</span>
                                     <br />
                                     12th – 13th Feb 2026
                                 </p>

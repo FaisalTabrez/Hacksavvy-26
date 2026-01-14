@@ -85,8 +85,8 @@ export default function Team() {
                             </div>
 
                             <div className="team-card">
-                                <img src="faculty/2.jpg" alt="Dr. V. Subba Ramaiaha" />
-                                <h4>Dr. V. Subba Ramaiaha</h4>
+                                <img src="faculty/2.jpg" alt="Dr. V. Subba Ramaiah" />
+                                <h4>Dr. V. Subba Ramaiah</h4>
                                 <p>Faculty Co-ordinator</p>
                             </div>
 
@@ -133,8 +133,8 @@ export default function Team() {
                             </div>
 
                             <div className="team-card">
-                                <img src="faculty/9.jpg" alt="A. Bal raju" />
-                                <h4>A. Bal raju</h4>
+                                <img src="faculty/9.jpg" alt="A. Bal Raju" />
+                                <h4>A. Bal Raju</h4>
                                 <p>Faculty Co-ordinator</p>
                             </div>
 
