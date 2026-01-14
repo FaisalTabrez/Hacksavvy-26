@@ -7,6 +7,8 @@ import { registrationSchema, RegistrationFormValues } from '@/app/register/schem
 import { registerTeam } from '@/app/register/actions'
 import { createClient } from '@/utils/supabase/client'
 import { User } from '@supabase/supabase-js'
+import { motion, AnimatePresence } from 'framer-motion'
+import { cn } from '@/utils/cn'
 
 import { updateTeamDetails } from '@/app/dashboard/actions'
 
@@ -95,24 +97,24 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
 
         if (data.paymentScreenshot && data.paymentScreenshot.length > 0) {
             let file = data.paymentScreenshot[0]
-            
+
             // Compression Logic for Images
             if (file.type.startsWith('image/')) {
                 try {
-                const imageCompression = (await import('browser-image-compression')).default;
-                const options = {
-                    maxSizeMB: 1,
-                    maxWidthOrHeight: 1920,
-                    useWebWorker: true
-                }
-                const compressedFile = await imageCompression(file, options);
-                // Create a new file with the original name but compressed content
-                file = new File([compressedFile], file.name, { type: file.type });
+                    const imageCompression = (await import('browser-image-compression')).default;
+                    const options = {
+                        maxSizeMB: 1,
+                        maxWidthOrHeight: 1920,
+                        useWebWorker: true
+                    }
+                    const compressedFile = await imageCompression(file, options);
+                    // Create a new file with the original name but compressed content
+                    file = new File([compressedFile], file.name, { type: file.type });
                 } catch (error) {
                     console.error('Image compression failed, using original file:', error);
                 }
             }
-            
+
             formData.append('paymentScreenshot', file)
         }
 
@@ -146,283 +148,331 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="relative group overflow-hidden rounded-2xl bg-gray-900/50 p-8 shadow-2xl backdrop-blur-xl transition-all duration-300 border border-white/5 hover:border-red-500/20">
-            {/* Card glow effect */}
-            <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-red-500/50 to-transparent"></div>
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="w-full max-w-4xl mx-auto"
+        >
+            <form onSubmit={handleSubmit(onSubmit)} className="relative group overflow-hidden rounded-[2.5rem] bg-neutral-950/50 p-8 md:p-12 shadow-[0_0_40px_-10px_rgba(220,38,38,0.1)] backdrop-blur-2xl border border-red-900/30">
+                {/* Decorative Accent Line */}
+                <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-red-600/50 to-transparent"></div>
 
-            {serverError && (
-                <div className="p-4 bg-red-500/10 border border-red-500/50 rounded-xl text-red-200 mb-8 animate-shake">
-                    {serverError}
-                </div>
-            )}
+                {serverError && (
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="p-4 bg-red-950/50 border border-red-900/50 rounded-2xl text-red-400 mb-10 text-center font-medium"
+                    >
+                        {serverError}
+                    </motion.div>
+                )}
 
-            {/* Team Details */}
-            <div className="space-y-6">
-                <div className="flex items-center gap-4">
-                    <div className="h-8 w-1 bg-red-500 rounded-full"></div>
-                    <h2 className="text-2xl font-bold text-white uppercase tracking-wider">Team Details</h2>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label className="block text-sm font-medium text-gray-400 mb-2">Team Name</label>
-                        <input
-                            {...register('teamName')}
-                            disabled={isEditing}
-                            placeholder="Enter team name"
-                            className={`w-full bg-black/40 rounded-xl border border-white/10 p-3 text-white transition-all focus:border-red-500/50 focus:ring-1 focus:ring-red-500/50 outline-none placeholder:text-gray-600 ${isEditing ? 'opacity-50 cursor-not-allowed' : 'hover:border-white/20'}`}
-                        />
-                        {errors.teamName && <p className="text-red-400 text-xs mt-2 ml-1">{errors.teamName.message}</p>}
+                {/* Team Details Section */}
+                <div className="space-y-8">
+                    <div className="flex items-center gap-4">
+                        <div className="h-2 w-2 rounded-full bg-red-600 shadow-[0_0_10px_rgba(220,38,38,0.8)]"></div>
+                        <h2 className="text-xl font-black text-white uppercase tracking-[0.2em]">Group Infrastructure</h2>
                     </div>
 
-                    <div>
-                        <label className="block text-sm font-medium text-gray-400 mb-2">Track</label>
-                        <select
-                            {...register('track')}
-                            className="w-full bg-black/40 rounded-xl border border-white/10 p-3 text-white transition-all focus:border-red-500/50 focus:ring-1 focus:ring-red-500/50 outline-none hover:border-white/20 appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M5%207L10%2012L15%207%22%20stroke%3D%22%236B7280%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E')] bg-[position:right_1rem_center] bg-no-repeat"
-                        >
-                            <option value="AI" className="bg-gray-900">AI, Automation & Robotics</option>
-                            <option value="IoT" className="bg-gray-900">IoT & Embedded Systems</option>
-                            <option value="Blockchain" className="bg-gray-900">Cybersecurity & Blockchain</option>
-                            <option value="Open Innovation" className="bg-gray-900">Open Innovation</option>
-                        </select>
-                        {errors.track && <p className="text-red-400 text-xs mt-2 ml-1">{errors.track.message}</p>}
-                    </div>
-                </div>
-
-                <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-3">Team Size</label>
-                    <div className="flex flex-wrap gap-4">
-                        {['2', '3', '4', '5'].map((size) => (
-                            <label key={size} className="relative flex items-center gap-3 cursor-pointer group/radio">
-                                <input
-                                    type="radio"
-                                    value={size}
-                                    {...register('teamSize')}
-                                    className="peer sr-only"
-                                />
-                                <div className="px-4 py-2 rounded-lg bg-black/40 border border-white/10 text-gray-400 transition-all peer-checked:bg-red-500/10 peer-checked:border-red-500/50 peer-checked:text-white hover:border-white/20">
-                                    {size} Members
-                                </div>
-                            </label>
-                        ))}
-                    </div>
-                </div>
-            </div>
-
-            {/* Member Details */}
-            <div className="space-y-8 mt-12">
-                <div className="flex items-center gap-4">
-                    <div className="h-8 w-1 bg-red-500 rounded-full"></div>
-                    <h2 className="text-2xl font-bold text-white uppercase tracking-wider">Member Details</h2>
-                </div>
-
-                <div className="grid grid-cols-1 gap-8">
-                    {fields.map((field, index) => (
-                        <div key={field.id} className="relative overflow-hidden bg-white/[0.02] border border-white/5 p-6 rounded-2xl transition-all hover:bg-white/[0.04] hover:border-white/10">
-                            <div className="flex items-center justify-between mb-6">
-                                <h3 className="text-lg font-semibold text-red-500 flex items-center gap-2">
-                                    <span className="flex items-center justify-center w-6 h-6 rounded-full bg-red-500/10 text-xs">
-                                        {index + 1}
-                                    </span>
-                                    {index === 0 ? 'Team Leader' : `Member ${index + 1}`}
-                                </h3>
-                                {index === 0 && <span className="text-[10px] uppercase tracking-widest text-gray-500 font-bold px-2 py-1 rounded bg-white/5 border border-white/10">Primary Contact</span>}
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Full Name</label>
-                                    <input
-                                        {...register(`members.${index}.name`)}
-                                        placeholder="Enter name"
-                                        className="w-full bg-black/40 rounded-xl border border-white/10 p-3 text-white transition-all focus:border-red-500/50 focus:ring-1 focus:ring-red-500/50 outline-none placeholder:text-gray-700"
-                                    />
-                                    {errors.members?.[index]?.name && (
-                                        <p className="text-red-400 text-[10px] mt-2 ml-1">{errors.members[index]?.name?.message}</p>
-                                    )}
-                                </div>
-
-                                <div>
-                                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Email</label>
-                                    <input
-                                        {...register(`members.${index}.email`)}
-                                        readOnly={index === 0 && !!user}
-                                        placeholder="Enter email"
-                                        className={`w-full bg-black/40 rounded-xl border border-white/10 p-3 text-white transition-all focus:border-red-500/50 focus:ring-1 focus:ring-red-500/50 outline-none placeholder:text-gray-700 ${index === 0 && user ? 'opacity-50 cursor-not-allowed' : ''}`}
-                                    />
-                                    {errors.members?.[index]?.email && (
-                                        <p className="text-red-400 text-[10px] mt-2 ml-1">{errors.members[index]?.email?.message}</p>
-                                    )}
-                                </div>
-
-                                <div>
-                                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">WhatsApp Number</label>
-                                    <input
-                                        {...register(`members.${index}.phone`)}
-                                        placeholder="+91"
-                                        className="w-full bg-black/40 rounded-xl border border-white/10 p-3 text-white transition-all focus:border-red-500/50 focus:ring-1 focus:ring-red-500/50 outline-none placeholder:text-gray-700"
-                                    />
-                                    {errors.members?.[index]?.phone && (
-                                        <p className="text-red-400 text-[10px] mt-2 ml-1">{errors.members[index]?.phone?.message}</p>
-                                    )}
-                                </div>
-
-                                <div>
-                                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">College Name</label>
-                                    <input
-                                        {...register(`members.${index}.college`)}
-                                        placeholder="Enter college"
-                                        className="w-full bg-black/40 rounded-xl border border-white/10 p-3 text-white transition-all focus:border-red-500/50 focus:ring-1 focus:ring-red-500/50 outline-none placeholder:text-gray-700"
-                                    />
-                                    {errors.members?.[index]?.college && (
-                                        <p className="text-red-400 text-[10px] mt-2 ml-1">{errors.members[index]?.college?.message}</p>
-                                    )}
-                                </div>
-
-                                {index === 0 && (
-                                    <>
-                                        <div>
-                                            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Roll Number</label>
-                                            <input
-                                                {...register(`members.${index}.rollNo`)}
-                                                placeholder="Enter roll no"
-                                                className="w-full bg-black/40 rounded-xl border border-white/10 p-3 text-white transition-all focus:border-red-500/50 focus:ring-1 focus:ring-red-500/50 outline-none placeholder:text-gray-700"
-                                            />
-                                            {errors.members?.[index]?.rollNo && (
-                                                <p className="text-red-400 text-[10px] mt-2 ml-1">{errors.members[index]?.rollNo?.message}</p>
-                                            )}
-                                        </div>
-
-                                        <div>
-                                            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Branch</label>
-                                            <input
-                                                {...register(`members.${index}.branch`)}
-                                                placeholder="Enter branch"
-                                                className="w-full bg-black/40 rounded-xl border border-white/10 p-3 text-white transition-all focus:border-red-500/50 focus:ring-1 focus:ring-red-500/50 outline-none placeholder:text-gray-700"
-                                            />
-                                            {errors.members?.[index]?.branch && (
-                                                <p className="text-red-400 text-[10px] mt-2 ml-1">{errors.members[index]?.branch?.message}</p>
-                                            )}
-                                        </div>
-                                    </>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black uppercase tracking-widest text-neutral-400 ml-1">Identity Tag (Team Name)</label>
+                            <input
+                                {...register('teamName')}
+                                disabled={isEditing}
+                                placeholder="IDENTIFY_YOUR_SQUAD"
+                                className={cn(
+                                    "w-full bg-neutral-900/50 rounded-2xl border border-neutral-800 p-4 text-white placeholder:text-neutral-700 transition-all outline-none",
+                                    "focus:border-red-600 focus:ring-1 focus:ring-red-600/20",
+                                    isEditing && "opacity-50 cursor-not-allowed"
                                 )}
+                            />
+                            {errors.teamName && <p className="text-red-500 text-[10px] mt-1 ml-1 font-mono">{errors.teamName.message}</p>}
+                        </div>
 
-                                <div className="md:col-span-2 flex flex-wrap gap-6 items-center pt-2">
-                                    <label className="flex items-center gap-3 cursor-pointer group/toggle">
-                                        <div className="relative">
-                                            <input
-                                                type="checkbox"
-                                                {...register(`members.${index}.accommodation`)}
-                                                className="peer sr-only"
-                                            />
-                                            <div className="w-10 h-5 bg-white/10 rounded-full border border-white/10 transition-all peer-checked:bg-red-500/50"></div>
-                                            <div className="absolute left-1 top-1 w-3 h-3 bg-gray-400 rounded-full transition-all peer-checked:left-6 peer-checked:bg-white"></div>
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black uppercase tracking-widest text-neutral-400 ml-1">Operational Track</label>
+                            <select
+                                {...register('track')}
+                                className="w-full bg-neutral-900/50 rounded-2xl border border-neutral-800 p-4 text-white transition-all outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600/20 appearance-none cursor-pointer"
+                            >
+                                <option value="AI">AI, AUTOMATION & ROBOTICS</option>
+                                <option value="IoT">IOT & EMBEDDED SYSTEMS</option>
+                                <option value="Blockchain">CYBERSECURITY & BLOCKCHAIN</option>
+                                <option value="Open Innovation">OPEN INNOVATION</option>
+                            </select>
+                            {errors.track && <p className="text-red-500 text-[10px] mt-1 ml-1 font-mono">{errors.track.message}</p>}
+                        </div>
+                    </div>
+
+                    <div className="space-y-4">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-neutral-400 ml-1">Team Magnitude</label>
+                        <div className="flex flex-wrap gap-3">
+                            {['2', '3', '4', '5'].map((size) => (
+                                <label key={size} className="relative cursor-pointer group">
+                                    <input
+                                        type="radio"
+                                        value={size}
+                                        {...register('teamSize')}
+                                        className="peer sr-only"
+                                    />
+                                    <div className="min-w-[80px] text-center px-6 py-3 rounded-xl bg-neutral-900/50 border border-neutral-800 text-neutral-500 font-bold transition-all peer-checked:bg-red-600/10 peer-checked:border-red-600 peer-checked:text-white group-hover:border-neutral-700">
+                                        {size}
+                                    </div>
+                                </label>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Member Manifest Section */}
+                <div className="space-y-10 mt-16">
+                    <div className="flex items-center gap-4">
+                        <div className="h-2 w-2 rounded-full bg-red-600 shadow-[0_0_10px_rgba(220,38,38,0.8)]"></div>
+                        <h2 className="text-xl font-black text-white uppercase tracking-[0.2em]">Personnel Manifest</h2>
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-12">
+                        <AnimatePresence mode="popLayout" initial={false}>
+                            {fields.map((field, index) => (
+                                <motion.div
+                                    key={field.id}
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: 20 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="relative group/member p-8 rounded-3xl bg-neutral-900/30 border border-neutral-800/50 hover:border-red-900/20 transition-all"
+                                >
+                                    <div className="flex items-center justify-between mb-8">
+                                        <div className="flex items-center gap-3">
+                                            <span className="text-xs font-mono text-red-600 bg-red-600/10 px-3 py-1 rounded-full border border-red-600/20">
+                                                ID_0{index + 1}
+                                            </span>
+                                            <h3 className="text-sm font-black text-white uppercase tracking-widest">
+                                                {index === 0 ? 'Project Lead' : `Sub-Member 0${index + 1}`}
+                                            </h3>
                                         </div>
-                                        <span className="text-sm text-gray-400 group-hover/toggle:text-white transition-colors">Accommodation Req.</span>
-                                    </label>
+                                        {index === 0 && <span className="text-[8px] uppercase tracking-[0.3em] font-black text-red-500/50">Primary_Authority</span>}
+                                    </div>
 
-                                    <div className="flex items-center gap-3">
-                                        <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Food:</span>
-                                        <div className="flex bg-black/40 rounded-lg p-1 border border-white/5">
-                                            {['Veg', 'Non-Veg'].map((opt) => (
-                                                <label key={opt} className="cursor-pointer">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                        <div className="space-y-2">
+                                            <label className="text-[10px] font-black uppercase tracking-widest text-neutral-500">Legal Name</label>
+                                            <input
+                                                {...register(`members.${index}.name`)}
+                                                placeholder="REQUIRED"
+                                                className="w-full bg-neutral-900/50 rounded-xl border border-neutral-800 p-3 text-white transition-all outline-none focus:border-red-600"
+                                            />
+                                            {errors.members?.[index]?.name && (
+                                                <p className="text-red-500 text-[10px] font-mono">{errors.members[index]?.name?.message}</p>
+                                            )}
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            <label className="text-[10px] font-black uppercase tracking-widest text-neutral-500">Comm-Channel (Email)</label>
+                                            <input
+                                                {...register(`members.${index}.email`)}
+                                                readOnly={index === 0 && !!user}
+                                                placeholder="AUTH_REQUIRED"
+                                                className={cn(
+                                                    "w-full bg-neutral-900/50 rounded-xl border border-neutral-800 p-3 text-white transition-all outline-none focus:border-red-600",
+                                                    index === 0 && user && "opacity-50 cursor-not-allowed"
+                                                )}
+                                            />
+                                            {errors.members?.[index]?.email && (
+                                                <p className="text-red-500 text-[10px] font-mono">{errors.members[index]?.email?.message}</p>
+                                            )}
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            <label className="text-[10px] font-black uppercase tracking-widest text-neutral-500">Signal-ID (WhatsApp)</label>
+                                            <input
+                                                {...register(`members.${index}.phone`)}
+                                                placeholder="+91_MOBILE"
+                                                className="w-full bg-neutral-900/50 rounded-xl border border-neutral-800 p-3 text-white transition-all outline-none focus:border-red-600"
+                                            />
+                                            {errors.members?.[index]?.phone && (
+                                                <p className="text-red-500 text-[10px] font-mono">{errors.members[index]?.phone?.message}</p>
+                                            )}
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            <label className="text-[10px] font-black uppercase tracking-widest text-neutral-500">Sector (College)</label>
+                                            <input
+                                                {...register(`members.${index}.college`)}
+                                                placeholder="INSTITUTION_NAME"
+                                                className="w-full bg-neutral-900/50 rounded-xl border border-neutral-800 p-3 text-white transition-all outline-none focus:border-red-600"
+                                            />
+                                            {errors.members?.[index]?.college && (
+                                                <p className="text-red-500 text-[10px] font-mono">{errors.members[index]?.college?.message}</p>
+                                            )}
+                                        </div>
+
+                                        {index === 0 && (
+                                            <>
+                                                <div className="space-y-2">
+                                                    <label className="text-[10px] font-black uppercase tracking-widest text-neutral-500">Serial-No (Roll No)</label>
                                                     <input
-                                                        type="radio"
-                                                        value={opt}
-                                                        {...register(`members.${index}.food`)}
-                                                        className="peer sr-only"
+                                                        {...register(`members.${index}.rollNo`)}
+                                                        placeholder="INTERNAL_ID"
+                                                        className="w-full bg-neutral-900/50 rounded-xl border border-neutral-800 p-3 text-white transition-all outline-none focus:border-red-600"
                                                     />
-                                                    <div className="px-3 py-1 rounded-md text-[10px] font-bold uppercase transition-all text-gray-500 peer-checked:bg-white/5 peer-checked:text-red-500">
-                                                        {opt}
-                                                    </div>
-                                                </label>
-                                            ))}
+                                                    {errors.members?.[index]?.rollNo && (
+                                                        <p className="text-red-500 text-[10px] font-mono">{errors.members[index]?.rollNo?.message}</p>
+                                                    )}
+                                                </div>
+
+                                                <div className="space-y-2">
+                                                    <label className="text-[10px] font-black uppercase tracking-widest text-neutral-500">Department (Branch)</label>
+                                                    <input
+                                                        {...register(`members.${index}.branch`)}
+                                                        placeholder="UNIT_NAME"
+                                                        className="w-full bg-neutral-900/50 rounded-xl border border-neutral-800 p-3 text-white transition-all outline-none focus:border-red-600"
+                                                    />
+                                                    {errors.members?.[index]?.branch && (
+                                                        <p className="text-red-500 text-[10px] font-mono">{errors.members[index]?.branch?.message}</p>
+                                                    )}
+                                                </div>
+                                            </>
+                                        )}
+                                    </div>
+
+                                    <div className="mt-8 flex flex-wrap gap-8 items-center bg-black/20 p-4 rounded-2xl border border-neutral-800/50">
+                                        <label className="flex items-center gap-3 cursor-pointer group/toggle">
+                                            <div className="relative">
+                                                <input
+                                                    type="checkbox"
+                                                    {...register(`members.${index}.accommodation`)}
+                                                    className="peer sr-only"
+                                                />
+                                                <div className="w-10 h-5 bg-neutral-800 rounded-full transition-all peer-checked:bg-red-600"></div>
+                                                <div className="absolute left-1 top-1 w-3 h-3 bg-neutral-400 rounded-full transition-all peer-checked:left-6 peer-checked:bg-white"></div>
+                                            </div>
+                                            <span className="text-[10px] font-black uppercase tracking-widest text-neutral-500 group-hover:text-red-500 transition-colors">Accommodation Req_</span>
+                                        </label>
+
+                                        <div className="flex items-center gap-4">
+                                            <span className="text-[10px] font-black uppercase tracking-widest text-neutral-500">Provisions:</span>
+                                            <div className="flex bg-neutral-800/50 rounded-lg p-1">
+                                                {['Veg', 'Non-Veg'].map((opt) => (
+                                                    <label key={opt} className="cursor-pointer">
+                                                        <input
+                                                            type="radio"
+                                                            value={opt}
+                                                            {...register(`members.${index}.food`)}
+                                                            className="peer sr-only"
+                                                        />
+                                                        <div className="px-4 py-1.5 rounded-md text-[9px] font-black uppercase transition-all text-neutral-500 peer-checked:bg-red-600/10 peer-checked:text-red-500">
+                                                            {opt}
+                                                        </div>
+                                                    </label>
+                                                ))}
+                                            </div>
                                         </div>
                                     </div>
+                                </motion.div>
+                            ))}
+                        </AnimatePresence>
+                    </div>
+                </div>
+
+                {/* Secure Payment Node */}
+                <div className="mt-16 bg-neutral-900/40 border border-red-900/20 p-8 md:p-10 rounded-[2rem] relative overflow-hidden">
+                    {/* Scanner aesthetic accents */}
+                    <div className="absolute top-4 left-4 w-4 h-4 border-t-2 border-l-2 border-red-600/50"></div>
+                    <div className="absolute top-4 right-4 w-4 h-4 border-t-2 border-r-2 border-red-600/50"></div>
+                    <div className="absolute bottom-4 left-4 w-4 h-4 border-b-2 border-l-2 border-red-600/50"></div>
+                    <div className="absolute bottom-4 right-4 w-4 h-4 border-b-2 border-r-2 border-red-600/50"></div>
+
+                    <div className="flex items-center gap-4 mb-10">
+                        <div className="h-2 w-2 rounded-full bg-red-600 animate-pulse"></div>
+                        <h2 className="text-xl font-black text-white uppercase tracking-[0.2em]">Transaction Node</h2>
+                    </div>
+
+                    <div className="flex flex-col md:flex-row gap-12 items-start">
+                        <div className="w-full md:w-auto flex flex-col items-center">
+                            <div className="relative group/qr p-4 rounded-3xl bg-neutral-950/80 border border-neutral-800 shadow-[0_0_30px_rgba(220,38,38,0.1)]">
+                                <div className="w-40 h-40 flex items-center justify-center text-neutral-700 font-mono text-[10px] text-center p-4">
+                                    [QR_SIGNATURE_PENDING]
+                                </div>
+                                <div className="mt-4 text-center">
+                                    <span className="text-[9px] font-black text-red-500/50 uppercase tracking-[0.3em]">Scan_Auth_Code</span>
                                 </div>
                             </div>
                         </div>
-                    ))}
-                </div>
-            </div>
 
-            {/* Payment Section */}
-            <div className="space-y-6 mt-12 bg-black/40 border border-white/10 p-8 rounded-3xl backdrop-blur-md">
-                <div className="flex items-center gap-4">
-                    <div className="h-8 w-1 bg-red-500 rounded-full shadow-[0_0_10px_#ef4444]"></div>
-                    <h2 className="text-2xl font-bold text-white uppercase tracking-wider">Payment Verification</h2>
-                </div>
-
-                <div className="flex flex-col md:flex-row gap-12 items-start">
-                    <div className="relative group/qr">
-                        <div className="absolute -inset-1 bg-gradient-to-r from-red-500 to-pink-500 rounded-2xl blur opacity-25 group-hover/qr:opacity-50 transition duration-1000 group-hover/qr:duration-200"></div>
-                        <div className="relative w-48 h-48 bg-black/40 border border-white/10 p-3 rounded-2xl flex-shrink-0 flex items-center justify-center">
-                            <span className="text-gray-500 font-medium text-sm">QR Placeholder</span>
-                            {/* <img src="/qr.png" alt="Payment QR Code" className="w-full h-full object-contain" /> */}
-                        </div>
-                        <p className="mt-4 text-center text-[10px] text-gray-500 uppercase tracking-tighter font-bold">Scan to pay</p>
-                    </div>
-
-                    <div className="flex-grow space-y-6 w-full">
-                        <div className="bg-red-500/5 p-4 rounded-xl border border-red-500/20">
-                            <p className="text-sm text-red-100/80 leading-relaxed">
-                                Please pay the registration fee of <strong className="text-red-500 font-black">₹2500</strong> per team.
-                                Enter the <span className="underline decoration-red-500/50 underline-offset-4">Transaction ID</span> and upload the receipt below.
-                            </p>
-                        </div>
-
-                        <div className="grid grid-cols-1 gap-6">
-                            <div>
-                                <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">UPI Reference ID</label>
-                                <input
-                                    {...register('upiReference')}
-                                    disabled={isEditing}
-                                    placeholder="e.g. 123456789012"
-                                    className={`w-full bg-black/40 rounded-xl border border-white/10 p-3 text-white transition-all focus:border-red-500/50 focus:ring-1 focus:ring-red-500/50 outline-none placeholder:text-gray-700 ${isEditing ? 'opacity-50 cursor-not-allowed' : 'hover:border-white/20'}`}
-                                />
-                                {errors.upiReference && <p className="text-red-400 text-[10px] mt-2 ml-1">{errors.upiReference?.message}</p>}
+                        <div className="flex-grow space-y-8 w-full">
+                            <div className="bg-red-600/5 p-4 rounded-2xl border-l-2 border-red-600">
+                                <p className="text-xs text-neutral-300 leading-relaxed font-medium">
+                                    Registration Credit: <span className="text-white font-black">₹2500_UNIT</span><br />
+                                    Provide <span className="text-red-500">TRANSACTION_HASH</span> and <span className="text-red-500">RECEIPT_OBJ</span> for validation.
+                                </p>
                             </div>
 
-                            <div>
-                                <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Payment Receipt</label>
-                                <div className="relative group/file">
+                            <div className="grid grid-cols-1 gap-8">
+                                <div className="space-y-2">
+                                    <label className="text-[10px] font-black uppercase tracking-widest text-neutral-500">Transaction ID (UPI Ref)</label>
                                     <input
-                                        type="file"
-                                        accept="image/*"
-                                        {...register('paymentScreenshot')}
+                                        {...register('upiReference')}
                                         disabled={isEditing}
-                                        className={`w-full bg-black/40 rounded-xl border border-white/10 p-3 text-sm text-gray-400 transition-all file:mr-4 file:py-1 file:px-4 file:rounded-lg file:border-0 file:text-[10px] file:font-black file:uppercase file:bg-red-500/10 file:text-red-500 hover:file:bg-red-500/20 ${isEditing ? 'opacity-50 cursor-not-allowed' : 'hover:border-white/20'}`}
+                                        placeholder="SEQ_12_DIGITS"
+                                        className={cn(
+                                            "w-full bg-neutral-900/50 rounded-2xl border border-neutral-800 p-4 text-white placeholder:text-neutral-700 transition-all focus:border-red-600 outline-none",
+                                            isEditing && "opacity-50 cursor-not-allowed"
+                                        )}
                                     />
+                                    {errors.upiReference && <p className="text-red-500 text-[10px] font-mono">{errors.upiReference?.message}</p>}
                                 </div>
-                                {errors.paymentScreenshot && <p className="text-red-400 text-[10px] mt-2 ml-1">{errors.paymentScreenshot?.message as string}</p>}
+
+                                <div className="space-y-2">
+                                    <label className="text-[10px] font-black uppercase tracking-widest text-neutral-500">Digital Receipt (Image)</label>
+                                    <div className="relative group/dropzone">
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            {...register('paymentScreenshot')}
+                                            disabled={isEditing}
+                                            className={cn(
+                                                "w-full bg-neutral-900/20 rounded-2xl border-2 border-dashed border-neutral-800 p-8 text-xs text-neutral-500 text-center cursor-pointer transition-all",
+                                                "hover:border-red-600 hover:bg-red-600/5",
+                                                isEditing && "opacity-50 cursor-not-allowed pointer-events-none"
+                                            )}
+                                        />
+                                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                            <span className="text-[10px] font-black uppercase tracking-widest opacity-40 group-hover/dropzone:opacity-100 transition-opacity">
+                                                {watch('paymentScreenshot')?.[0]?.name || 'Upload_Evidence_Obj'}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    {errors.paymentScreenshot && <p className="text-red-500 text-[10px] font-mono">{errors.paymentScreenshot?.message as string}</p>}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 mt-12">
-                {isEditing && onCancel && (
+                <div className="flex flex-col sm:flex-row gap-6 mt-16">
+                    {isEditing && onCancel && (
+                        <button
+                            type="button"
+                            onClick={onCancel}
+                            className="flex-1 bg-neutral-900/50 hover:bg-neutral-800 text-white font-black py-5 px-10 rounded-2xl transition-all border border-neutral-800 uppercase tracking-widest text-xs"
+                        >
+                            Abort_Edit
+                        </button>
+                    )}
                     <button
-                        type="button"
-                        onClick={onCancel}
-                        className="flex-1 bg-white/5 hover:bg-white/10 text-white font-bold py-4 px-8 rounded-xl transition-all border border-white/10"
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="flex-1 relative group overflow-hidden rounded-2xl bg-red-600 px-10 py-5 text-sm font-black text-white transition-all duration-300 hover:bg-red-700 hover:shadow-[0_0_40px_rgba(220,38,38,0.4)] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed border-t border-red-400/30"
                     >
-                        Cancel
+                        <span className="relative z-10 uppercase tracking-[0.2em]">
+                            {isSubmitting ? 'Validating_Sequence...' : (isEditing ? 'Sync_Changes' : 'Initialize_Registration')}
+                        </span>
                     </button>
-                )}
-                <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="flex-1 group relative overflow-hidden rounded-xl bg-red-600 px-8 py-4 text-base font-bold text-white transition-all duration-300 hover:bg-red-700 hover:shadow-[0_0_30px_rgba(220,38,38,0.5)] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed border border-red-500/50"
-                >
-                    <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-red-900 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <span className="relative z-10 tracking-wider uppercase">
-                        {isSubmitting ? 'Processing...' : (isEditing ? 'Save Changes' : 'Confirm Registration')}
-                    </span>
-                </button>
-            </div>
-        </form>
+                </div>
+            </form>
+        </motion.div>
     )
 }
+
