@@ -36,14 +36,15 @@ export default function Navbar() {
             }`}
         >
           <ul className="d-flex flex-row align-items-center">
-            <li>
-              <Link className="nav-link scrollto" href="#about" onClick={closeMobileNav}>
-                About
-              </Link>
-            </li>
+            
             <li>
               <Link className="nav-link scrollto" href="#theme" onClick={closeMobileNav}>
                 Theme
+              </Link>
+            </li>
+            <li>
+              <Link className="nav-link scrollto" href="#about" onClick={closeMobileNav}>
+                About
               </Link>
             </li>
             <li>

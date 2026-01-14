@@ -68,6 +68,7 @@ export default function Hero() {
             </div>
 
             <div className="hero-content">
+                <img src="mgitlogo.png" className="hero-image" alt="Mgit Logo animation"></img>
                 <h1 className="hero-title">
                     H<span className="c1">ACK</span>
                     S<span className="c1">AVVY</span>-26
