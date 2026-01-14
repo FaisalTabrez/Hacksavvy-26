@@ -256,14 +256,14 @@ a {
     justify-content: center;
     max-width: 800px;
     margin: 0 auto;
-    margin-top: 0px;
+    margin-top: -80px;
     margin-left: calc(50%);
     transform: translateX(-50%);
 }
 
 .hero-title {
     font-family: var(--font-orbitron), sans-serif;
-    font-size: 4em;
+    font-size: 5em;
     font-weight: 700;
     line-height: 0.9;
     margin-bottom: 10px;
@@ -278,7 +278,7 @@ a {
 }
 
 .hero-subtitle {
-    font-size: 1.5em;
+    font-size: 2em;
     color: #eee;
     opacity: 0;
     transform: translateY(20px);
