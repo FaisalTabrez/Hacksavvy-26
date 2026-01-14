@@ -140,7 +140,7 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                 
                 {/* PAGE HEADER */}
                 <div className="flex flex-col gap-4 border-l-4 border-red-600 pl-8">
-                    <h1 className={cn(orbitron.className, "text-5xl md:text-7xl font-black text-white uppercase tracking-tighter")}>
+                    <h1 className={cn(orbitron.className, "text-4xl md:text-6xl font-black text-white uppercase tracking-tighter")}>
                         {isEditing ? 'MODIFY PROTOCOL' : 'INITIALIZE REGISTRATION'}
                     </h1>
                     <p className={cn(mono.className, "text-sm text-neutral-400 uppercase tracking-[0.2em]")}>
@@ -159,36 +159,38 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                 {/* --------------------------------------------------------- */}
                 <section className="space-y-12">
                     <div className="relative">
-                        <h2 className={cn(orbitron.className, "text-4xl md:text-5xl font-black text-red-600 uppercase tracking-tighter z-10 relative")}>
+                        {/* REDUCED SIZE: text-2xl md:text-3xl */}
+                        <h2 className={cn(orbitron.className, "text-2xl md:text-3xl font-black text-red-600 uppercase tracking-tighter z-10 relative")}>
                             01 // INFRASTRUCTURE
                         </h2>
-                        <div className="absolute -bottom-4 left-0 w-32 h-1 bg-gradient-to-r from-red-600 to-transparent"></div>
+                        <div className="absolute -bottom-4 left-0 w-24 h-1 bg-gradient-to-r from-red-600 to-transparent"></div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                         {/* Team Name */}
                         <div className="space-y-4">
-                            <label className={cn(mono.className, "text-xs text-neutral-400 uppercase tracking-[0.2em]")}>
+                            {/* INCREASED LABEL SIZE: text-sm md:text-base font-bold */}
+                            <label className={cn(mono.className, "text-sm md:text-base font-bold text-neutral-300 uppercase tracking-[0.1em]")}>
                                 Identity Tag (Team Name)
                             </label>
                             <input
                                 {...register('teamName')}
                                 disabled={isEditing}
                                 placeholder="ENTER_SQUAD_NAME"
-                                className={cn(mono.className, "w-full bg-black/40 border-2 border-white/10 p-6 text-lg text-white placeholder:text-neutral-700 focus:border-red-600 focus:outline-none focus:bg-black/60 transition-all uppercase")}
+                                className={cn(mono.className, "w-full bg-black/40 border-2 border-white/10 p-5 text-lg text-white placeholder:text-neutral-700 focus:border-red-600 focus:outline-none focus:bg-black/60 transition-all uppercase")}
                             />
                             {errors.teamName && <span className="text-red-500 text-xs font-mono block mt-2">Error: {errors.teamName.message}</span>}
                         </div>
 
                         {/* Track Selection */}
                         <div className="space-y-4">
-                            <label className={cn(mono.className, "text-xs text-neutral-400 uppercase tracking-[0.2em]")}>
+                            <label className={cn(mono.className, "text-sm md:text-base font-bold text-neutral-300 uppercase tracking-[0.1em]")}>
                                 Operational Track
                             </label>
                             <div className="relative">
                                 <select
                                     {...register('track')}
-                                    className={cn(mono.className, "w-full bg-black/40 border-2 border-white/10 p-6 text-lg text-white focus:border-red-600 focus:outline-none appearance-none cursor-pointer uppercase")}
+                                    className={cn(mono.className, "w-full bg-black/40 border-2 border-white/10 p-5 text-lg text-white focus:border-red-600 focus:outline-none appearance-none cursor-pointer uppercase")}
                                 >
                                     <option value="AI" className="bg-black">AI, AUTOMATION & ROBOTICS</option>
                                     <option value="IoT" className="bg-black">IOT & EMBEDDED SYSTEMS</option>
@@ -202,18 +204,15 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
 
                     {/* Team Size */}
                     <div className="space-y-4">
-                        <label className={cn(mono.className, "text-xs text-neutral-400 uppercase tracking-[0.2em]")}>
+                        <label className={cn(mono.className, "text-sm md:text-base font-bold text-neutral-300 uppercase tracking-[0.1em]")}>
                             Squad Magnitude
                         </label>
                         <div className="flex flex-wrap gap-4">
                             {['2', '3', '4', '5'].map((size) => (
                                 <label key={size} className="cursor-pointer relative group">
                                     <input type="radio" value={size} {...register('teamSize')} className="peer sr-only" />
-                                    <div className={cn(mono.className, "w-24 h-16 flex items-center justify-center text-xl font-bold bg-black/40 border-2 border-white/10 text-neutral-600 hover:border-white/40 peer-checked:bg-red-600 peer-checked:border-red-600 peer-checked:text-white transition-all")}>
+                                    <div className={cn(mono.className, "w-20 h-14 flex items-center justify-center text-xl font-bold bg-black/40 border-2 border-white/10 text-neutral-600 hover:border-white/40 peer-checked:bg-red-600 peer-checked:border-red-600 peer-checked:text-white transition-all")}>
                                         {size}
-                                    </div>
-                                    <div className="absolute -bottom-8 left-0 w-full text-center text-[9px] text-red-500 opacity-0 peer-checked:opacity-100 transition-opacity uppercase font-mono">
-                                        Active
                                     </div>
                                 </label>
                             ))}
@@ -226,10 +225,10 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                 {/* --------------------------------------------------------- */}
                 <section className="space-y-12">
                      <div className="relative">
-                        <h2 className={cn(orbitron.className, "text-4xl md:text-5xl font-black text-red-600 uppercase tracking-tighter z-10 relative")}>
+                        <h2 className={cn(orbitron.className, "text-2xl md:text-3xl font-black text-red-600 uppercase tracking-tighter z-10 relative")}>
                             02 // PERSONNEL MANIFEST
                         </h2>
-                        <div className="absolute -bottom-4 left-0 w-32 h-1 bg-gradient-to-r from-red-600 to-transparent"></div>
+                        <div className="absolute -bottom-4 left-0 w-24 h-1 bg-gradient-to-r from-red-600 to-transparent"></div>
                     </div>
 
                     <div className="flex flex-col gap-8">
@@ -246,80 +245,80 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
                                     {/* Name */}
-                                    <div className="space-y-2">
-                                        <label className={cn(mono.className, "text-[10px] text-red-600/70 uppercase tracking-widest")}>Legal Name</label>
+                                    <div className="space-y-3">
+                                        <label className={cn(mono.className, "text-sm md:text-base font-bold text-red-500/80 uppercase tracking-[0.1em]")}>Legal Name</label>
                                         <input
                                             {...register(`members.${index}.name`)}
                                             placeholder="FULL NAME"
-                                            className={cn(mono.className, "w-full bg-transparent border-b-2 border-white/10 py-3 text-lg text-white placeholder:text-neutral-800 focus:border-red-600 focus:outline-none transition-colors uppercase")}
+                                            className={cn(mono.className, "w-full bg-transparent border-b-2 border-white/10 py-2 text-lg text-white placeholder:text-neutral-800 focus:border-red-600 focus:outline-none transition-colors uppercase")}
                                         />
                                         {errors.members?.[index]?.name && <span className="text-red-500 text-[10px] block">{errors.members[index]?.name?.message}</span>}
                                     </div>
 
                                     {/* Email */}
-                                    <div className="space-y-2">
-                                        <label className={cn(mono.className, "text-[10px] text-red-600/70 uppercase tracking-widest")}>Comm Channel</label>
+                                    <div className="space-y-3">
+                                        <label className={cn(mono.className, "text-sm md:text-base font-bold text-red-500/80 uppercase tracking-[0.1em]")}>Comm Channel</label>
                                         <input
                                             {...register(`members.${index}.email`)}
                                             readOnly={index === 0 && !!user}
                                             placeholder="EMAIL ADDRESS"
-                                            className={cn(mono.className, "w-full bg-transparent border-b-2 border-white/10 py-3 text-lg text-white placeholder:text-neutral-800 focus:border-red-600 focus:outline-none transition-colors", index === 0 && user && "text-neutral-500")}
+                                            className={cn(mono.className, "w-full bg-transparent border-b-2 border-white/10 py-2 text-lg text-white placeholder:text-neutral-800 focus:border-red-600 focus:outline-none transition-colors", index === 0 && user && "text-neutral-500")}
                                         />
                                     </div>
 
                                     {/* Phone */}
-                                    <div className="space-y-2">
-                                        <label className={cn(mono.className, "text-[10px] text-red-600/70 uppercase tracking-widest")}>Signal ID</label>
+                                    <div className="space-y-3">
+                                        <label className={cn(mono.className, "text-sm md:text-base font-bold text-red-500/80 uppercase tracking-[0.1em]")}>Signal ID (Mobile)</label>
                                         <input
                                             {...register(`members.${index}.phone`)}
                                             placeholder="+91 XXXXX XXXXX"
-                                            className={cn(mono.className, "w-full bg-transparent border-b-2 border-white/10 py-3 text-lg text-white placeholder:text-neutral-800 focus:border-red-600 focus:outline-none transition-colors")}
+                                            className={cn(mono.className, "w-full bg-transparent border-b-2 border-white/10 py-2 text-lg text-white placeholder:text-neutral-800 focus:border-red-600 focus:outline-none transition-colors")}
                                         />
                                     </div>
 
                                     {/* College */}
-                                    <div className="space-y-2">
-                                        <label className={cn(mono.className, "text-[10px] text-red-600/70 uppercase tracking-widest")}>Institution</label>
+                                    <div className="space-y-3">
+                                        <label className={cn(mono.className, "text-sm md:text-base font-bold text-red-500/80 uppercase tracking-[0.1em]")}>Institution</label>
                                         <input
                                             {...register(`members.${index}.college`)}
                                             placeholder="COLLEGE NAME"
-                                            className={cn(mono.className, "w-full bg-transparent border-b-2 border-white/10 py-3 text-lg text-white placeholder:text-neutral-800 focus:border-red-600 focus:outline-none transition-colors uppercase")}
+                                            className={cn(mono.className, "w-full bg-transparent border-b-2 border-white/10 py-2 text-lg text-white placeholder:text-neutral-800 focus:border-red-600 focus:outline-none transition-colors uppercase")}
                                         />
                                     </div>
 
                                     {/* Leader Specifics */}
                                     {index === 0 && (
                                         <>
-                                            <div className="space-y-2">
-                                                 <label className={cn(mono.className, "text-[10px] text-red-600/70 uppercase tracking-widest")}>ID Code (Roll No)</label>
-                                                <input {...register(`members.${index}.rollNo`)} placeholder="ROLL NUMBER" className={cn(mono.className, "w-full bg-transparent border-b-2 border-white/10 py-3 text-lg text-white placeholder:text-neutral-800 focus:border-red-600 focus:outline-none uppercase")} />
+                                            <div className="space-y-3">
+                                                 <label className={cn(mono.className, "text-sm md:text-base font-bold text-red-500/80 uppercase tracking-[0.1em]")}>ID Code (Roll No)</label>
+                                                <input {...register(`members.${index}.rollNo`)} placeholder="ROLL NUMBER" className={cn(mono.className, "w-full bg-transparent border-b-2 border-white/10 py-2 text-lg text-white placeholder:text-neutral-800 focus:border-red-600 focus:outline-none uppercase")} />
                                             </div>
-                                            <div className="space-y-2">
-                                                 <label className={cn(mono.className, "text-[10px] text-red-600/70 uppercase tracking-widest")}>Department</label>
-                                                <input {...register(`members.${index}.branch`)} placeholder="BRANCH" className={cn(mono.className, "w-full bg-transparent border-b-2 border-white/10 py-3 text-lg text-white placeholder:text-neutral-800 focus:border-red-600 focus:outline-none uppercase")} />
+                                            <div className="space-y-3">
+                                                 <label className={cn(mono.className, "text-sm md:text-base font-bold text-red-500/80 uppercase tracking-[0.1em]")}>Department</label>
+                                                <input {...register(`members.${index}.branch`)} placeholder="BRANCH" className={cn(mono.className, "w-full bg-transparent border-b-2 border-white/10 py-2 text-lg text-white placeholder:text-neutral-800 focus:border-red-600 focus:outline-none uppercase")} />
                                             </div>
                                         </>
                                     )}
                                 </div>
 
                                 {/* Logistics Toggles */}
-                                <div className="mt-8 pt-6 border-t border-white/5 flex flex-wrap gap-8">
+                                <div className="mt-8 pt-6 border-t border-white/5 flex flex-wrap gap-8 items-center">
                                     <label className="flex items-center gap-4 cursor-pointer group/accom">
                                         <div className="relative">
                                             <input type="checkbox" {...register(`members.${index}.accommodation`)} className="peer sr-only" />
                                             <div className="w-12 h-6 bg-black border border-white/20 peer-checked:border-red-600 peer-checked:bg-red-600/20 transition-all"></div>
                                             <div className="absolute top-1 left-1 w-4 h-4 bg-white/30 peer-checked:bg-red-600 peer-checked:translate-x-6 transition-all"></div>
                                         </div>
-                                        <span className={cn(mono.className, "text-xs text-neutral-400 group-hover/accom:text-white uppercase tracking-widest")}>Accommodation Required</span>
+                                        <span className={cn(mono.className, "text-sm font-bold text-neutral-400 group-hover/accom:text-white uppercase tracking-widest")}>Accommodation Required</span>
                                     </label>
 
                                     <div className="flex items-center gap-4">
-                                        <span className={cn(mono.className, "text-xs text-neutral-500 uppercase tracking-widest")}>Rations:</span>
+                                        <span className={cn(mono.className, "text-sm font-bold text-neutral-500 uppercase tracking-widest")}>Rations:</span>
                                         <div className="flex gap-2">
                                             {['Veg', 'Non-Veg'].map((opt) => (
                                                 <label key={opt} className="cursor-pointer">
                                                     <input type="radio" value={opt} {...register(`members.${index}.food`)} className="peer sr-only" />
-                                                    <span className={cn(mono.className, "px-3 py-1 border border-white/10 text-[10px] text-neutral-500 peer-checked:bg-red-600 peer-checked:text-white peer-checked:border-red-600 uppercase font-bold transition-all")}>
+                                                    <span className={cn(mono.className, "px-4 py-2 border border-white/10 text-xs text-neutral-500 peer-checked:bg-red-600 peer-checked:text-white peer-checked:border-red-600 uppercase font-bold transition-all")}>
                                                         {opt}
                                                     </span>
                                                 </label>
@@ -337,10 +336,10 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                 {/* --------------------------------------------------------- */}
                 <section className="space-y-12">
                      <div className="relative">
-                        <h2 className={cn(orbitron.className, "text-4xl md:text-5xl font-black text-red-600 uppercase tracking-tighter z-10 relative")}>
+                        <h2 className={cn(orbitron.className, "text-2xl md:text-3xl font-black text-red-600 uppercase tracking-tighter z-10 relative")}>
                             03 // TRANSACTION NODE
                         </h2>
-                        <div className="absolute -bottom-4 left-0 w-32 h-1 bg-gradient-to-r from-red-600 to-transparent"></div>
+                        <div className="absolute -bottom-4 left-0 w-24 h-1 bg-gradient-to-r from-red-600 to-transparent"></div>
                     </div>
 
                     <div className="bg-zinc-950 border border-white/10 p-8 md:p-12 relative overflow-hidden">
@@ -358,7 +357,7 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                                 </div>
 
                                 <div className="space-y-4">
-                                    <label className={cn(mono.className, "text-xs text-neutral-400 uppercase tracking-[0.2em]")}>
+                                    <label className={cn(mono.className, "text-sm md:text-base font-bold text-neutral-300 uppercase tracking-[0.1em]")}>
                                         UPI Reference ID (12-Digit)
                                     </label>
                                     <input
@@ -373,14 +372,14 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
 
                             {/* Upload Area */}
                             <div className="space-y-4">
-                                <label className={cn(mono.className, "text-xs text-neutral-400 uppercase tracking-[0.2em]")}>
+                                <label className={cn(mono.className, "text-sm md:text-base font-bold text-neutral-300 uppercase tracking-[0.1em]")}>
                                     Proof of Transfer (Screenshot)
                                 </label>
                                 <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed border-white/20 bg-black/20 hover:bg-white/5 hover:border-red-600 cursor-pointer transition-all group">
                                     <div className="flex flex-col items-center justify-center pt-5 pb-6 text-center px-4">
                                         <svg className="w-12 h-12 text-neutral-600 group-hover:text-red-500 mb-4 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-                                        <p className={cn(mono.className, "text-xs text-neutral-400 uppercase tracking-widest group-hover:text-white")}>
-                                            <span className="font-bold text-red-500">Click to Upload</span> or Drag and Drop
+                                        <p className={cn(mono.className, "text-sm text-neutral-400 uppercase tracking-widest group-hover:text-white font-bold")}>
+                                            <span className="text-red-500">Click to Upload</span> or Drag and Drop
                                         </p>
                                         <p className={cn(mono.className, "text-[10px] text-neutral-600 mt-2 max-w-full truncate px-4")}>
                                             {watch('paymentScreenshot')?.[0]?.name || 'NO_DATA_PRESENT'}
