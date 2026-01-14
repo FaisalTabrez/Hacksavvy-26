@@ -1,6 +1,6 @@
 import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
-import { getPendingTeams } from '@/app/admin/actions'
+import { getPendingTeams, getConfirmedParticipants } from '@/app/admin/actions'
 import AdminDashboardClient from '@/components/AdminDashboardClient'
 
 export const dynamic = 'force-dynamic'
