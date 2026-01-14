@@ -86,9 +86,9 @@ export default function Navbar() {
             {isMobileNavOpen ? <BiX /> : <BiMenu />}
           </div>
         </nav>
-        <a className="buy-tickets scrollto" href="#">
+        <Link className="buy-tickets scrollto" href="/register">
           Register
-        </a>
+        </Link>
       </div>
     </header>
   );

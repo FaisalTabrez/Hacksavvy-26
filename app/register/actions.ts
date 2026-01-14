@@ -114,16 +114,21 @@ export async function registerTeam(formData: FormData) {
     // Send Registration Email
     const leader = membersToInsert.find(m => m.is_leader)
     if (leader) {
-        await sendEmail({
-            to: leader.email,
-            subject: 'HackSavvy Registration Received',
-            type: 'Registration',
-            data: {
-                leaderName: leader.name,
-                teamName: teamData.name,
-                members: membersToInsert
-            }
-        })
+        try {
+            await sendEmail({
+                to: leader.email,
+                subject: 'HackSavvy Registration Received',
+                type: 'Registration',
+                data: {
+                    leaderName: leader.name,
+                    teamName: teamData.name,
+                    members: membersToInsert
+                }
+            })
+        } catch (emailError) {
+            console.error('Failed to send registration email:', emailError)
+            // Continue execution, do not fail registration
+        }
     }
 
     redirect('/dashboard?registered=true')

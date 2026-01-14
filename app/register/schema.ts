@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-export const MAX_FILE_SIZE = 5000000; // 5MB
-export const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+export const MAX_FILE_SIZE = 2000000; // 2MB
+export const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png"];
 
 export const memberSchema = z.object({
     name: z.string().min(2, "Name must be at least 2 characters"),
@@ -25,11 +25,11 @@ export const registrationSchema = z.object({
         .refine((files) => files?.length == 1, "Payment screenshot is required.")
         .refine(
             (files) => files?.[0]?.size <= MAX_FILE_SIZE,
-            `Max file size is 5MB.`
+            `Max file size is 2MB.`
         )
         .refine(
             (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-            ".jpg, .jpeg, .png and .webp files are accepted."
+            ".jpg, .jpeg, and .png files are accepted."
         ),
 }).superRefine((data, ctx) => {
     // Validate leader (Member 1) specific fields
