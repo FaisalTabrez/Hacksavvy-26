@@ -15,12 +15,12 @@ export default async function RegisterPage() {
         <PremiumBackground>
             <div className="flex min-h-screen items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                 <div className="w-full max-w-4xl flex flex-col items-center">
-                    <div className="text-center mb-16 w-full max-w-2xl">
-                        <h1 className="text-5xl md:text-7xl font-black bg-gradient-to-r from-white via-red-200 to-red-600 bg-clip-text text-transparent tracking-tighter drop-shadow-[0_0_20px_rgba(220,38,38,0.4)] mb-6 font-[family-name:var(--font-orbitron)] uppercase">
+                    <div className="text-center mb-24 w-full max-w-3xl">
+                        <h1 className="text-6xl md:text-8xl font-black bg-gradient-to-r from-white via-red-200 to-red-600 bg-clip-text text-transparent tracking-tighter drop-shadow-[0_0_25px_rgba(220,38,38,0.5)] mb-8 font-[family-name:var(--font-orbitron)] uppercase leading-tight">
                             Team Registration
                         </h1>
-                        <div className="mx-auto h-1.5 w-40 bg-gradient-to-r from-transparent via-red-600 to-transparent rounded-full shadow-[0_0_15px_#dc2626] mb-8"></div>
-                        <p className="text-lg md:text-xl text-gray-300 font-light leading-relaxed max-w-lg mx-auto">
+                        <div className="mx-auto h-1.5 w-60 bg-gradient-to-r from-transparent via-red-600 to-transparent rounded-full shadow-[0_0_15px_#dc2626] mb-12"></div>
+                        <p className="text-xl md:text-2xl text-gray-300 font-light leading-relaxed max-w-2xl mx-auto">
                             Register your team for <strong className="text-white font-bold">HackSavvy-26</strong>. 
                             Fill in the details below to secure your spot in the void.
                         </p>
