@@ -37,40 +37,40 @@ export default function LoginPage() {
                 <div className="absolute -inset-6 z-[-1] rounded-[3rem] bg-red-600/40 blur-[130px]"></div>
 
                 {/* The Glassmorphism Card */}
-                <div className="relative overflow-hidden rounded-[2.5rem] border border-red-600/30 bg-black/40 backdrop-blur-2xl px-12 py-16 shadow-2xl">
+                <div className="relative overflow-hidden rounded-[3rem] border border-red-600/30 bg-black/40 backdrop-blur-2xl px-16 py-24 shadow-2xl">
 
                     {/* Top Accent Line */}
                     <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
 
                     {/* Logo/Header Section */}
-                    <div className="text-center mb-12">
+                    <div className="text-center mb-16">
                         <motion.div
                             initial={{ scale: 0.9 }}
                             animate={{ scale: 1 }}
-                            className="inline-block mb-6"
+                            className="inline-block mb-8"
                         >
-                            <div className="flex items-center justify-center space-x-3">
-                                <span className="h-4 w-4 rounded-full bg-red-600 animate-pulse shadow-[0_0_15px_rgba(220,38,38,0.8)]"></span>
-                                <span className="text-sm font-black tracking-[0.4em] text-red-500 uppercase">Antigravity Proto</span>
+                            <div className="flex items-center justify-center space-x-4">
+                                <span className="h-5 w-5 rounded-full bg-red-600 animate-pulse shadow-[0_0_20px_rgba(220,38,38,1)]"></span>
+                                <span className="text-base font-black tracking-[0.5em] text-red-500 uppercase">Antigravity Proto</span>
                             </div>
                         </motion.div>
 
-                        <h1 className="text-6xl font-black tracking-tighter text-white mb-4">
+                        <h1 className="text-7xl font-black tracking-tighter text-white mb-6 leading-none">
                             HACK<span className="text-red-600">SAVVY</span>
                         </h1>
-                        <p className="text-neutral-300 font-bold tracking-tight text-lg">
-                            Accessing Secure Environment
+                        <p className="text-neutral-200 font-black tracking-widest text-xl uppercase">
+                            Secure Access Required
                         </p>
                     </div>
 
                     {/* OAuth Form */}
-                    <form action={loginWithGoogle} className="space-y-6">
+                    <form action={loginWithGoogle} className="space-y-8">
                         <button
                             type="submit"
-                            className="group relative flex w-full items-center justify-center gap-4 overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900/50 px-8 py-5 text-base font-black uppercase tracking-widest text-white transition-all duration-300 hover:border-red-600/50 hover:bg-red-600/10 hover:shadow-[0_0_30px_rgba(220,38,38,0.3)]"
+                            className="group relative flex w-full items-center justify-center gap-5 overflow-hidden rounded-3xl border border-neutral-700 bg-neutral-900/50 px-10 py-6 text-lg font-black uppercase tracking-[0.2em] text-white transition-all duration-300 hover:border-red-600 hover:bg-red-600/10 hover:shadow-[0_0_50px_rgba(220,38,38,0.5)]"
                         >
                             {/* SVG Icon */}
-                            <svg className="h-6 w-6 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24">
+                            <svg className="h-8 w-8 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24">
                                 <path
                                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
                                     fill="#4285F4"
@@ -88,18 +88,21 @@ export default function LoginPage() {
                                     fill="#EA4335"
                                 />
                             </svg>
-                            <span>Sign in with Google</span>
+                            <span>Continue with Google</span>
 
                             {/* Inner Glow on Hover */}
-                            <div className="absolute inset-0 z-[-1] bg-gradient-to-r from-red-600/0 via-red-600/5 to-red-600/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+                            <div className="absolute inset-0 z-[-1] bg-gradient-to-r from-red-600/0 via-red-600/10 to-red-600/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
                         </button>
                     </form>
 
                     {/* Footer decoration */}
-                    <div className="mt-12 pt-10 border-t border-neutral-800/50">
-                        <div className="flex justify-between items-center text-[11px] uppercase tracking-[0.3em] text-neutral-500 font-black">
-                            <span>System Status: Optimal</span>
-                            <span className="text-red-900">Encrypted</span>
+                    <div className="mt-16 pt-12 border-t border-neutral-800">
+                        <div className="flex justify-between items-center text-[12px] uppercase tracking-[0.4em] text-neutral-400 font-black">
+                            <span className="flex items-center gap-2">
+                                <span className="h-1.5 w-1.5 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)]"></span>
+                                System: Optimal
+                            </span>
+                            <span className="text-red-700">AES-256 Armed</span>
                         </div>
                     </div>
                 </div>
