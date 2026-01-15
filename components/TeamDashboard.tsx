@@ -68,6 +68,7 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
     }
 
     if (isEditing) {
+         // ... (Keep existing edit logic)
          const initialData = {
             teamName: team.name,
             track: team.track,
@@ -97,23 +98,24 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
     }
 
     return (
-        <div className={cn("w-full min-h-screen bg-black relative px-6 md:px-12 py-8", orbitron.variable, mono.variable)}>
+        <div className={cn("w-full min-h-screen bg-black relative px-4 md:px-12 py-8 overflow-x-hidden", orbitron.variable, mono.variable)}>
             
-            {/* --- Terminate Session Button (TOP RIGHT) --- */}
+            {/* --- Terminate Session Button (RESPONSIVE) --- */}
+            {/* Mobile: Top Right, smaller. Desktop: Top Right, larger */}
             <button 
                 onClick={handleLogout}
                 disabled={isLoggingOut}
-                className={cn(mono.className, "absolute top-6 right-6 md:top-12 md:right-12 z-50 group flex items-center gap-3 px-6 py-3 border border-red-900/30 hover:border-red-600 bg-red-950/10 hover:bg-red-900/20 transition-all rounded-none")}
+                className={cn(mono.className, "absolute top-4 right-4 md:top-12 md:right-12 z-50 group flex items-center gap-2 md:gap-3 px-4 py-2 md:px-6 md:py-3 border border-red-900/30 hover:border-red-600 bg-red-950/10 hover:bg-red-900/20 transition-all rounded-none")}
             >
                 <span className="w-1.5 h-1.5 bg-red-600 group-hover:animate-pulse"></span>
-                <span className="text-xs font-bold text-red-500 group-hover:text-red-400 uppercase tracking-widest">
-                    {isLoggingOut ? 'TERMINATING...' : 'TERMINATE SESSION'}
+                <span className="text-[10px] md:text-xs font-bold text-red-500 group-hover:text-red-400 uppercase tracking-widest whitespace-nowrap">
+                    {isLoggingOut ? 'EXITING...' : 'LOGOUT'}
                 </span>
             </button>
 
             {/* --- 1. HEADER --- */}
-            {/* Adjusted padding top (pt-24) to accommodate the absolute button */}
-            <header className="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-white/10 pb-6 mb-12 gap-6 pt-24">
+            {/* Added mt-12 on mobile to ensure Operator info isn't covered by the Logout button */}
+            <header className="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-white/10 pb-6 mb-12 gap-6 pt-16 md:pt-24">
                 
                 {/* Operator Info */}
                 <div className="flex flex-col gap-2">
@@ -125,7 +127,8 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                             <div className="w-2 h-2 bg-green-500 rounded-full animate-ping absolute"></div>
                             <div className="w-2 h-2 bg-green-500 rounded-full relative"></div>
                         </div>
-                        <span className={cn(mono.className, "text-sm text-white uppercase tracking-wider font-bold")}>
+                        {/* Truncate email on mobile so it doesn't push width out */}
+                        <span className={cn(mono.className, "text-xs md:text-sm text-white uppercase tracking-wider font-bold truncate max-w-[250px] md:max-w-none")}>
                             {user.email}
                         </span>
                     </div>
@@ -133,43 +136,44 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
             </header>
 
             {/* --- 2. HERO SECTION (Team Info) --- */}
-            <section className="mb-24 relative">
-                {/* Ambient Red Glow */}
-                <div className="absolute -top-20 left-0 w-96 h-96 bg-red-600/10 blur-[100px] pointer-events-none"></div>
+            <section className="mb-16 md:mb-24 relative">
+                <div className="absolute -top-20 left-0 w-full md:w-96 h-96 bg-red-600/10 blur-[80px] md:blur-[100px] pointer-events-none"></div>
 
                 <div className="flex flex-col gap-4 relative z-10">
                     <div className="flex items-center gap-4">
-                        <div className="h-px w-12 bg-red-600"></div>
-                        <p className={cn(mono.className, "text-xs md:text-sm text-red-500 uppercase tracking-[0.3em] font-bold")}>
+                        <div className="h-px w-8 md:w-12 bg-red-600"></div>
+                        <p className={cn(mono.className, "text-[10px] md:text-sm text-red-500 uppercase tracking-[0.2em] md:tracking-[0.3em] font-bold")}>
                             Active Unit // ID: {team.id.slice(0, 8)}
                         </p>
                     </div>
 
-                    <h1 className={cn(orbitron.className, "text-5xl md:text-8xl lg:text-8xl font-black text-white uppercase tracking-tighter break-words drop-shadow-[0_0_25px_rgba(220,38,38,0.3)]")}>
+                    {/* TEAM NAME: Responsive Text Size */}
+                    {/* text-4xl on mobile -> text-8xl on desktop */}
+                    <h1 className={cn(orbitron.className, "text-4xl sm:text-6xl md:text-8xl font-black text-white uppercase tracking-tighter break-words drop-shadow-[0_0_25px_rgba(220,38,38,0.3)] leading-[0.9]")}>
                         {team.name}
                     </h1>
 
-                    {/* Status Pills */}
-                    <div className="flex flex-wrap items-center gap-6 mt-6">
+                    {/* Status Pills: Stack on very small screens, row on others */}
+                    <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-4 md:gap-6 mt-6 md:mt-8">
                         {/* Track */}
-                        <div className="border-l-2 border-white/20 pl-4">
-                            <span className={cn(mono.className, "block text-[10px] text-neutral-500 uppercase tracking-widest")}>Track</span>
-                            <span className={cn(mono.className, "block text-sm text-white font-bold uppercase tracking-widest")}>{team.track}</span>
+                        <div className="border-l-2 border-white/20 pl-3 md:pl-4">
+                            <span className={cn(mono.className, "block text-[9px] md:text-[10px] text-neutral-500 uppercase tracking-widest")}>Track</span>
+                            <span className={cn(mono.className, "block text-xs md:text-sm text-white font-bold uppercase tracking-widest")}>{team.track}</span>
                         </div>
 
                         {/* Size */}
-                        <div className="border-l-2 border-white/20 pl-4">
-                             <span className={cn(mono.className, "block text-[10px] text-neutral-500 uppercase tracking-widest")}>Strength</span>
-                             <span className={cn(mono.className, "block text-sm text-white font-bold uppercase tracking-widest")}>{team.members.length} / {team.size}</span>
+                        <div className="border-l-2 border-white/20 pl-3 md:pl-4">
+                             <span className={cn(mono.className, "block text-[9px] md:text-[10px] text-neutral-500 uppercase tracking-widest")}>Strength</span>
+                             <span className={cn(mono.className, "block text-xs md:text-sm text-white font-bold uppercase tracking-widest")}>{team.members.length} / {team.size}</span>
                         </div>
 
-                        {/* Payment Status (Colored) */}
-                        <div className={cn("border-l-2 pl-4", 
+                        {/* Payment Status */}
+                        <div className={cn("border-l-2 pl-3 md:pl-4", 
                              team.payment_status === 'verified' ? "border-green-500" : 
                              team.payment_status === 'rejected' ? "border-red-500" : "border-yellow-500"
                         )}>
-                            <span className={cn(mono.className, "block text-[10px] text-neutral-500 uppercase tracking-widest")}>Status</span>
-                            <span className={cn(mono.className, "block text-sm font-bold uppercase tracking-widest",
+                            <span className={cn(mono.className, "block text-[9px] md:text-[10px] text-neutral-500 uppercase tracking-widest")}>Status</span>
+                            <span className={cn(mono.className, "block text-xs md:text-sm font-bold uppercase tracking-widest",
                                 team.payment_status === 'verified' ? "text-green-500" : 
                                 team.payment_status === 'rejected' ? "text-red-500" : "text-yellow-500"
                             )}>
@@ -182,20 +186,21 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
 
             {/* --- 3. ROSTER MANIFEST --- */}
             <section className="relative z-10 max-w-7xl">
-                <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 border-b border-red-900/30 pb-4 gap-4">
+                {/* Header: Column on mobile, Row on desktop */}
+                <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 border-b border-red-900/30 pb-4 gap-6 md:gap-4">
                     <div>
-                         <h2 className={cn(orbitron.className, "text-2xl md:text-4xl text-white font-black uppercase tracking-widest")}>
+                         <h2 className={cn(orbitron.className, "text-xl md:text-4xl text-white font-black uppercase tracking-widest")}>
                             Roster Manifest
                         </h2>
-                        <div className="h-1 w-24 bg-red-600 mt-2"></div>
+                        <div className="h-1 w-16 md:w-24 bg-red-600 mt-2"></div>
                     </div>
                     
-                    {/* Dashboard Actions */}
-                    <div className="flex gap-4">
+                    {/* Dashboard Actions: Full width on mobile */}
+                    <div className="flex flex-wrap gap-3 w-full md:w-auto">
                         {isLeader && team.members.length < team.size && (
                             <button
                                 onClick={() => setIsAddMemberOpen(true)}
-                                className={cn(mono.className, "px-6 py-3 border border-red-600 text-red-500 hover:bg-red-600 hover:text-white text-xs font-bold uppercase tracking-widest transition-all rounded-none")}
+                                className={cn(mono.className, "flex-1 md:flex-none px-4 py-3 border border-red-600 text-red-500 hover:bg-red-600 hover:text-white text-[10px] md:text-xs font-bold uppercase tracking-widest transition-all rounded-none text-center")}
                             >
                                 + Add Agent
                             </button>
@@ -203,7 +208,7 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                         {isLeader && (
                             <button
                                 onClick={() => setIsEditing(true)}
-                                className={cn(mono.className, "px-6 py-3 border border-white/20 text-neutral-400 hover:border-white hover:text-white text-xs font-bold uppercase tracking-widest transition-all rounded-none")}
+                                className={cn(mono.className, "flex-1 md:flex-none px-4 py-3 border border-white/20 text-neutral-400 hover:border-white hover:text-white text-[10px] md:text-xs font-bold uppercase tracking-widest transition-all rounded-none text-center")}
                             >
                                 Edit Profile
                             </button>
@@ -211,7 +216,7 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                     </div>
                 </div>
 
-                {/* The Grid Header */}
+                {/* Desktop Header (Hidden on Mobile) */}
                 <div className="hidden md:grid grid-cols-12 gap-4 pb-4 px-4 text-[10px] text-red-500/70 font-mono uppercase tracking-[0.2em] font-bold">
                     <div className="col-span-3">Operative Name</div>
                     <div className="col-span-2">Rank</div>
@@ -220,48 +225,55 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                     <div className="col-span-2 text-right">Logistics</div>
                 </div>
 
-                {/* The Rows */}
-                <div className="flex flex-col gap-2">
+                {/* Rows */}
+                <div className="flex flex-col gap-3 md:gap-2">
                     {team.members.map((member) => (
                         <motion.div 
-                            initial={{ opacity: 0, x: -20 }}
+                            initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
                             key={member.id}
-                            className={cn("group relative md:grid md:grid-cols-12 md:gap-4 flex flex-col gap-2 py-6 px-4 border-l-2 transition-all hover:bg-white/[0.02]",
+                            // Mobile: Block layout. Desktop: Grid layout.
+                            className={cn("group relative flex flex-col md:grid md:grid-cols-12 md:gap-4 gap-3 py-6 px-4 border-l-2 transition-all hover:bg-white/[0.02]",
                                 member.is_leader ? "border-red-600 bg-red-900/5" : "border-white/10"
                             )}
                         >
-                            {/* Mobile Label showing only on small screens */}
+                            {/* Name & Email */}
                             <div className="md:col-span-3 flex flex-col justify-center">
-                                <span className={cn(mono.className, "text-base text-white font-bold uppercase tracking-wider")}>
+                                <span className={cn(mono.className, "text-sm md:text-base text-white font-bold uppercase tracking-wider")}>
                                     {member.name}
                                 </span>
-                                <span className={cn(mono.className, "text-[10px] text-neutral-600 md:hidden")}>
+                                <span className={cn(mono.className, "text-[10px] text-neutral-600 md:hidden mt-1")}>
                                     {member.email}
                                 </span>
                             </div>
 
+                            {/* Rank */}
                             <div className="md:col-span-2 flex items-center">
-                                <span className={cn(mono.className, "text-[9px] font-bold uppercase tracking-widest px-2 py-1", 
+                                <span className={cn(mono.className, "text-[9px] font-bold uppercase tracking-widest px-2 py-1 inline-block", 
                                     member.is_leader ? "text-red-500 bg-red-500/10 border border-red-500/20" : "text-neutral-500 border border-neutral-800"
                                 )}>
                                     {member.is_leader ? 'SQUAD LEADER' : 'OPERATIVE'}
                                 </span>
                             </div>
 
-                            <div className="md:col-span-3 flex items-center">
+                            {/* Phone (Hidden label on desktop) */}
+                            <div className="md:col-span-3 flex items-center gap-2 md:gap-0">
+                                <span className="md:hidden text-[10px] text-neutral-600 uppercase">Signal:</span>
                                 <span className={cn(mono.className, "text-xs text-neutral-400 font-mono tracking-widest")}>
                                     {member.phone}
                                 </span>
                             </div>
 
-                            <div className="md:col-span-2 flex items-center">
-                                <span className={cn(mono.className, "text-xs text-neutral-300 uppercase truncate tracking-wider")}>
+                            {/* College */}
+                            <div className="md:col-span-2 flex items-center gap-2 md:gap-0">
+                                <span className="md:hidden text-[10px] text-neutral-600 uppercase">Sector:</span>
+                                <span className={cn(mono.className, "text-xs text-neutral-300 uppercase truncate tracking-wider max-w-[200px]")}>
                                     {member.college}
                                 </span>
                             </div>
 
-                            <div className="md:col-span-2 flex flex-col items-end justify-center gap-1">
+                            {/* Logistics */}
+                            <div className="md:col-span-2 flex flex-row md:flex-col items-center md:items-end md:justify-center gap-3 md:gap-1 mt-2 md:mt-0 pt-2 md:pt-0 border-t border-white/5 md:border-none">
                                 <span className={cn(mono.className, "text-[10px] font-bold uppercase tracking-wider", 
                                     member.food_preference === 'Non-Veg' ? "text-red-400" : "text-green-400"
                                 )}>
@@ -278,17 +290,19 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                 </div>
             </section>
 
-            {/* --- ADD MEMBER MODAL --- */}
+            {/* --- ADD MEMBER MODAL (Mobile Optimized) --- */}
             {isAddMemberOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-md">
-                    <div className="w-full max-w-lg border-2 border-red-900/50 bg-black p-8 relative shadow-[0_0_50px_rgba(220,38,38,0.2)] rounded-none">
-                        {/* Decorative Corners */}
+                    {/* Added max-h-screen and overflow-y-auto for small screens */}
+                    <div className="w-full max-w-lg border-2 border-red-900/50 bg-black p-6 md:p-8 relative shadow-[0_0_50px_rgba(220,38,38,0.2)] rounded-none max-h-[90vh] overflow-y-auto">
+                        
+                        {/* Corners */}
                         <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-red-600"></div>
                         <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-red-600"></div>
                         <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-red-600"></div>
                         <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-red-600"></div>
 
-                        <h2 className={cn(orbitron.className, "text-3xl text-white font-black uppercase mb-8 tracking-tighter")}>
+                        <h2 className={cn(orbitron.className, "text-2xl md:text-3xl text-white font-black uppercase mb-6 tracking-tighter")}>
                             Recruit Agent
                         </h2>
                         
@@ -298,23 +312,21 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                             </div>
                         )}
 
-                        <form action={handleAddMember} className="space-y-6">
+                        <form action={handleAddMember} className="space-y-5">
                             <div className="space-y-2">
                                 <label className={cn(mono.className, "text-[10px] text-red-600 font-bold uppercase tracking-widest")}>Full Name</label>
                                 <input name="name" required className={cn(mono.className, "w-full bg-transparent border-b border-white/20 py-2 text-white text-sm focus:border-red-600 outline-none rounded-none transition-colors uppercase placeholder:text-neutral-800")} placeholder="ENTER NAME" />
                             </div>
-                            <div className="space-y-2">
-                                <label className={cn(mono.className, "text-[10px] text-red-600 font-bold uppercase tracking-widest")}>Email</label>
-                                <input name="email" type="email" required className={cn(mono.className, "w-full bg-transparent border-b border-white/20 py-2 text-white text-sm focus:border-red-600 outline-none rounded-none transition-colors uppercase placeholder:text-neutral-800")} placeholder="ENTER EMAIL" />
-                            </div>
-                            <div className="grid grid-cols-2 gap-8">
+                            
+                            {/* Stacked on mobile, side-by-side on desktop */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                <div className="space-y-2">
+                                    <label className={cn(mono.className, "text-[10px] text-red-600 font-bold uppercase tracking-widest")}>Email</label>
+                                    <input name="email" type="email" required className={cn(mono.className, "w-full bg-transparent border-b border-white/20 py-2 text-white text-sm focus:border-red-600 outline-none rounded-none transition-colors uppercase placeholder:text-neutral-800")} placeholder="ENTER EMAIL" />
+                                </div>
                                 <div className="space-y-2">
                                     <label className={cn(mono.className, "text-[10px] text-red-600 font-bold uppercase tracking-widest")}>Phone</label>
                                     <input name="phone" required className={cn(mono.className, "w-full bg-transparent border-b border-white/20 py-2 text-white text-sm focus:border-red-600 outline-none rounded-none transition-colors uppercase")} placeholder="+91..." />
-                                </div>
-                                <div className="space-y-2">
-                                    <label className={cn(mono.className, "text-[10px] text-red-600 font-bold uppercase tracking-widest")}>Branch</label>
-                                    <input name="branch" className={cn(mono.className, "w-full bg-transparent border-b border-white/20 py-2 text-white text-sm focus:border-red-600 outline-none rounded-none transition-colors uppercase")} placeholder="DEPT" />
                                 </div>
                             </div>
                             
@@ -322,12 +334,19 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                                 <label className={cn(mono.className, "text-[10px] text-red-600 font-bold uppercase tracking-widest")}>College</label>
                                 <input name="college" required className={cn(mono.className, "w-full bg-transparent border-b border-white/20 py-2 text-white text-sm focus:border-red-600 outline-none rounded-none transition-colors uppercase")} placeholder="INSTITUTE NAME" />
                             </div>
-                            <div className="space-y-2">
-                                <label className={cn(mono.className, "text-[10px] text-red-600 font-bold uppercase tracking-widest")}>Roll No</label>
-                                <input name="rollNo" className={cn(mono.className, "w-full bg-transparent border-b border-white/20 py-2 text-white text-sm focus:border-red-600 outline-none rounded-none transition-colors uppercase")} placeholder="ID NUMBER" />
+
+                            <div className="grid grid-cols-2 gap-5">
+                                <div className="space-y-2">
+                                    <label className={cn(mono.className, "text-[10px] text-red-600 font-bold uppercase tracking-widest")}>Branch</label>
+                                    <input name="branch" className={cn(mono.className, "w-full bg-transparent border-b border-white/20 py-2 text-white text-sm focus:border-red-600 outline-none rounded-none transition-colors uppercase")} placeholder="DEPT" />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className={cn(mono.className, "text-[10px] text-red-600 font-bold uppercase tracking-widest")}>Roll No</label>
+                                    <input name="rollNo" className={cn(mono.className, "w-full bg-transparent border-b border-white/20 py-2 text-white text-sm focus:border-red-600 outline-none rounded-none transition-colors uppercase")} placeholder="ID" />
+                                </div>
                             </div>
 
-                            <div className="grid grid-cols-2 gap-8 pt-4">
+                            <div className="grid grid-cols-2 gap-5 pt-4">
                                 <div className="space-y-2">
                                     <label className={cn(mono.className, "text-[10px] text-red-600 font-bold uppercase tracking-widest")}>Rations</label>
                                     <select name="food" className={cn(mono.className, "w-full bg-black border border-white/20 p-3 text-white text-sm focus:border-red-600 outline-none rounded-none uppercase cursor-pointer")}>
@@ -341,9 +360,9 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                                 </div>
                             </div>
 
-                            <div className="flex gap-6 pt-8">
-                                <button type="button" onClick={() => setIsAddMemberOpen(false)} className={cn(mono.className, "flex-1 border border-white/20 py-4 text-white text-xs hover:bg-white/10 font-bold uppercase tracking-widest rounded-none")}>Abort</button>
-                                <button type="submit" disabled={isAdding} className={cn(mono.className, "flex-1 bg-red-600 py-4 text-white text-xs font-bold hover:bg-red-700 uppercase tracking-widest shadow-[0_0_20px_rgba(220,38,38,0.4)] rounded-none")}>
+                            <div className="flex gap-4 pt-8">
+                                <button type="button" onClick={() => setIsAddMemberOpen(false)} className={cn(mono.className, "flex-1 border border-white/20 py-3 text-white text-xs hover:bg-white/10 font-bold uppercase tracking-widest rounded-none")}>Abort</button>
+                                <button type="submit" disabled={isAdding} className={cn(mono.className, "flex-1 bg-red-600 py-3 text-white text-xs font-bold hover:bg-red-700 uppercase tracking-widest shadow-[0_0_20px_rgba(220,38,38,0.4)] rounded-none")}>
                                     {isAdding ? 'PROCESSING...' : 'CONFIRM RECRUIT'}
                                 </button>
                             </div>
