@@ -47,7 +47,7 @@ export default function Hero() {
     }, []);
 
     return (
-        <section id="hero" className="section" ref={heroRef}>
+        <section id="hero" className="section !justify-start pt-48" ref={heroRef}>
             <div id="ticker-wrap-top">
                 <div className="ticker">
                     <div className="ticker-reverse">
@@ -67,8 +67,7 @@ export default function Hero() {
                 </div>
             </div>
 
-            <div className="hero-content">
-                <img src="mgitlogo.png" className="hero-image" alt="Mgit Logo animation"></img>
+            <div className="hero-content !mt-0">
                 <h1 className="hero-title">
                     H<span className="c1">ACK</span>
                     S<span className="c1">AVVY</span>-26
