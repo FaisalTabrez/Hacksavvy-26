@@ -45,8 +45,9 @@ export default function Hero() {
     }, []);
 
     return (
-        // CHANGED: Increased from pt-40 to pt-64 (approx 250px) to force text down
-        <section id="hero" className="section !justify-start pt-64" ref={heroRef}>
+        // CHANGED: Used '!pt-[300px]' to forcefully push content down below the header
+        <section id="hero" className="section !justify-start !pt-[300px]" ref={heroRef}>
+            
             <div id="ticker-wrap-top">
                 <div className="ticker">
                     <div className="ticker-reverse">
@@ -66,8 +67,8 @@ export default function Hero() {
                 </div>
             </div>
 
-            {/* CHANGED: Removed !mt-0 and added mt-4 for extra breathing room if needed */}
-            <div className="hero-content mt-4">
+            {/* Added extra margin-top just in case */}
+            <div className="hero-content mt-10">
                 <h1 className="hero-title">
                     H<span className="c1">ACK</span>
                     S<span className="c1">AVVY</span>-26
