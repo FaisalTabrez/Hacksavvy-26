@@ -97,268 +97,265 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
     }
 
     return (
-        <div className={cn("w-full min-h-screen bg-black relative px-4 md:px-12 py-8 overflow-x-hidden", orbitron.variable, mono.variable)}>
+        <div className={cn("w-full min-h-screen bg-black relative px-4 md:px-8 py-8 overflow-x-hidden font-mono selection:bg-red-900 selection:text-white", mono.variable)}>
             
-            {/* --- Terminate Session Button --- */}
+            {/* Background Ambient Glow */}
+            <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+                <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[80vw] h-[50vh] bg-red-900/10 blur-[120px] rounded-full opacity-50" />
+            </div>
+
+            {/* --- LOGOUT BUTTON (Fixed Top Right) --- */}
             <button 
                 onClick={handleLogout}
                 disabled={isLoggingOut}
-                className={cn(mono.className, "absolute top-6 right-6 z-50 group flex items-center gap-2 md:gap-3 px-4 py-2 md:px-6 md:py-3 border border-red-900/30 hover:border-red-600 bg-red-950/10 hover:bg-red-900/20 transition-all rounded-none")}
+                className="absolute top-6 right-6 z-50 group flex items-center gap-3 px-5 py-2 border border-red-900/40 bg-black/50 hover:bg-red-950/30 hover:border-red-600 transition-all backdrop-blur-sm"
             >
-                <span className="w-1.5 h-1.5 bg-red-600 group-hover:animate-pulse"></span>
-                <span className="text-[10px] md:text-xs font-bold text-red-500 group-hover:text-red-400 uppercase tracking-widest whitespace-nowrap">
+                <div className="flex gap-1">
+                    <span className="w-1 h-1 bg-red-600 rounded-full group-hover:bg-red-400"></span>
+                    <span className="w-1 h-1 bg-red-600 rounded-full group-hover:bg-red-400 opacity-50"></span>
+                </div>
+                <span className="text-[10px] font-bold text-red-500 group-hover:text-red-400 uppercase tracking-widest">
                     {isLoggingOut ? 'EXITING...' : 'LOGOUT'}
                 </span>
             </button>
 
-            {/* --- 1. HEADER --- */}
-            <header className="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-white/10 pb-6 mb-12 gap-6 pt-16 md:pt-24">
-                <div className="flex flex-col gap-2">
-                    <span className={cn(mono.className, "text-[10px] text-red-600 font-bold uppercase tracking-widest")}>
+            {/* --- MAIN CONTENT CONTAINER (Centered) --- */}
+            <div className="relative z-10 max-w-7xl mx-auto w-full pt-12 md:pt-16">
+
+                {/* 1. OPERATOR INFO (Left Aligned) */}
+                <div className="flex flex-col gap-2 mb-16 md:mb-20">
+                    <span className="text-[10px] text-red-600/80 font-bold uppercase tracking-[0.2em] border-l-2 border-red-600 pl-3">
                         System Operator
                     </span>
-                    <div className="flex items-center gap-3">
-                        <div className="relative">
-                            <div className="w-2 h-2 bg-green-500 rounded-full animate-ping absolute"></div>
-                            <div className="w-2 h-2 bg-green-500 rounded-full relative"></div>
-                        </div>
-                        <span className={cn(mono.className, "text-xs md:text-sm text-white uppercase tracking-wider font-bold truncate max-w-[250px] md:max-w-none")}>
+                    <div className="flex items-center gap-3 pl-3">
+                        <div className="w-1.5 h-1.5 bg-green-500 rounded-full shadow-[0_0_8px_#22c55e] animate-pulse" />
+                        <span className="text-sm text-white font-bold tracking-wider uppercase opacity-80">
                             {user.email}
                         </span>
                     </div>
                 </div>
-            </header>
 
-            {/* --- 2. HERO SECTION --- */}
-            <section className="mb-16 md:mb-20 relative">
-                <div className="absolute -top-20 left-0 w-full md:w-96 h-96 bg-red-600/10 blur-[80px] md:blur-[100px] pointer-events-none"></div>
+                {/* 2. TEAM IDENTITY HERO (Centered) */}
+                <div className="flex flex-col items-center text-center mb-28 relative">
+                    
+                    {/* Decorative Center Line */}
+                    <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-900/30 to-transparent -z-10 transform -translate-y-1/2"></div>
 
-                <div className="flex flex-col gap-4 relative z-10">
-                    <div className="flex items-center gap-4">
-                        <div className="h-px w-8 md:w-12 bg-red-600"></div>
-                        <p className={cn(mono.className, "text-[10px] md:text-sm text-red-500 uppercase tracking-[0.2em] md:tracking-[0.3em] font-bold")}>
+                    {/* Active Unit Badge */}
+                    <div className="bg-black px-6 py-2 border border-red-900/40 mb-10 shadow-[0_0_20px_rgba(0,0,0,0.8)]">
+                        <span className="text-[10px] md:text-xs text-red-500 font-bold uppercase tracking-[0.4em]">
                             Active Unit
-                        </p>
+                        </span>
                     </div>
 
-                    <h1 className={cn(orbitron.className, "text-4xl sm:text-6xl md:text-8xl font-black text-white uppercase tracking-tighter break-words drop-shadow-[0_0_25px_rgba(220,38,38,0.3)] leading-[0.9]")}>
+                    {/* Team Name */}
+                    <h1 className={cn(orbitron.className, "text-5xl md:text-7xl lg:text-9xl font-black text-white uppercase tracking-tighter mb-12 drop-shadow-[0_0_30px_rgba(220,38,38,0.15)] leading-[0.9]")}>
                         {team.name}
                     </h1>
 
-                    <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-4 md:gap-6 mt-6 md:mt-8">
-                        <div className="border-l-2 border-white/20 pl-3 md:pl-4">
-                            <span className={cn(mono.className, "block text-[9px] md:text-[10px] text-neutral-500 uppercase tracking-widest")}>Track</span>
-                            <span className={cn(mono.className, "block text-xs md:text-sm text-white font-bold uppercase tracking-widest")}>{team.track}</span>
+                    {/* Stats Bar (Grid Layout) */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 w-full max-w-4xl border-y border-white/10 divide-y md:divide-y-0 md:divide-x divide-white/10 bg-white/[0.02] backdrop-blur-sm">
+                        
+                        <div className="p-6 flex flex-col items-center gap-2 group hover:bg-white/[0.02] transition-colors">
+                            <span className="text-[10px] text-neutral-500 uppercase tracking-widest font-bold group-hover:text-red-500 transition-colors">Operational Track</span>
+                            <span className="text-sm md:text-base text-white font-bold tracking-wider uppercase text-center">{team.track}</span>
                         </div>
 
-                        <div className="border-l-2 border-white/20 pl-3 md:pl-4">
-                             <span className={cn(mono.className, "block text-[9px] md:text-[10px] text-neutral-500 uppercase tracking-widest")}>Strength</span>
-                             <span className={cn(mono.className, "block text-xs md:text-sm text-white font-bold uppercase tracking-widest")}>{team.members.length} / {team.size}</span>
+                        <div className="p-6 flex flex-col items-center gap-2 group hover:bg-white/[0.02] transition-colors">
+                            <span className="text-[10px] text-neutral-500 uppercase tracking-widest font-bold group-hover:text-red-500 transition-colors">Squad Strength</span>
+                            <span className="text-sm md:text-base text-white font-bold tracking-wider uppercase">{team.members.length} / {team.size}</span>
                         </div>
 
-                        <div className={cn("border-l-2 pl-3 md:pl-4", 
-                             team.payment_status === 'verified' ? "border-green-500" : 
-                             team.payment_status === 'rejected' ? "border-red-500" : "border-yellow-500"
-                        )}>
-                            <span className={cn(mono.className, "block text-[9px] md:text-[10px] text-neutral-500 uppercase tracking-widest")}>Status</span>
-                            <span className={cn(mono.className, "block text-xs md:text-sm font-bold uppercase tracking-widest",
-                                team.payment_status === 'verified' ? "text-green-500" : 
-                                team.payment_status === 'rejected' ? "text-red-500" : "text-yellow-500"
+                        <div className="p-6 flex flex-col items-center gap-2 group hover:bg-white/[0.02] transition-colors">
+                            <span className="text-[10px] text-neutral-500 uppercase tracking-widest font-bold group-hover:text-red-500 transition-colors">Registration Status</span>
+                            <span className={cn("text-sm md:text-base font-bold tracking-wider uppercase px-3 py-0.5 border border-transparent", 
+                                team.payment_status === 'verified' ? "text-green-400 bg-green-900/20 border-green-900/50" : 
+                                team.payment_status === 'rejected' ? "text-red-400 bg-red-900/20 border-red-900/50" : 
+                                "text-yellow-400 bg-yellow-900/20 border-yellow-900/50"
                             )}>
                                 {team.payment_status || 'PENDING'}
                             </span>
                         </div>
                     </div>
                 </div>
-            </section>
 
-            {/* --- 3. ROSTER MANIFEST (RED BORDER TABLE) --- */}
-            <section className="relative z-10 max-w-7xl">
-                
-                <div className="flex flex-row items-center justify-between mb-12 gap-6">
-                    <div>
-                         <h2 className={cn(orbitron.className, "text-xl md:text-2xl text-white font-black uppercase tracking-widest")}>
-                            Roster Manifest
-                        </h2>
-                        <div className="h-1 w-16 md:w-24 bg-red-600 mt-2"></div>
-                    </div>
-                    
-                    <div className="flex flex-wrap gap-3">
-                        {isLeader && team.members.length < team.size && (
-                            <button
-                                onClick={() => setIsAddMemberOpen(true)}
-                                className={cn(mono.className, "flex-none px-4 py-2 border border-red-600 text-red-500 hover:bg-red-600 hover:text-white text-[10px] md:text-xs font-bold uppercase tracking-widest transition-all rounded-none text-center")}
-                            >
-                                + Add Agent
-                            </button>
-                        )}
-                        {isLeader && (
-                            <button
-                                onClick={() => setIsEditing(true)}
-                                className={cn(mono.className, "flex-none px-4 py-2 border border-white/20 text-neutral-400 hover:border-white hover:text-white text-[10px] md:text-xs font-bold uppercase tracking-widest transition-all rounded-none text-center")}
-                            >
-                                Edit Profile
-                            </button>
-                        )}
-                    </div>
-                </div>
-
-                {/* --- TABLE: ENCASED IN RED BORDER --- */}
-                {/* Changed border to red-600/30 for better visibility */}
-                <div className="border border-red-600/30 rounded-none overflow-hidden bg-black">
-                    
-                    {/* Header Row: Dark Red BG + Red Borders */}
-                    <div className="hidden md:grid grid-cols-12 bg-red-900/20 border-b border-red-600/50 text-[10px] text-red-500 font-mono uppercase tracking-[0.2em] font-bold">
-                        <div className="col-span-3 py-4 px-6 border-r border-red-900/50">Operative Name</div>
-                        <div className="col-span-2 py-4 px-6 border-r border-red-900/50">Rank</div>
-                        <div className="col-span-3 py-4 px-6 border-r border-red-900/50">Phone No:</div>
-                        <div className="col-span-2 py-4 px-6 border-r border-red-900/50">Institute</div>
-                        <div className="col-span-2 py-4 px-6 text-right">Logistics</div>
-                    </div>
-
-                    {/* Table Body */}
-                    <div className="flex flex-col">
-                        {team.members.map((member) => (
-                            <motion.div 
-                                initial={{ opacity: 0, x: -10 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                key={member.id}
-                                // Row Border: Red-900/30
-                                className={cn("group relative flex flex-col md:grid md:grid-cols-12 md:gap-4 gap-3 py-6 px-6 border-b border-red-900/30 last:border-b-0 hover:bg-red-900/5 transition-colors",
-                                    member.is_leader ? "bg-red-950/10" : ""
-                                )}
-                            >
-                                {/* Name */}
-                                <div className="md:col-span-3 p-4 md:px-6 md:py-5 md:border-r md:border-red-900/50 flex flex-col justify-center">
-                                    <span className={cn(mono.className, "text-sm text-white font-bold uppercase tracking-wider")}>
-                                        {member.name}
-                                    </span>
-                                    <span className={cn(mono.className, "text-[10px] text-neutral-600 md:hidden mt-1")}>
-                                        {member.email}
-                                    </span>
-                                </div>
-
-                                {/* Rank */}
-                                <div className="md:col-span-2 p-4 md:px-6 md:py-5 md:border-r md:border-red-900/50 flex items-center">
-                                    <span className={cn(mono.className, "text-[9px] font-bold uppercase tracking-widest px-2 py-1 inline-block", 
-                                        member.is_leader ? "text-red-500 bg-red-500/10 border border-red-500/20" : "text-neutral-500 border border-neutral-800"
-                                    )}>
-                                        {member.is_leader ? 'SQUAD LEADER' : 'OPERATIVE'}
-                                    </span>
-                                </div>
-
-                                {/* Phone */}
-                                <div className="md:col-span-3 p-4 md:px-6 md:py-5 md:border-r md:border-red-900/50 flex items-center gap-2 md:gap-0">
-                                    <span className="md:hidden text-[10px] text-neutral-600 uppercase">Phone:</span>
-                                    <span className={cn(mono.className, "text-xs text-neutral-400 font-mono tracking-widest")}>
-                                        {member.phone}
-                                    </span>
-                                </div>
-
-                                {/* Institute */}
-                                <div className="md:col-span-2 p-4 md:px-6 md:py-5 md:border-r md:border-red-900/50 flex items-center gap-2 md:gap-0">
-                                    <span className="md:hidden text-[10px] text-neutral-600 uppercase">Institute:</span>
-                                    <span className={cn(mono.className, "text-xs text-neutral-300 uppercase truncate tracking-wider max-w-[200px]")}>
-                                        {member.college}
-                                    </span>
-                                </div>
-
-                                {/* Logistics */}
-                                {/* Mobile: Top border red. Desktop: No top border */}
-                                <div className="md:col-span-2 p-4 md:px-6 md:py-5 flex flex-row md:flex-col items-center md:items-end md:justify-center gap-3 md:gap-1 border-t border-red-900/50 md:border-t-0">
-                                    <span className={cn(mono.className, "text-[10px] font-bold uppercase tracking-wider", 
-                                        member.food_preference === 'Non-Veg' ? "text-red-400" : "text-green-400"
-                                    )}>
-                                        {member.food_preference}
-                                    </span>
-                                    {member.accommodation && (
-                                        <span className={cn(mono.className, "text-[9px] text-blue-400 uppercase tracking-wider border border-blue-900/50 px-1")}>
-                                            STAY REQ
-                                        </span>
-                                    )}
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* --- ADD MEMBER MODAL --- */}
-            {isAddMemberOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-md">
-                    <div className="w-full max-w-lg border-2 border-red-900/50 bg-black p-6 md:p-8 relative shadow-[0_0_50px_rgba(220,38,38,0.2)] rounded-none max-h-[90vh] overflow-y-auto">
-                        <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-red-600"></div>
-                        <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-red-600"></div>
-                        <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-red-600"></div>
-                        <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-red-600"></div>
-
-                        <h2 className={cn(orbitron.className, "text-2xl md:text-3xl text-white font-black uppercase mb-6 tracking-tighter")}>
-                            Recruit Agent
-                        </h2>
+                {/* 3. ROSTER MANIFEST */}
+                <div className="w-full">
+                    {/* Header Row: Title Left, Buttons Right */}
+                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 pb-4 border-b border-red-600/30 gap-6">
+                        <div className="flex items-center gap-4">
+                            <div className="w-2 h-8 bg-red-600"></div>
+                            <div>
+                                <h2 className={cn(orbitron.className, "text-2xl md:text-3xl text-white font-black uppercase tracking-widest")}>
+                                    Roster Manifest
+                                </h2>
+                                <p className="text-[10px] text-neutral-500 uppercase tracking-[0.3em] mt-1">
+                                    Personnel Database // Sector 7
+                                </p>
+                            </div>
+                        </div>
                         
-                        {addMemberError && (
-                             <div className={cn(mono.className, "mb-6 p-4 bg-red-950/30 border border-red-600 text-red-500 text-xs font-bold rounded-none")}>
-                                ERROR: {addMemberError}
-                            </div>
-                        )}
+                        <div className="flex items-center gap-4 self-end md:self-auto">
+                            {isLeader && team.members.length < team.size && (
+                                <button
+                                    onClick={() => setIsAddMemberOpen(true)}
+                                    className="px-6 py-3 border border-red-600/50 bg-red-950/10 hover:bg-red-600 hover:text-white text-red-500 text-[10px] font-bold uppercase tracking-[0.2em] transition-all"
+                                >
+                                    + Add Agent
+                                </button>
+                            )}
+                            {isLeader && (
+                                <button
+                                    onClick={() => setIsEditing(true)}
+                                    className="px-6 py-3 border border-white/20 hover:border-white text-neutral-400 hover:text-white text-[10px] font-bold uppercase tracking-[0.2em] transition-all"
+                                >
+                                    Edit Profile
+                                </button>
+                            )}
+                        </div>
+                    </div>
 
-                        <form action={handleAddMember} className="space-y-5">
-                            <div className="space-y-2">
-                                <label className={cn(mono.className, "text-[10px] text-red-600 font-bold uppercase tracking-widest")}>Full Name</label>
-                                <input name="name" required className={cn(mono.className, "w-full bg-transparent border-b border-white/20 py-2 text-white text-sm focus:border-red-600 outline-none rounded-none transition-colors uppercase placeholder:text-neutral-800")} placeholder="ENTER NAME" />
-                            </div>
-                            
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                <div className="space-y-2">
-                                    <label className={cn(mono.className, "text-[10px] text-red-600 font-bold uppercase tracking-widest")}>Email</label>
-                                    <input name="email" type="email" required className={cn(mono.className, "w-full bg-transparent border-b border-white/20 py-2 text-white text-sm focus:border-red-600 outline-none rounded-none transition-colors uppercase placeholder:text-neutral-800")} placeholder="ENTER EMAIL" />
-                                </div>
-                                <div className="space-y-2">
-                                    <label className={cn(mono.className, "text-[10px] text-red-600 font-bold uppercase tracking-widest")}>Phone</label>
-                                    <input name="phone" required className={cn(mono.className, "w-full bg-transparent border-b border-white/20 py-2 text-white text-sm focus:border-red-600 outline-none rounded-none transition-colors uppercase")} placeholder="+91..." />
-                                </div>
-                            </div>
-                            
-                            <div className="space-y-2">
-                                <label className={cn(mono.className, "text-[10px] text-red-600 font-bold uppercase tracking-widest")}>Institute</label>
-                                <input name="college" required className={cn(mono.className, "w-full bg-transparent border-b border-white/20 py-2 text-white text-sm focus:border-red-600 outline-none rounded-none transition-colors uppercase")} placeholder="INSTITUTE NAME" />
-                            </div>
+                    {/* TABLE: Encased in Red Border */}
+                    <div className="border border-red-900/40 bg-black/40 backdrop-blur-sm">
+                        
+                        {/* Table Header */}
+                        <div className="hidden md:grid grid-cols-12 bg-red-950/20 border-b border-red-900/40 text-[10px] text-red-500/80 font-bold uppercase tracking-[0.2em]">
+                            <div className="col-span-3 py-5 px-6 border-r border-red-900/30">Operative Name</div>
+                            <div className="col-span-2 py-5 px-6 border-r border-red-900/30">Rank</div>
+                            <div className="col-span-3 py-5 px-6 border-r border-red-900/30">Phone No:</div>
+                            <div className="col-span-2 py-5 px-6 border-r border-red-900/30">Institute</div>
+                            <div className="col-span-2 py-5 px-6 text-right">Logistics</div>
+                        </div>
 
-                            <div className="grid grid-cols-2 gap-5">
-                                <div className="space-y-2">
-                                    <label className={cn(mono.className, "text-[10px] text-red-600 font-bold uppercase tracking-widest")}>Branch</label>
-                                    <input name="branch" className={cn(mono.className, "w-full bg-transparent border-b border-white/20 py-2 text-white text-sm focus:border-red-600 outline-none rounded-none transition-colors uppercase")} placeholder="DEPT" />
-                                </div>
-                                <div className="space-y-2">
-                                    <label className={cn(mono.className, "text-[10px] text-red-600 font-bold uppercase tracking-widest")}>Roll No</label>
-                                    <input name="rollNo" className={cn(mono.className, "w-full bg-transparent border-b border-white/20 py-2 text-white text-sm focus:border-red-600 outline-none rounded-none transition-colors uppercase")} placeholder="ID" />
-                                </div>
-                            </div>
+                        {/* Table Rows */}
+                        <div className="divide-y divide-red-900/20">
+                            {team.members.map((member) => (
+                                <motion.div 
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    key={member.id}
+                                    className={cn("group relative flex flex-col md:grid md:grid-cols-12 transition-colors hover:bg-white/[0.02]",
+                                        member.is_leader ? "bg-red-900/[0.03]" : ""
+                                    )}
+                                >
+                                    {/* Name */}
+                                    <div className="md:col-span-3 p-5 md:px-6 md:py-6 md:border-r border-red-900/30 flex flex-col justify-center">
+                                        <span className="text-sm text-white font-bold uppercase tracking-wider group-hover:text-red-100 transition-colors">
+                                            {member.name}
+                                        </span>
+                                        <span className="text-[10px] text-neutral-600 mt-1 tracking-wider font-medium">
+                                            {member.email}
+                                        </span>
+                                    </div>
 
-                            <div className="grid grid-cols-2 gap-5 pt-4">
+                                    {/* Rank */}
+                                    <div className="md:col-span-2 p-5 md:px-6 md:py-6 md:border-r border-red-900/30 flex items-center">
+                                        {member.is_leader ? (
+                                            <span className="text-[9px] font-black text-red-500 bg-red-500/10 border border-red-500/20 px-2 py-1 uppercase tracking-widest">
+                                                Squad Leader
+                                            </span>
+                                        ) : (
+                                            <span className="text-[9px] font-bold text-neutral-500 border border-neutral-800 px-2 py-1 uppercase tracking-widest">
+                                                Operative
+                                            </span>
+                                        )}
+                                    </div>
+
+                                    {/* Phone */}
+                                    <div className="md:col-span-3 p-5 md:px-6 md:py-6 md:border-r border-red-900/30 flex items-center gap-3 md:gap-0">
+                                        <span className="md:hidden text-[10px] text-neutral-600 uppercase font-bold tracking-widest">Phone:</span>
+                                        <span className="text-xs text-neutral-400 font-mono tracking-wider">
+                                            {member.phone}
+                                        </span>
+                                    </div>
+
+                                    {/* Institute */}
+                                    <div className="md:col-span-2 p-5 md:px-6 md:py-6 md:border-r border-red-900/30 flex items-center gap-3 md:gap-0">
+                                        <span className="md:hidden text-[10px] text-neutral-600 uppercase font-bold tracking-widest">Institute:</span>
+                                        <span className="text-xs text-neutral-300 uppercase truncate tracking-wider max-w-[200px]">
+                                            {member.college}
+                                        </span>
+                                    </div>
+
+                                    {/* Logistics */}
+                                    <div className="md:col-span-2 p-5 md:px-6 md:py-6 flex flex-row md:flex-col items-center md:items-end md:justify-center gap-4 border-t border-red-900/20 md:border-t-0">
+                                        <span className={cn("text-[10px] font-black uppercase tracking-widest", 
+                                            member.food_preference === 'Non-Veg' ? "text-red-400" : "text-green-400"
+                                        )}>
+                                            {member.food_preference}
+                                        </span>
+                                        {member.accommodation && (
+                                            <span className="text-[9px] text-blue-400 bg-blue-900/10 border border-blue-500/30 px-2 py-0.5 uppercase tracking-widest font-bold">
+                                                Stay Req
+                                            </span>
+                                        )}
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                {/* --- ADD MEMBER MODAL (Consistent styling) --- */}
+                {isAddMemberOpen && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
+                        <div className="w-full max-w-lg bg-black border border-red-900/50 p-8 shadow-[0_0_50px_rgba(220,38,38,0.2)]">
+                            <h2 className={cn(orbitron.className, "text-2xl text-white font-black uppercase mb-8")}>
+                                Recruit Agent
+                            </h2>
+                            {addMemberError && (
+                                <div className="mb-6 p-4 bg-red-950/30 border border-red-600 text-red-500 text-xs font-bold uppercase tracking-wide">
+                                    [ERROR]: {addMemberError}
+                                </div>
+                            )}
+                            <form action={handleAddMember} className="space-y-6">
                                 <div className="space-y-2">
-                                    <label className={cn(mono.className, "text-[10px] text-red-600 font-bold uppercase tracking-widest")}>Rations</label>
-                                    <select name="food" className={cn(mono.className, "w-full bg-black border border-white/20 p-3 text-white text-sm focus:border-red-600 outline-none rounded-none uppercase cursor-pointer")}>
+                                    <label className="text-[10px] text-red-600 font-bold uppercase tracking-widest">Full Name</label>
+                                    <input name="name" required className="w-full bg-transparent border-b border-white/20 py-2 text-white text-sm focus:border-red-600 outline-none uppercase placeholder:text-neutral-800" placeholder="ENTER NAME" />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-[10px] text-red-600 font-bold uppercase tracking-widest">Email</label>
+                                    <input name="email" type="email" required className="w-full bg-transparent border-b border-white/20 py-2 text-white text-sm focus:border-red-600 outline-none uppercase placeholder:text-neutral-800" placeholder="ENTER EMAIL" />
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] text-red-600 font-bold uppercase tracking-widest">Phone</label>
+                                        <input name="phone" required className="w-full bg-transparent border-b border-white/20 py-2 text-white text-sm focus:border-red-600 outline-none uppercase" placeholder="+91..." />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] text-red-600 font-bold uppercase tracking-widest">Branch</label>
+                                        <input name="branch" className="w-full bg-transparent border-b border-white/20 py-2 text-white text-sm focus:border-red-600 outline-none uppercase" placeholder="DEPT" />
+                                    </div>
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-[10px] text-red-600 font-bold uppercase tracking-widest">Institute</label>
+                                    <input name="college" required className="w-full bg-transparent border-b border-white/20 py-2 text-white text-sm focus:border-red-600 outline-none uppercase" placeholder="INSTITUTE NAME" />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-[10px] text-red-600 font-bold uppercase tracking-widest">Roll No</label>
+                                    <input name="rollNo" className="w-full bg-transparent border-b border-white/20 py-2 text-white text-sm focus:border-red-600 outline-none uppercase" placeholder="ID" />
+                                </div>
+                                <div className="grid grid-cols-2 gap-6 pt-4">
+                                    <select name="food" className="w-full bg-black border border-white/20 p-3 text-white text-sm focus:border-red-600 outline-none uppercase cursor-pointer">
                                         <option value="Veg">Veg</option>
                                         <option value="Non-Veg">Non-Veg</option>
                                     </select>
+                                    <div className="flex items-center gap-3">
+                                        <input type="checkbox" name="accommodation" value="true" className="w-5 h-5 border border-white/20 bg-transparent checked:bg-red-600 cursor-pointer" />
+                                        <label className="text-xs text-white font-bold uppercase tracking-widest">Accommodation</label>
+                                    </div>
                                 </div>
-                                <div className="flex items-end pb-3 gap-3">
-                                    <input type="checkbox" name="accommodation" value="true" className="w-5 h-5 border border-white/20 bg-transparent checked:bg-red-600 rounded-none cursor-pointer" />
-                                    <label className={cn(mono.className, "text-xs text-white font-bold uppercase tracking-widest")}>Accommodation</label>
+                                <div className="flex gap-4 pt-6">
+                                    <button type="button" onClick={() => setIsAddMemberOpen(false)} className="flex-1 border border-white/20 py-3 text-white text-xs font-bold uppercase tracking-widest hover:bg-white/10">Abort</button>
+                                    <button type="submit" disabled={isAdding} className="flex-1 bg-red-600 py-3 text-white text-xs font-bold uppercase tracking-widest hover:bg-red-700 shadow-[0_0_20px_rgba(220,38,38,0.4)]">
+                                        {isAdding ? 'Processing...' : 'Confirm'}
+                                    </button>
                                 </div>
-                            </div>
-
-                            <div className="flex gap-4 pt-8">
-                                <button type="button" onClick={() => setIsAddMemberOpen(false)} className={cn(mono.className, "flex-1 border border-white/20 py-3 text-white text-xs hover:bg-white/10 font-bold uppercase tracking-widest rounded-none")}>Abort</button>
-                                <button type="submit" disabled={isAdding} className={cn(mono.className, "flex-1 bg-red-600 py-3 text-white text-xs font-bold hover:bg-red-700 uppercase tracking-widest shadow-[0_0_20px_rgba(220,38,38,0.4)] rounded-none")}>
-                                    {isAdding ? 'PROCESSING...' : 'CONFIRM RECRUIT'}
-                                </button>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            )}
+                )}
+            </div>
         </div>
     )
 }
