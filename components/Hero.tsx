@@ -20,7 +20,6 @@ export default function Hero() {
             { opacity: 1, y: 0, duration: 1, delay: 1 }
         );
 
-        // Ticker animation: slower start, then even slower
         const ticker = document.querySelector(".ticker") as HTMLElement;
         if (ticker) {
             setTimeout(() => {
@@ -28,7 +27,6 @@ export default function Hero() {
             }, 25000);
         }
 
-        // Hide ticker when scrolling past hero section
         const handleScroll = () => {
             if (heroRef.current && tickerWrapRef.current) {
                 const heroBottom = heroRef.current.offsetHeight;
@@ -47,8 +45,8 @@ export default function Hero() {
     }, []);
 
     return (
-        // CHANGED: Increased pt-24 to pt-40 to move text downward
-        <section id="hero" className="section !justify-start pt-40" ref={heroRef}>
+        // CHANGED: Increased from pt-40 to pt-64 (approx 250px) to force text down
+        <section id="hero" className="section !justify-start pt-64" ref={heroRef}>
             <div id="ticker-wrap-top">
                 <div className="ticker">
                     <div className="ticker-reverse">
@@ -68,7 +66,8 @@ export default function Hero() {
                 </div>
             </div>
 
-            <div className="hero-content !mt-0">
+            {/* CHANGED: Removed !mt-0 and added mt-4 for extra breathing room if needed */}
+            <div className="hero-content mt-4">
                 <h1 className="hero-title">
                     H<span className="c1">ACK</span>
                     S<span className="c1">AVVY</span>-26
@@ -123,7 +122,6 @@ export default function Hero() {
                     <span>Industry Expert Mentors • </span>
                     <span>Exciting Domains & Tracks • </span>
                     <span>Networking Opportunities • </span>
-                    {/* Duplicate spans for seamless loop */}
                     <span>24 Hour Hackathon • </span>
                     <span>Price Pool: ₹ 2,50,000 • </span>
                     <span>National Level Event • </span>
