@@ -164,6 +164,7 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                                     <option value="AI" className="bg-black">AI, AUTOMATION & ROBOTICS</option>
                                     <option value="IoT" className="bg-black">IOT & EMBEDDED SYSTEMS</option>
                                     <option value="Blockchain" className="bg-black">CYBERSECURITY & BLOCKCHAIN</option>
+                                    <option value="Sustainability and Environment" className="bg-black">SUSTAINABILITY AND ENVIRONMENT</option>
                                     <option value="Open Innovation" className="bg-black">OPEN INNOVATION</option>
                                 </select>
                                 <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-red-600 text-xs">▼</div>
