@@ -47,8 +47,8 @@ export default function Hero() {
     }, []);
 
     return (
-        // CHANGED: Reduced pt-52 to pt-24 to move content upwards
-        <section id="hero" className="section !justify-start pt-24" ref={heroRef}>
+        // CHANGED: Increased pt-24 to pt-40 to move text downward
+        <section id="hero" className="section !justify-start pt-40" ref={heroRef}>
             <div id="ticker-wrap-top">
                 <div className="ticker">
                     <div className="ticker-reverse">
