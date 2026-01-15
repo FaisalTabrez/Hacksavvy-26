@@ -99,11 +99,11 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
     return (
         <div className={cn("w-full min-h-screen bg-black relative px-4 md:px-12 py-8 overflow-x-hidden", orbitron.variable, mono.variable)}>
             
-            {/* --- Terminate Session Button (Top Right) --- */}
+            {/* --- Terminate Session Button (MOVED HIGHER) --- */}
             <button 
                 onClick={handleLogout}
                 disabled={isLoggingOut}
-                className={cn(mono.className, "absolute top-4 right-4 md:top-12 md:right-12 z-50 group flex items-center gap-2 md:gap-3 px-4 py-2 md:px-6 md:py-3 border border-red-900/30 hover:border-red-600 bg-red-950/10 hover:bg-red-900/20 transition-all rounded-none")}
+                className={cn(mono.className, "absolute top-6 right-6 z-50 group flex items-center gap-2 md:gap-3 px-4 py-2 md:px-6 md:py-3 border border-red-900/30 hover:border-red-600 bg-red-950/10 hover:bg-red-900/20 transition-all rounded-none")}
             >
                 <span className="w-1.5 h-1.5 bg-red-600 group-hover:animate-pulse"></span>
                 <span className="text-[10px] md:text-xs font-bold text-red-500 group-hover:text-red-400 uppercase tracking-widest whitespace-nowrap">
@@ -136,7 +136,6 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                 <div className="flex flex-col gap-4 relative z-10">
                     <div className="flex items-center gap-4">
                         <div className="h-px w-8 md:w-12 bg-red-600"></div>
-                        {/* UPDATE: ID Removed */}
                         <p className={cn(mono.className, "text-[10px] md:text-sm text-red-500 uppercase tracking-[0.2em] md:tracking-[0.3em] font-bold")}>
                             Active Unit
                         </p>
@@ -173,22 +172,25 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                 </div>
             </section>
 
-            {/* --- 3. ROSTER MANIFEST --- */}
+            {/* --- 3. ROSTER MANIFEST (UPDATED GRID) --- */}
             <section className="relative z-10 max-w-7xl">
-                <div className="flex flex-col md:flex-row md:items-end justify-between mb-6 gap-6 md:gap-4">
+                
+                {/* Header Container - ALIGNED PARALLEL */}
+                {/* Added mb-12 to increase spacing between line and table */}
+                <div className="flex flex-row items-center justify-between mb-12 gap-6">
                     <div>
-                         {/* UPDATE: Font Size Reduced to text-2xl */}
                          <h2 className={cn(orbitron.className, "text-xl md:text-2xl text-white font-black uppercase tracking-widest")}>
                             Roster Manifest
                         </h2>
                         <div className="h-1 w-16 md:w-24 bg-red-600 mt-2"></div>
                     </div>
                     
-                    <div className="flex flex-wrap gap-3 w-full md:w-auto">
+                    {/* Buttons: Aligned center with title */}
+                    <div className="flex flex-wrap gap-3">
                         {isLeader && team.members.length < team.size && (
                             <button
                                 onClick={() => setIsAddMemberOpen(true)}
-                                className={cn(mono.className, "flex-1 md:flex-none px-4 py-2 border border-red-600 text-red-500 hover:bg-red-600 hover:text-white text-[10px] md:text-xs font-bold uppercase tracking-widest transition-all rounded-none text-center")}
+                                className={cn(mono.className, "flex-none px-4 py-2 border border-red-600 text-red-500 hover:bg-red-600 hover:text-white text-[10px] md:text-xs font-bold uppercase tracking-widest transition-all rounded-none text-center")}
                             >
                                 + Add Agent
                             </button>
@@ -196,7 +198,7 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                         {isLeader && (
                             <button
                                 onClick={() => setIsEditing(true)}
-                                className={cn(mono.className, "flex-1 md:flex-none px-4 py-2 border border-white/20 text-neutral-400 hover:border-white hover:text-white text-[10px] md:text-xs font-bold uppercase tracking-widest transition-all rounded-none text-center")}
+                                className={cn(mono.className, "flex-none px-4 py-2 border border-white/20 text-neutral-400 hover:border-white hover:text-white text-[10px] md:text-xs font-bold uppercase tracking-widest transition-all rounded-none text-center")}
                             >
                                 Edit Profile
                             </button>
@@ -204,31 +206,32 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                     </div>
                 </div>
 
-                {/* UPDATE: Encased Table Container */}
-                <div className="border border-white/20 rounded-none overflow-hidden">
+                {/* --- TABLE: ENCASED IN BORDER --- */}
+                <div className="border border-white/20 rounded-none overflow-hidden bg-black">
                     
-                    {/* Header with Background */}
-                    <div className="hidden md:grid grid-cols-12 gap-4 py-4 px-6 text-[10px] text-red-500/70 font-mono uppercase tracking-[0.2em] font-bold bg-white/5 border-b border-white/20">
-                        <div className="col-span-3">Operative Name</div>
-                        <div className="col-span-2">Rank</div>
-                        <div className="col-span-3">Phone No:</div>
-                        <div className="col-span-2">Institute</div>
-                        <div className="col-span-2 text-right">Logistics</div>
+                    {/* Header Row: Dark Red BG for Contrast */}
+                    <div className="hidden md:grid grid-cols-12 bg-red-900/10 border-b border-white/20 text-[10px] text-red-500 font-mono uppercase tracking-[0.2em] font-bold">
+                        <div className="col-span-3 py-4 px-6 border-r border-white/10">Operative Name</div>
+                        <div className="col-span-2 py-4 px-6 border-r border-white/10">Rank</div>
+                        <div className="col-span-3 py-4 px-6 border-r border-white/10">Phone No:</div>
+                        <div className="col-span-2 py-4 px-6 border-r border-white/10">Institute</div>
+                        <div className="col-span-2 py-4 px-6 text-right">Logistics</div>
                     </div>
 
-                    {/* Rows */}
-                    <div className="flex flex-col bg-black/40">
+                    {/* Table Body */}
+                    <div className="flex flex-col">
                         {team.members.map((member) => (
                             <motion.div 
                                 initial={{ opacity: 0, x: -10 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 key={member.id}
-                                className={cn("group relative flex flex-col md:grid md:grid-cols-12 md:gap-4 gap-3 py-6 px-6 border-b border-white/10 last:border-b-0 hover:bg-white/[0.02] transition-colors",
+                                className={cn("group relative flex flex-col md:grid md:grid-cols-12 border-b border-white/10 last:border-b-0 hover:bg-white/[0.02] transition-colors",
                                     member.is_leader ? "bg-red-900/5" : ""
                                 )}
                             >
-                                <div className="md:col-span-3 flex flex-col justify-center">
-                                    <span className={cn(mono.className, "text-sm md:text-base text-white font-bold uppercase tracking-wider")}>
+                                {/* Name */}
+                                <div className="md:col-span-3 p-4 md:px-6 md:py-5 border-r border-white/10 flex flex-col justify-center">
+                                    <span className={cn(mono.className, "text-sm text-white font-bold uppercase tracking-wider")}>
                                         {member.name}
                                     </span>
                                     <span className={cn(mono.className, "text-[10px] text-neutral-600 md:hidden mt-1")}>
@@ -236,7 +239,8 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                                     </span>
                                 </div>
 
-                                <div className="md:col-span-2 flex items-center">
+                                {/* Rank */}
+                                <div className="md:col-span-2 p-4 md:px-6 md:py-5 border-r border-white/10 flex items-center">
                                     <span className={cn(mono.className, "text-[9px] font-bold uppercase tracking-widest px-2 py-1 inline-block", 
                                         member.is_leader ? "text-red-500 bg-red-500/10 border border-red-500/20" : "text-neutral-500 border border-neutral-800"
                                     )}>
@@ -244,21 +248,24 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                                     </span>
                                 </div>
 
-                                <div className="md:col-span-3 flex items-center gap-2 md:gap-0">
-                                    <span className="md:hidden text-[10px] text-neutral-600 uppercase">Phone No:</span>
+                                {/* Phone */}
+                                <div className="md:col-span-3 p-4 md:px-6 md:py-5 border-r border-white/10 flex items-center gap-2 md:gap-0">
+                                    <span className="md:hidden text-[10px] text-neutral-600 uppercase">Phone:</span>
                                     <span className={cn(mono.className, "text-xs text-neutral-400 font-mono tracking-widest")}>
                                         {member.phone}
                                     </span>
                                 </div>
 
-                                <div className="md:col-span-2 flex items-center gap-2 md:gap-0">
+                                {/* Institute */}
+                                <div className="md:col-span-2 p-4 md:px-6 md:py-5 border-r border-white/10 flex items-center gap-2 md:gap-0">
                                     <span className="md:hidden text-[10px] text-neutral-600 uppercase">Institute:</span>
                                     <span className={cn(mono.className, "text-xs text-neutral-300 uppercase truncate tracking-wider max-w-[200px]")}>
                                         {member.college}
                                     </span>
                                 </div>
 
-                                <div className="md:col-span-2 flex flex-row md:flex-col items-center md:items-end md:justify-center gap-3 md:gap-1 mt-2 md:mt-0 pt-2 md:pt-0 border-t border-white/5 md:border-none">
+                                {/* Logistics */}
+                                <div className="md:col-span-2 p-4 md:px-6 md:py-5 flex flex-row md:flex-col items-center md:items-end md:justify-center gap-3 md:gap-1 border-t border-white/10 md:border-t-0">
                                     <span className={cn(mono.className, "text-[10px] font-bold uppercase tracking-wider", 
                                         member.food_preference === 'Non-Veg' ? "text-red-400" : "text-green-400"
                                     )}>
