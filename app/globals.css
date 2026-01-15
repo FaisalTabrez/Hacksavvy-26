@@ -128,14 +128,24 @@ div.details h5 {
     padding: 30px 0;
 }
 
-.team-track {
+
+/* Add a class to distinguish faculty vs student tracks */
+.team-track-faculty {
     display: flex;
     gap: 30px;
     width: max-content;
-    animation: scroll-left 40s linear infinite;
+    animation: scroll-faculty 60s linear infinite; /* Slower for more cards */
 }
 
-.team-track.manual-control {
+.team-track-student {
+    display: flex;
+    gap: 30px;
+    width: max-content;
+    animation: scroll-student 30s linear infinite;
+}
+
+.team-track-faculty.manual-control,
+.team-track-student.manual-control {
     animation: none !important;
 }
 
@@ -170,13 +180,21 @@ div.details h5 {
     color: #ccc;
 }
 
-@keyframes scroll-left {
+@keyframes scroll-faculty {
     from {
         transform: translateX(0);
     }
-
     to {
-        transform: translateX(-50%);
+        transform: translateX(calc(-260px * 15 - 30px * 14)); /* 15 cards + 14 gaps */
+    }
+}
+
+@keyframes scroll-student {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(calc(-260px * 6 - 30px * 5)); /* 6 cards + 5 gaps */
     }
 }
 
@@ -267,7 +285,7 @@ a {
 
 .hero-title {
     font-family: var(--font-orbitron), sans-serif;
-    font-size: 4em;
+    font-size: 5em;
     font-weight: 700;
     line-height: 1;
     margin-bottom: 12px;
@@ -850,7 +868,7 @@ a.buy-tickets:focus {
     display: block;
     font-weight: 700;
     font-size: 1.1em;
-    color: #ab0017;
+    color: #f82249;
     text-align: right;
 }
 
