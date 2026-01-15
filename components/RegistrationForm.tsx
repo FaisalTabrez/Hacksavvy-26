@@ -109,12 +109,11 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            // FIXED: Increased Top Padding (pt-32) so header isn't cut off
             className={cn("w-full min-h-screen pt-32 pb-32 px-4 md:px-8 max-w-6xl mx-auto", orbitron.variable, mono.variable)}
         >
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-16">
                 
-                {/* PAGE HEADER - SIZE REDUCED */}
+                {/* PAGE HEADER */}
                 <div className="flex flex-col gap-2 border-l-2 border-red-600 pl-6">
                     <h1 className={cn(orbitron.className, "text-3xl md:text-4xl font-black text-white uppercase tracking-tighter")}>
                         {isEditing ? 'Modify Protocol' : 'Initialize Registration'}
@@ -130,12 +129,9 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                     </div>
                 )}
 
-                {/* --------------------------------------------------------- */}
                 {/* SECTION 01: INFRASTRUCTURE */}
-                {/* --------------------------------------------------------- */}
                 <section className="space-y-8">
                     <div className="relative">
-                        {/* REDUCED SUBHEADER SIZE: text-lg */}
                         <h2 className={cn(orbitron.className, "text-lg md:text-xl font-black text-red-600 uppercase tracking-widest z-10 relative")}>
                             01 // Infrastructure
                         </h2>
@@ -143,7 +139,6 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {/* Team Name - COMPACT INPUTS */}
                         <div className="space-y-2">
                             <label className={cn(mono.className, "text-xs font-bold text-neutral-400 uppercase tracking-wider")}>
                                 Identity Tag (Team Name)
@@ -152,13 +147,11 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                                 {...register('teamName')}
                                 disabled={isEditing}
                                 placeholder="ENTER_SQUAD_NAME"
-                                // FIXED: Smaller padding (p-3) and text size (text-sm)
                                 className={cn(mono.className, "w-full bg-black/40 border border-white/10 p-3 text-sm text-white placeholder:text-neutral-700 focus:border-red-600 focus:outline-none focus:bg-black/60 transition-all uppercase rounded-none")}
                             />
                             {errors.teamName && <span className="text-red-500 text-[10px] font-mono block mt-1">{errors.teamName.message}</span>}
                         </div>
 
-                        {/* Track Selection */}
                         <div className="space-y-2">
                             <label className={cn(mono.className, "text-xs font-bold text-neutral-400 uppercase tracking-wider")}>
                                 Operational Track
@@ -178,7 +171,6 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                         </div>
                     </div>
 
-                    {/* Team Size */}
                     <div className="space-y-2">
                         <label className={cn(mono.className, "text-xs font-bold text-neutral-400 uppercase tracking-wider")}>
                             Squad Magnitude
@@ -196,9 +188,7 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                     </div>
                 </section>
 
-                {/* --------------------------------------------------------- */}
                 {/* SECTION 02: PERSONNEL MANIFEST */}
-                {/* --------------------------------------------------------- */}
                 <section className="space-y-8">
                      <div className="relative">
                         <h2 className={cn(orbitron.className, "text-lg md:text-xl font-black text-red-600 uppercase tracking-widest z-10 relative")}>
@@ -213,7 +203,6 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                                 key={field.id}
                                 initial={{ opacity: 0, x: -10 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                // FIXED: Sharp corners (rounded-none) to prevent clipping
                                 className="relative bg-black/20 border-l-2 border-white/10 p-6 md:p-8 hover:border-red-600 hover:bg-black/30 transition-all group rounded-none"
                             >
                                 <div className="absolute top-0 right-0 px-3 py-1 bg-white/5 border-b border-l border-white/10 text-[10px] text-neutral-500 font-mono tracking-widest uppercase">
@@ -221,7 +210,6 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
-                                    {/* Name */}
                                     <div className="space-y-1">
                                         <label className={cn(mono.className, "text-[10px] font-bold text-red-500/70 uppercase tracking-wider")}>Legal Name</label>
                                         <input
@@ -232,7 +220,6 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                                         {errors.members?.[index]?.name && <span className="text-red-500 text-[10px] block">{errors.members[index]?.name?.message}</span>}
                                     </div>
 
-                                    {/* Email */}
                                     <div className="space-y-1">
                                         <label className={cn(mono.className, "text-[10px] font-bold text-red-500/70 uppercase tracking-wider")}>Comm Channel</label>
                                         <input
@@ -243,9 +230,9 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                                         />
                                     </div>
 
-                                    {/* Phone */}
+                                    {/* CHANGED LABEL HERE */}
                                     <div className="space-y-1">
-                                        <label className={cn(mono.className, "text-[10px] font-bold text-red-500/70 uppercase tracking-wider")}>Signal ID (Mobile)</label>
+                                        <label className={cn(mono.className, "text-[10px] font-bold text-red-500/70 uppercase tracking-wider")}>Phone Number</label>
                                         <input
                                             {...register(`members.${index}.phone`)}
                                             placeholder="+91 XXXXX XXXXX"
@@ -253,7 +240,6 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                                         />
                                     </div>
 
-                                    {/* College */}
                                     <div className="space-y-1">
                                         <label className={cn(mono.className, "text-[10px] font-bold text-red-500/70 uppercase tracking-wider")}>Institution</label>
                                         <input
@@ -263,7 +249,6 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                                         />
                                     </div>
 
-                                    {/* Leader Specifics */}
                                     {index === 0 && (
                                         <>
                                             <div className="space-y-1">
@@ -278,7 +263,6 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                                     )}
                                 </div>
 
-                                {/* Logistics Toggles */}
                                 <div className="mt-6 pt-4 border-t border-white/5 flex flex-wrap gap-6 items-center">
                                     <label className="flex items-center gap-3 cursor-pointer group/accom">
                                         <div className="relative">
@@ -308,9 +292,7 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                     </div>
                 </section>
 
-                {/* --------------------------------------------------------- */}
                 {/* SECTION 03: TRANSACTION NODE */}
-                {/* --------------------------------------------------------- */}
                 <section className="space-y-8">
                      <div className="relative">
                         <h2 className={cn(orbitron.className, "text-lg md:text-xl font-black text-red-600 uppercase tracking-widest z-10 relative")}>
@@ -324,7 +306,6 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                         <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 blur-3xl pointer-events-none"></div>
 
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 relative z-10">
-                            {/* Payment Info */}
                             <div className="space-y-6">
                                 <div className="p-4 bg-red-950/20 border-l-2 border-red-600">
                                     <p className={cn(mono.className, "text-xs font-bold text-red-200 uppercase tracking-widest mb-1")}>Transfer Protocol:</p>
@@ -346,7 +327,6 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                                 </div>
                             </div>
 
-                            {/* Upload Area */}
                             <div className="space-y-2">
                                 <label className={cn(mono.className, "text-xs font-bold text-neutral-400 uppercase tracking-wider")}>
                                     Proof of Transfer (Screenshot)
@@ -358,7 +338,6 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                                             <span className="text-red-500">Click</span> / Drop File
                                         </p>
                                         
-                                        {/* Truncated File Name Display */}
                                         <div className="max-w-[200px] mt-2 bg-black/50 px-2 py-0.5 border border-white/10">
                                             <p className={cn(mono.className, "text-[9px] text-neutral-500 truncate")}>
                                                 {watch('paymentScreenshot')?.[0]?.name || 'NO_DATA'}
@@ -373,9 +352,6 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                     </div>
                 </section>
 
-                {/* --------------------------------------------------------- */}
-                {/* FINAL ACTION */}
-                {/* --------------------------------------------------------- */}
                 <div className="pt-8 pb-24 flex gap-4">
                     {isEditing && onCancel && (
                         <button 
@@ -389,7 +365,6 @@ export default function RegistrationForm({ initialData, isEditing = false, teamI
                     <button 
                         type="submit" 
                         disabled={isSubmitting}
-                        // REDUCED BUTTON SIZE: text-lg, py-4
                         className={cn(orbitron.className, "flex-1 bg-red-600 hover:bg-red-700 text-white text-lg md:text-xl font-black py-4 uppercase tracking-[0.1em] transition-all hover:shadow-[0_0_50px_rgba(220,38,38,0.6)] disabled:opacity-50 disabled:cursor-not-allowed clip-path-polygon rounded-none")}
                     >
                         {isSubmitting ? 'PROCESSING...' : (isEditing ? 'COMMIT' : 'EXECUTE REGISTRATION')}

@@ -68,7 +68,6 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
     }
 
     if (isEditing) {
-         // ... (Keep existing edit logic)
          const initialData = {
             teamName: team.name,
             track: team.track,
@@ -100,8 +99,7 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
     return (
         <div className={cn("w-full min-h-screen bg-black relative px-4 md:px-12 py-8 overflow-x-hidden", orbitron.variable, mono.variable)}>
             
-            {/* --- Terminate Session Button (RESPONSIVE) --- */}
-            {/* Mobile: Top Right, smaller. Desktop: Top Right, larger */}
+            {/* --- Terminate Session Button --- */}
             <button 
                 onClick={handleLogout}
                 disabled={isLoggingOut}
@@ -114,10 +112,7 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
             </button>
 
             {/* --- 1. HEADER --- */}
-            {/* Added mt-12 on mobile to ensure Operator info isn't covered by the Logout button */}
             <header className="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-white/10 pb-6 mb-12 gap-6 pt-16 md:pt-24">
-                
-                {/* Operator Info */}
                 <div className="flex flex-col gap-2">
                     <span className={cn(mono.className, "text-[10px] text-red-600 font-bold uppercase tracking-widest")}>
                         System Operator
@@ -127,7 +122,6 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                             <div className="w-2 h-2 bg-green-500 rounded-full animate-ping absolute"></div>
                             <div className="w-2 h-2 bg-green-500 rounded-full relative"></div>
                         </div>
-                        {/* Truncate email on mobile so it doesn't push width out */}
                         <span className={cn(mono.className, "text-xs md:text-sm text-white uppercase tracking-wider font-bold truncate max-w-[250px] md:max-w-none")}>
                             {user.email}
                         </span>
@@ -135,7 +129,7 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                 </div>
             </header>
 
-            {/* --- 2. HERO SECTION (Team Info) --- */}
+            {/* --- 2. HERO SECTION --- */}
             <section className="mb-16 md:mb-24 relative">
                 <div className="absolute -top-20 left-0 w-full md:w-96 h-96 bg-red-600/10 blur-[80px] md:blur-[100px] pointer-events-none"></div>
 
@@ -147,27 +141,21 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                         </p>
                     </div>
 
-                    {/* TEAM NAME: Responsive Text Size */}
-                    {/* text-4xl on mobile -> text-8xl on desktop */}
                     <h1 className={cn(orbitron.className, "text-4xl sm:text-6xl md:text-8xl font-black text-white uppercase tracking-tighter break-words drop-shadow-[0_0_25px_rgba(220,38,38,0.3)] leading-[0.9]")}>
                         {team.name}
                     </h1>
 
-                    {/* Status Pills: Stack on very small screens, row on others */}
                     <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-4 md:gap-6 mt-6 md:mt-8">
-                        {/* Track */}
                         <div className="border-l-2 border-white/20 pl-3 md:pl-4">
                             <span className={cn(mono.className, "block text-[9px] md:text-[10px] text-neutral-500 uppercase tracking-widest")}>Track</span>
                             <span className={cn(mono.className, "block text-xs md:text-sm text-white font-bold uppercase tracking-widest")}>{team.track}</span>
                         </div>
 
-                        {/* Size */}
                         <div className="border-l-2 border-white/20 pl-3 md:pl-4">
                              <span className={cn(mono.className, "block text-[9px] md:text-[10px] text-neutral-500 uppercase tracking-widest")}>Strength</span>
                              <span className={cn(mono.className, "block text-xs md:text-sm text-white font-bold uppercase tracking-widest")}>{team.members.length} / {team.size}</span>
                         </div>
 
-                        {/* Payment Status */}
                         <div className={cn("border-l-2 pl-3 md:pl-4", 
                              team.payment_status === 'verified' ? "border-green-500" : 
                              team.payment_status === 'rejected' ? "border-red-500" : "border-yellow-500"
@@ -186,7 +174,6 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
 
             {/* --- 3. ROSTER MANIFEST --- */}
             <section className="relative z-10 max-w-7xl">
-                {/* Header: Column on mobile, Row on desktop */}
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 border-b border-red-900/30 pb-4 gap-6 md:gap-4">
                     <div>
                          <h2 className={cn(orbitron.className, "text-xl md:text-4xl text-white font-black uppercase tracking-widest")}>
@@ -195,7 +182,6 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                         <div className="h-1 w-16 md:w-24 bg-red-600 mt-2"></div>
                     </div>
                     
-                    {/* Dashboard Actions: Full width on mobile */}
                     <div className="flex flex-wrap gap-3 w-full md:w-auto">
                         {isLeader && team.members.length < team.size && (
                             <button
@@ -216,11 +202,11 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                     </div>
                 </div>
 
-                {/* Desktop Header (Hidden on Mobile) */}
+                {/* Grid Header - Desktop */}
                 <div className="hidden md:grid grid-cols-12 gap-4 pb-4 px-4 text-[10px] text-red-500/70 font-mono uppercase tracking-[0.2em] font-bold">
                     <div className="col-span-3">Operative Name</div>
                     <div className="col-span-2">Rank</div>
-                    <div className="col-span-3">Signal ID</div>
+                    <div className="col-span-3">Phone No:</div> {/* CHANGED HERE */}
                     <div className="col-span-2">Sector</div>
                     <div className="col-span-2 text-right">Logistics</div>
                 </div>
@@ -232,7 +218,6 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
                             key={member.id}
-                            // Mobile: Block layout. Desktop: Grid layout.
                             className={cn("group relative flex flex-col md:grid md:grid-cols-12 md:gap-4 gap-3 py-6 px-4 border-l-2 transition-all hover:bg-white/[0.02]",
                                 member.is_leader ? "border-red-600 bg-red-900/5" : "border-white/10"
                             )}
@@ -256,9 +241,10 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                                 </span>
                             </div>
 
-                            {/* Phone (Hidden label on desktop) */}
+                            {/* Phone */}
                             <div className="md:col-span-3 flex items-center gap-2 md:gap-0">
-                                <span className="md:hidden text-[10px] text-neutral-600 uppercase">Signal:</span>
+                                {/* CHANGED HERE */}
+                                <span className="md:hidden text-[10px] text-neutral-600 uppercase">Phone No:</span>
                                 <span className={cn(mono.className, "text-xs text-neutral-400 font-mono tracking-widest")}>
                                     {member.phone}
                                 </span>
@@ -290,13 +276,10 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                 </div>
             </section>
 
-            {/* --- ADD MEMBER MODAL (Mobile Optimized) --- */}
+            {/* --- ADD MEMBER MODAL --- */}
             {isAddMemberOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-md">
-                    {/* Added max-h-screen and overflow-y-auto for small screens */}
                     <div className="w-full max-w-lg border-2 border-red-900/50 bg-black p-6 md:p-8 relative shadow-[0_0_50px_rgba(220,38,38,0.2)] rounded-none max-h-[90vh] overflow-y-auto">
-                        
-                        {/* Corners */}
                         <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-red-600"></div>
                         <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-red-600"></div>
                         <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-red-600"></div>
@@ -318,7 +301,6 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                                 <input name="name" required className={cn(mono.className, "w-full bg-transparent border-b border-white/20 py-2 text-white text-sm focus:border-red-600 outline-none rounded-none transition-colors uppercase placeholder:text-neutral-800")} placeholder="ENTER NAME" />
                             </div>
                             
-                            {/* Stacked on mobile, side-by-side on desktop */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                 <div className="space-y-2">
                                     <label className={cn(mono.className, "text-[10px] text-red-600 font-bold uppercase tracking-widest")}>Email</label>
