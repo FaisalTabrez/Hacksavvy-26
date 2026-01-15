@@ -99,8 +99,21 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
     return (
         <div className={cn("w-full min-h-screen bg-black relative px-6 md:px-12 py-8", orbitron.variable, mono.variable)}>
             
-            {/* --- 1. HEADER (Relative positioning to prevent overlap) --- */}
-            <header className="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-white/10 pb-6 mb-12 gap-6">
+            {/* --- Terminate Session Button (TOP RIGHT) --- */}
+            <button 
+                onClick={handleLogout}
+                disabled={isLoggingOut}
+                className={cn(mono.className, "absolute top-6 right-6 md:top-12 md:right-12 z-50 group flex items-center gap-3 px-6 py-3 border border-red-900/30 hover:border-red-600 bg-red-950/10 hover:bg-red-900/20 transition-all rounded-none")}
+            >
+                <span className="w-1.5 h-1.5 bg-red-600 group-hover:animate-pulse"></span>
+                <span className="text-xs font-bold text-red-500 group-hover:text-red-400 uppercase tracking-widest">
+                    {isLoggingOut ? 'TERMINATING...' : 'TERMINATE SESSION'}
+                </span>
+            </button>
+
+            {/* --- 1. HEADER --- */}
+            {/* Adjusted padding top (pt-24) to accommodate the absolute button */}
+            <header className="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-white/10 pb-6 mb-12 gap-6 pt-24">
                 
                 {/* Operator Info */}
                 <div className="flex flex-col gap-2">
@@ -117,18 +130,6 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                         </span>
                     </div>
                 </div>
-
-                {/* Terminate Session Button */}
-                <button 
-                    onClick={handleLogout}
-                    disabled={isLoggingOut}
-                    className={cn(mono.className, "group flex items-center gap-3 px-6 py-3 border border-red-900/30 hover:border-red-600 bg-red-950/10 hover:bg-red-900/20 transition-all rounded-none")}
-                >
-                    <span className="w-1.5 h-1.5 bg-red-600 group-hover:animate-pulse"></span>
-                    <span className="text-xs font-bold text-red-500 group-hover:text-red-400 uppercase tracking-widest">
-                        {isLoggingOut ? 'TERMINATING...' : 'TERMINATE SESSION'}
-                    </span>
-                </button>
             </header>
 
             {/* --- 2. HERO SECTION (Team Info) --- */}
@@ -144,7 +145,7 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                         </p>
                     </div>
 
-                    <h1 className={cn(orbitron.className, "text-5xl md:text-8xl font-black text-white uppercase tracking-tighter break-words drop-shadow-[0_0_25px_rgba(220,38,38,0.3)]")}>
+                    <h1 className={cn(orbitron.className, "text-5xl md:text-8xl lg:text-8xl font-black text-white uppercase tracking-tighter break-words drop-shadow-[0_0_25px_rgba(220,38,38,0.3)]")}>
                         {team.name}
                     </h1>
 
@@ -194,7 +195,7 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                         {isLeader && team.members.length < team.size && (
                             <button
                                 onClick={() => setIsAddMemberOpen(true)}
-                                className={cn(mono.className, "px-6 py-3 border border-red-600 text-red-500 hover:bg-red-600 hover:text-white text-xs font-bold uppercase tracking-widest transition-all")}
+                                className={cn(mono.className, "px-6 py-3 border border-red-600 text-red-500 hover:bg-red-600 hover:text-white text-xs font-bold uppercase tracking-widest transition-all rounded-none")}
                             >
                                 + Add Agent
                             </button>
@@ -202,7 +203,7 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                         {isLeader && (
                             <button
                                 onClick={() => setIsEditing(true)}
-                                className={cn(mono.className, "px-6 py-3 border border-white/20 text-neutral-400 hover:border-white hover:text-white text-xs font-bold uppercase tracking-widest transition-all")}
+                                className={cn(mono.className, "px-6 py-3 border border-white/20 text-neutral-400 hover:border-white hover:text-white text-xs font-bold uppercase tracking-widest transition-all rounded-none")}
                             >
                                 Edit Profile
                             </button>
@@ -280,7 +281,7 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
             {/* --- ADD MEMBER MODAL --- */}
             {isAddMemberOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-md">
-                    <div className="w-full max-w-lg border-2 border-red-900/50 bg-black p-8 relative shadow-[0_0_50px_rgba(220,38,38,0.2)]">
+                    <div className="w-full max-w-lg border-2 border-red-900/50 bg-black p-8 relative shadow-[0_0_50px_rgba(220,38,38,0.2)] rounded-none">
                         {/* Decorative Corners */}
                         <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-red-600"></div>
                         <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-red-600"></div>
@@ -292,7 +293,7 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                         </h2>
                         
                         {addMemberError && (
-                             <div className={cn(mono.className, "mb-6 p-4 bg-red-950/30 border border-red-600 text-red-500 text-xs font-bold")}>
+                             <div className={cn(mono.className, "mb-6 p-4 bg-red-950/30 border border-red-600 text-red-500 text-xs font-bold rounded-none")}>
                                 ERROR: {addMemberError}
                             </div>
                         )}
@@ -341,8 +342,8 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                             </div>
 
                             <div className="flex gap-6 pt-8">
-                                <button type="button" onClick={() => setIsAddMemberOpen(false)} className={cn(mono.className, "flex-1 border border-white/20 py-4 text-white text-xs hover:bg-white/10 font-bold uppercase tracking-widest")}>Abort</button>
-                                <button type="submit" disabled={isAdding} className={cn(mono.className, "flex-1 bg-red-600 py-4 text-white text-xs font-bold hover:bg-red-700 uppercase tracking-widest shadow-[0_0_20px_rgba(220,38,38,0.4)]")}>
+                                <button type="button" onClick={() => setIsAddMemberOpen(false)} className={cn(mono.className, "flex-1 border border-white/20 py-4 text-white text-xs hover:bg-white/10 font-bold uppercase tracking-widest rounded-none")}>Abort</button>
+                                <button type="submit" disabled={isAdding} className={cn(mono.className, "flex-1 bg-red-600 py-4 text-white text-xs font-bold hover:bg-red-700 uppercase tracking-widest shadow-[0_0_20px_rgba(220,38,38,0.4)] rounded-none")}>
                                     {isAdding ? 'PROCESSING...' : 'CONFIRM RECRUIT'}
                                 </button>
                             </div>
