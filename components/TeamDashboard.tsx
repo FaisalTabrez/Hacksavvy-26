@@ -136,7 +136,8 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                 </div>
 
                 {/* 2. TEAM IDENTITY HERO (Centered) */}
-                <div className="flex flex-col items-center text-center mb-28 relative">
+                {/* CHANGED: Increased bottom margin from mb-28 to mb-32 for more gap */}
+                <div className="flex flex-col items-center text-center mb-32 relative">
                     
                     {/* Decorative Center Line */}
                     <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-900/30 to-transparent -z-10 transform -translate-y-1/2"></div>
