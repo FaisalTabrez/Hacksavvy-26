@@ -99,7 +99,7 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
     return (
         <div className={cn("w-full min-h-screen bg-black relative px-4 md:px-12 py-8 overflow-x-hidden", orbitron.variable, mono.variable)}>
             
-            {/* --- Terminate Session Button (MOVED HIGHER) --- */}
+            {/* --- Terminate Session Button --- */}
             <button 
                 onClick={handleLogout}
                 disabled={isLoggingOut}
@@ -172,11 +172,9 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                 </div>
             </section>
 
-            {/* --- 3. ROSTER MANIFEST (UPDATED GRID) --- */}
+            {/* --- 3. ROSTER MANIFEST (RED BORDER TABLE) --- */}
             <section className="relative z-10 max-w-7xl">
                 
-                {/* Header Container - ALIGNED PARALLEL */}
-                {/* Added mb-12 to increase spacing between line and table */}
                 <div className="flex flex-row items-center justify-between mb-12 gap-6">
                     <div>
                          <h2 className={cn(orbitron.className, "text-xl md:text-2xl text-white font-black uppercase tracking-widest")}>
@@ -185,7 +183,6 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                         <div className="h-1 w-16 md:w-24 bg-red-600 mt-2"></div>
                     </div>
                     
-                    {/* Buttons: Aligned center with title */}
                     <div className="flex flex-wrap gap-3">
                         {isLeader && team.members.length < team.size && (
                             <button
@@ -206,15 +203,16 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                     </div>
                 </div>
 
-                {/* --- TABLE: ENCASED IN BORDER --- */}
-                <div className="border border-white/20 rounded-none overflow-hidden bg-black">
+                {/* --- TABLE: ENCASED IN RED BORDER --- */}
+                {/* Changed border to red-600/30 for better visibility */}
+                <div className="border border-red-600/30 rounded-none overflow-hidden bg-black">
                     
-                    {/* Header Row: Dark Red BG for Contrast */}
-                    <div className="hidden md:grid grid-cols-12 bg-red-900/10 border-b border-white/20 text-[10px] text-red-500 font-mono uppercase tracking-[0.2em] font-bold">
-                        <div className="col-span-3 py-4 px-6 border-r border-white/10">Operative Name</div>
-                        <div className="col-span-2 py-4 px-6 border-r border-white/10">Rank</div>
-                        <div className="col-span-3 py-4 px-6 border-r border-white/10">Phone No:</div>
-                        <div className="col-span-2 py-4 px-6 border-r border-white/10">Institute</div>
+                    {/* Header Row: Dark Red BG + Red Borders */}
+                    <div className="hidden md:grid grid-cols-12 bg-red-900/20 border-b border-red-600/50 text-[10px] text-red-500 font-mono uppercase tracking-[0.2em] font-bold">
+                        <div className="col-span-3 py-4 px-6 border-r border-red-900/50">Operative Name</div>
+                        <div className="col-span-2 py-4 px-6 border-r border-red-900/50">Rank</div>
+                        <div className="col-span-3 py-4 px-6 border-r border-red-900/50">Phone No:</div>
+                        <div className="col-span-2 py-4 px-6 border-r border-red-900/50">Institute</div>
                         <div className="col-span-2 py-4 px-6 text-right">Logistics</div>
                     </div>
 
@@ -225,12 +223,13 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                                 initial={{ opacity: 0, x: -10 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 key={member.id}
-                                className={cn("group relative flex flex-col md:grid md:grid-cols-12 border-b border-white/10 last:border-b-0 hover:bg-white/[0.02] transition-colors",
-                                    member.is_leader ? "bg-red-900/5" : ""
+                                // Row Border: Red-900/30
+                                className={cn("group relative flex flex-col md:grid md:grid-cols-12 md:gap-4 gap-3 py-6 px-6 border-b border-red-900/30 last:border-b-0 hover:bg-red-900/5 transition-colors",
+                                    member.is_leader ? "bg-red-950/10" : ""
                                 )}
                             >
                                 {/* Name */}
-                                <div className="md:col-span-3 p-4 md:px-6 md:py-5 border-r border-white/10 flex flex-col justify-center">
+                                <div className="md:col-span-3 p-4 md:px-6 md:py-5 md:border-r md:border-red-900/50 flex flex-col justify-center">
                                     <span className={cn(mono.className, "text-sm text-white font-bold uppercase tracking-wider")}>
                                         {member.name}
                                     </span>
@@ -240,7 +239,7 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                                 </div>
 
                                 {/* Rank */}
-                                <div className="md:col-span-2 p-4 md:px-6 md:py-5 border-r border-white/10 flex items-center">
+                                <div className="md:col-span-2 p-4 md:px-6 md:py-5 md:border-r md:border-red-900/50 flex items-center">
                                     <span className={cn(mono.className, "text-[9px] font-bold uppercase tracking-widest px-2 py-1 inline-block", 
                                         member.is_leader ? "text-red-500 bg-red-500/10 border border-red-500/20" : "text-neutral-500 border border-neutral-800"
                                     )}>
@@ -249,7 +248,7 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                                 </div>
 
                                 {/* Phone */}
-                                <div className="md:col-span-3 p-4 md:px-6 md:py-5 border-r border-white/10 flex items-center gap-2 md:gap-0">
+                                <div className="md:col-span-3 p-4 md:px-6 md:py-5 md:border-r md:border-red-900/50 flex items-center gap-2 md:gap-0">
                                     <span className="md:hidden text-[10px] text-neutral-600 uppercase">Phone:</span>
                                     <span className={cn(mono.className, "text-xs text-neutral-400 font-mono tracking-widest")}>
                                         {member.phone}
@@ -257,7 +256,7 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                                 </div>
 
                                 {/* Institute */}
-                                <div className="md:col-span-2 p-4 md:px-6 md:py-5 border-r border-white/10 flex items-center gap-2 md:gap-0">
+                                <div className="md:col-span-2 p-4 md:px-6 md:py-5 md:border-r md:border-red-900/50 flex items-center gap-2 md:gap-0">
                                     <span className="md:hidden text-[10px] text-neutral-600 uppercase">Institute:</span>
                                     <span className={cn(mono.className, "text-xs text-neutral-300 uppercase truncate tracking-wider max-w-[200px]")}>
                                         {member.college}
@@ -265,7 +264,8 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                                 </div>
 
                                 {/* Logistics */}
-                                <div className="md:col-span-2 p-4 md:px-6 md:py-5 flex flex-row md:flex-col items-center md:items-end md:justify-center gap-3 md:gap-1 border-t border-white/10 md:border-t-0">
+                                {/* Mobile: Top border red. Desktop: No top border */}
+                                <div className="md:col-span-2 p-4 md:px-6 md:py-5 flex flex-row md:flex-col items-center md:items-end md:justify-center gap-3 md:gap-1 border-t border-red-900/50 md:border-t-0">
                                     <span className={cn(mono.className, "text-[10px] font-bold uppercase tracking-wider", 
                                         member.food_preference === 'Non-Veg' ? "text-red-400" : "text-green-400"
                                     )}>
@@ -362,4 +362,3 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
         </div>
     )
 }
-
