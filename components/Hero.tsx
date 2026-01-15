@@ -47,7 +47,7 @@ export default function Hero() {
     }, []);
 
     return (
-        <section id="hero" className="section !justify-start pt-48" ref={heroRef}>
+        <section id="hero" className="section !justify-start pt-52" ref={heroRef}>
             <div id="ticker-wrap-top">
                 <div className="ticker">
                     <div className="ticker-reverse">
@@ -78,37 +78,39 @@ export default function Hero() {
                 </p>
             </div>
 
-            <div className="themes-row">
-                <div className="theme-box">
-                    <p className="theme-subtitle">
-                        AI, Automation, Robotics & <br />
-                        Drone Technology
-                    </p>
-                </div>
+            <div className="w-full max-w-[1200px] mt-20 px-4">
+                <div className="themes-row">
+                    <div className="theme-box">
+                        <p className="theme-subtitle">
+                            AI, Automation, Robotics & <br />
+                            Drone Technology
+                        </p>
+                    </div>
 
-                <div className="theme-box">
-                    <p className="theme-subtitle">
-                        Cybersecurity & <br />
-                        Blockchain
-                    </p>
-                </div>
+                    <div className="theme-box">
+                        <p className="theme-subtitle">
+                            Cybersecurity & <br />
+                            Blockchain
+                        </p>
+                    </div>
 
-                <div className="theme-box">
-                    <p className="theme-subtitle">
-                        IoT, VLSI & <br />
-                        Embedded Systems
-                    </p>
-                </div>
+                    <div className="theme-box">
+                        <p className="theme-subtitle">
+                            IoT, VLSI & <br />
+                            Embedded Systems
+                        </p>
+                    </div>
 
-                <div className="theme-box">
-                    <p className="theme-subtitle">
-                        Sustainability & <br />
-                        Environment
-                    </p>
-                </div>
+                    <div className="theme-box">
+                        <p className="theme-subtitle">
+                            Sustainability & <br />
+                            Environment
+                        </p>
+                    </div>
 
-                <div className="theme-box">
-                    <p className="theme-subtitle">Open Innovation</p>
+                    <div className="theme-box">
+                        <p className="theme-subtitle">Open Innovation</p>
+                    </div>
                 </div>
             </div>
 
