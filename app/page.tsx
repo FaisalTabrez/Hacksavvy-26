@@ -6,6 +6,7 @@ import Leaders from "@/components/Leaders";
 import Guidelines from "@/components/Guidelines";
 import Schedule from "@/components/Schedule";
 import Team from "@/components/Team";
+import Problemstatements from "@/components/Problemstatements";
 import Projects from "@/components/Projects";
 import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
@@ -22,6 +23,7 @@ export default function Home() {
       <Guidelines />
       <Schedule />
       <Team />
+      <Problemstatements />
       <FAQ />
       <Projects />
       <Contact />

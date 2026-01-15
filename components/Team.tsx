@@ -9,46 +9,50 @@ export default function Team() {
     // State to track offsets for manual control
     const [facultyOffset, setFacultyOffset] = useState(0);
     const [studentOffset, setStudentOffset] = useState(0);
-
-    const slideAmount = 290; // card width (260) + gap (30)
+    
+    // State to track if user is manually controlling
+    const [facultyManualControl, setFacultyManualControl] = useState(false);
+    const [studentManualControl, setStudentManualControl] = useState(false);
 
     const handleSlide = (
         direction: "prev" | "next",
         trackRef: React.RefObject<HTMLDivElement | null>,
         currentOffset: number,
-        setOffset: React.Dispatch<React.SetStateAction<number>>
+        setOffset: React.Dispatch<React.SetStateAction<number>>,
+        setManualControl: React.Dispatch<React.SetStateAction<boolean>>
     ) => {
         if (!trackRef.current) return;
 
         const track = trackRef.current;
+        const slider = track.parentElement;
+        if (!slider) return;
+        
+        // Enable manual control mode
+        setManualControl(true);
 
-        // Stop animation
-        track.classList.add("manual-control");
+        const cardWidth = 260;
+        const gapWidth = 30;
+        const cardWithGap = cardWidth + gapWidth;
+        
+        // Count all cards (no duplicates)
+        const cardCount = track.children.length;
+        const sliderWidth = slider.offsetWidth;
+        
+        // Total width needed to show all cards
+        const totalTrackWidth = (cardCount * cardWidth) + ((cardCount - 1) * gapWidth);
+        const maxScroll = Math.max(0, totalTrackWidth - sliderWidth);
 
         let newOffset = currentOffset;
         if (direction === "prev") {
-            newOffset += slideAmount;
-            // Limit
-            const maxRight = slideAmount * 3;
-            if (newOffset > maxRight) newOffset = maxRight;
+            newOffset += cardWithGap;
+            if (newOffset > 0) newOffset = 0;
         } else {
-            newOffset -= slideAmount;
-            // Limit
-            const maxLeft = -(track.scrollWidth / 2); // Approximate limit
-            if (newOffset < maxLeft) newOffset = maxLeft;
+            newOffset -= cardWithGap;
+            if (newOffset < -maxScroll) newOffset = -maxScroll;
         }
 
         setOffset(newOffset);
         track.style.transform = `translateX(${newOffset}px)`;
-
-        // Resume animation after 5 seconds
-        setTimeout(() => {
-            if (track) {
-                track.classList.remove("manual-control");
-                track.style.transform = "";
-                setOffset(0);
-            }
-        }, 5000);
     };
 
     return (
@@ -71,13 +75,16 @@ export default function Team() {
                 <div className="team-slider-wrapper">
                     <button
                         className="nav-btn prev"
-                        onClick={() => handleSlide("prev", facultyTrackRef, facultyOffset, setFacultyOffset)}
+                        onClick={() => handleSlide("prev", facultyTrackRef, facultyOffset, setFacultyOffset, setFacultyManualControl)}
                     >
                         &#10094;
                     </button>
 
                     <div className="team-slider">
-                        <div className="team-track" ref={facultyTrackRef}>
+                        <div 
+                            className={`team-track-faculty ${facultyManualControl ? 'manual-control' : ''}`}
+                            ref={facultyTrackRef}
+                        >
                             <div className="team-card">
                                 <img src="faculty/1.jpg" alt="Dr. Ch. Ramesh Babu" />
                                 <h4>Dr. Ch. Ramesh Babu</h4>
@@ -149,6 +156,7 @@ export default function Team() {
                                 <h4>Mr. Sheri Abhishek</h4>
                                 <p>Faculty Co-ordinator</p>
                             </div>
+
                             <div className="team-card">
                                 <img src="faculty/12.jpg" alt="Mr. P. Shankar Kumar" />
                                 <h4>Mr. P. Shankar Kumar</h4>
@@ -170,7 +178,7 @@ export default function Team() {
                     </div>
                     <button
                         className="nav-btn next"
-                        onClick={() => handleSlide("next", facultyTrackRef, facultyOffset, setFacultyOffset)}
+                        onClick={() => handleSlide("next", facultyTrackRef, facultyOffset, setFacultyOffset, setFacultyManualControl)}
                     >
                         &#10095;
                     </button>
@@ -182,13 +190,16 @@ export default function Team() {
                 <div className="team-slider-wrapper">
                     <button
                         className="nav-btn prev"
-                        onClick={() => handleSlide("prev", studentTrackRef, studentOffset, setStudentOffset)}
+                        onClick={() => handleSlide("prev", studentTrackRef, studentOffset, setStudentOffset, setStudentManualControl)}
                     >
                         &#10094;
                     </button>
 
                     <div className="team-slider">
-                        <div className="team-track" ref={studentTrackRef}>
+                        <div 
+                            className={`team-track-student ${studentManualControl ? 'manual-control' : ''}`}
+                            ref={studentTrackRef}
+                        >
                             <div className="team-card">
                                 <img src="student/1.jpg" alt="Junaid Ahmed Khan" />
                                 <h4>Junaid Ahmed Khan</h4>
@@ -234,7 +245,7 @@ export default function Team() {
                     </div>
                     <button
                         className="nav-btn next"
-                        onClick={() => handleSlide("next", studentTrackRef, studentOffset, setStudentOffset)}
+                        onClick={() => handleSlide("next", studentTrackRef, studentOffset, setStudentOffset, setStudentManualControl)}
                     >
                         &#10095;
                     </button>
