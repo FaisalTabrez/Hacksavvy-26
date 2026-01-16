@@ -45,8 +45,8 @@ export default function Hero() {
     }, []);
 
     return (
-        // CHANGED: Used '!pt-[300px]' to forcefully push content down below the header
-        <section id="hero" className="section !justify-start !pt-[300px]" ref={heroRef}>
+        // CHANGED: Used '!pt-[150px]' to forcefully push content down below the header
+        <section id="hero" className="section !justify-start !pt-[60px] lg:!pt-[150px]" ref={heroRef}>
             
             <div id="ticker-wrap-top">
                 <div className="ticker">
@@ -67,15 +67,16 @@ export default function Hero() {
                 </div>
             </div>
 
-            {/* Added extra margin-top just in case */}
-            <div className="hero-content mt-10">
+            <div className="hero-content">                
                 <h1 className="hero-title">
                     H<span className="c1">ACK</span>
                     S<span className="c1">AVVY</span>-26
                 </h1>
                 <p className="hero-subtitle">
-                    National-Level Hackathon <br />
-                    <br /> MGIT, Hyderabad <br /> February 12th-13th 2026
+                    <br/>
+                    National-Level Hackathon <br /><span className="c1">Prize Pool: ₹ 2,50,000</span><br />
+                    <br /> MGIT, Hyderabad <br /> February 12th-13th 2026 <br />
+                    
                 </p>
             </div>
 
@@ -83,8 +84,8 @@ export default function Hero() {
                 <div className="themes-row">
                     <div className="theme-box">
                         <p className="theme-subtitle">
-                            AI, Automation, Robotics & <br />
-                            Drone Technology
+                            AI, Automation, Robotics <br />
+                            & Drone Technology
                         </p>
                     </div>
 
@@ -118,13 +119,13 @@ export default function Hero() {
             <div className="ticker-wrap" id="ticker-wrap" ref={tickerWrapRef}>
                 <div className="ticker">
                     <span>24 Hour Hackathon • </span>
-                    <span>Price Pool: ₹ 2,50,000 • </span>
+                    <span>Prize Pool: ₹ 2,50,000 • </span>
                     <span>National Level Event • </span>
                     <span>Industry Expert Mentors • </span>
                     <span>Exciting Domains & Tracks • </span>
                     <span>Networking Opportunities • </span>
                     <span>24 Hour Hackathon • </span>
-                    <span>Price Pool: ₹ 2,50,000 • </span>
+                    <span>Prize Pool: ₹ 2,50,000 • </span>
                     <span>National Level Event • </span>
                     <span>Industry Expert Mentors • </span>
                     <span>Exciting Domains & Tracks • </span>
