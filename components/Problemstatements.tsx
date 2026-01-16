@@ -848,8 +848,7 @@ export default function Problemstatements() {
                                 solve.
                             </p>
                             <p>
-                                • The problem can belong to any industry or sector which hasn't
-                                been mentioned already.
+                                • The problem statement may be from any industry or sector, but it must be original and not mentioned above.
                             </p>
                             <p>
                                 • The problem should demonstrate relevance, urgency, or

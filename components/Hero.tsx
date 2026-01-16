@@ -69,13 +69,15 @@ export default function Hero() {
 
             {/* Added extra margin-top just in case */}
             <div className="hero-content mt-10">
+                
                 <h1 className="hero-title">
                     H<span className="c1">ACK</span>
                     S<span className="c1">AVVY</span>-26
                 </h1>
                 <p className="hero-subtitle">
-                    National-Level Hackathon <br />
-                    <br /> MGIT, Hyderabad <br /> February 12th-13th 2026
+                    National-Level Hackathon <br /><span className="c1">Price Pool: ₹ 2,50,000</span><br />
+                    <br /> MGIT, Hyderabad <br /> February 12th-13th 2026 
+                    
                 </p>
             </div>
 
@@ -83,8 +85,8 @@ export default function Hero() {
                 <div className="themes-row">
                     <div className="theme-box">
                         <p className="theme-subtitle">
-                            AI, Automation, Robotics & <br />
-                            Drone Technology
+                            AI, Automation, Robotics <br />
+                            & Drone Technology
                         </p>
                     </div>
 

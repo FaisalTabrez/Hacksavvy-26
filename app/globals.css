@@ -295,12 +295,12 @@ a {
 }
 
 
-.hero-title .c1 {
+.c1 {
     color: #f82249;
 }
 
 .hero-subtitle {
-    font-size: 1.5em;
+    font-size: 1.3em;
     color: #eee;
     opacity: 0;
     transform: translateY(20px);
