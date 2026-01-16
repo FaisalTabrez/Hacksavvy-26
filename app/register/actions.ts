@@ -112,10 +112,13 @@ export async function registerTeam(formData: FormData) {
         email: member.email,
         phone: member.phone,
         college: member.college,
-        roll_no: member.rollNo,
-        branch: member.branch,
+        // ---------------------------------------------------------
+        // MAKE SURE THESE KEYS MATCH YOUR DATABASE COLUMNS EXACTLY
+        // ---------------------------------------------------------
+        roll_no: member.rollNo,          // Database must have 'roll_no'
+        branch: member.branch,           // Database must have 'branch'
         accommodation: member.accommodation,
-        food_preference: member.food,
+        food_preference: member.food,    // Database must have 'food_preference'
         is_leader: index === 0,
     }))
 
@@ -124,28 +127,14 @@ export async function registerTeam(formData: FormData) {
         .insert(membersToInsert)
 
     if (membersError) {
-        // Ideally rollback team creation here, but for simplicity we'll just return error
-        return { error: 'Failed to add members.' }
-    }
+        console.error("Members Insert Error:", membersError)
+        
+        // Try to delete the team to clean up
+        const { error: deleteError } = await supabase.from('teams').delete().eq('id', teamData.id)
+        if (deleteError) console.error("Cleanup Error:", deleteError)
 
-    // Send Registration Email
-    const leader = membersToInsert.find(m => m.is_leader)
-    if (leader) {
-        try {
-            await sendEmail({
-                to: leader.email,
-                subject: 'HackSavvy Registration Received',
-                type: 'Registration',
-                data: {
-                    leaderName: leader.name,
-                    teamName: teamData.name,
-                    members: membersToInsert
-                }
-            })
-        } catch (emailError) {
-            console.error('Failed to send registration email:', emailError)
-            // Continue execution, do not fail registration
-        }
+        // RETURN THE ACTUAL DATABASE ERROR SO WE CAN SEE IT
+        return { error: `DB Error: ${membersError.message} (Check column names!)` }
     }
 
     redirect('/dashboard?registered=true')
