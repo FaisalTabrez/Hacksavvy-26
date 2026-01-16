@@ -5,7 +5,6 @@ import { createClient } from '@/utils/supabase/client'
 import { Orbitron, JetBrains_Mono } from 'next/font/google'
 import { cn } from '@/utils/cn'
 import { motion } from 'framer-motion'
-import RegistrationForm from './RegistrationForm'
 import { addMemberToTeam } from '@/app/dashboard/actions'
 
 const orbitron = Orbitron({ subsets: ["latin"], weight: ['400', '700', '900'], variable: '--font-orbitron' });
@@ -41,7 +40,7 @@ interface TeamDashboardProps {
 }
 
 export default function TeamDashboard({ team, user, isLeader }: TeamDashboardProps) {
-    const [isEditing, setIsEditing] = useState(false)
+    // REMOVED: isEditing state
     const [isAddMemberOpen, setIsAddMemberOpen] = useState(false)
     const [addMemberError, setAddMemberError] = useState('')
     const [isAdding, setIsAdding] = useState(false)
@@ -67,37 +66,10 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
         }
     }
 
-    if (isEditing) {
-         const initialData = {
-            teamName: team.name,
-            track: team.track,
-            teamSize: String(team.size),
-            upiReference: team.upi_reference,
-            members: team.members.map((m: any) => ({
-                name: m.name,
-                email: m.email,
-                phone: m.phone,
-                college: m.college,
-                rollNo: m.roll_no || '',
-                branch: m.branch || '',
-                accommodation: m.accommodation || false,
-                food: m.food_preference,
-            })),
-        }
-        return (
-            <div className="w-full min-h-screen bg-black">
-                <RegistrationForm
-                    initialData={initialData}
-                    isEditing={true}
-                    teamId={team.id}
-                    onCancel={() => setIsEditing(false)}
-                />
-            </div>
-        )
-    }
+    // REMOVED: The block that rendered RegistrationForm for editing
 
     return (
-        <div className={cn("w-full min-h-screen bg-black relative px-4 md:px-8 py-8 overflow-x-hidden font-mono selection:bg-red-900 selection:text-white", mono.variable)}>
+        <div className={cn("w-full min-h-screen bg-black relative px-4 md:px-12 py-8 overflow-x-hidden font-mono selection:bg-red-900 selection:text-white", mono.variable)}>
             
             {/* Background Ambient Glow */}
             <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
@@ -119,10 +91,10 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                 </span>
             </button>
 
-            {/* --- MAIN CONTENT CONTAINER (Centered) --- */}
+            {/* --- MAIN CONTENT CONTAINER --- */}
             <div className="relative z-10 max-w-7xl mx-auto w-full pt-12 md:pt-16">
 
-                {/* 1. OPERATOR INFO (Left Aligned) */}
+                {/* 1. OPERATOR INFO */}
                 <div className="flex flex-col gap-2 mb-16 md:mb-20">
                     <span className="text-[10px] text-red-600/80 font-bold uppercase tracking-[0.2em] border-l-2 border-red-600 pl-3">
                         System Operator
@@ -135,9 +107,8 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                     </div>
                 </div>
 
-                {/* 2. TEAM IDENTITY HERO (Centered) */}
-                {/* CHANGED: Increased bottom margin from mb-28 to mb-32 for more gap */}
-                <div className="flex flex-col items-center text-center mb-32 relative">
+                {/* 2. TEAM IDENTITY HERO */}
+                <div className="flex flex-col items-center text-center mb-56 relative">
                     
                     {/* Decorative Center Line */}
                     <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-900/30 to-transparent -z-10 transform -translate-y-1/2"></div>
@@ -154,7 +125,7 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                         {team.name}
                     </h1>
 
-                    {/* Stats Bar (Grid Layout) */}
+                    {/* Stats Bar */}
                     <div className="grid grid-cols-1 md:grid-cols-3 w-full max-w-4xl border-y border-white/10 divide-y md:divide-y-0 md:divide-x divide-white/10 bg-white/[0.02] backdrop-blur-sm">
                         
                         <div className="p-6 flex flex-col items-center gap-2 group hover:bg-white/[0.02] transition-colors">
@@ -182,8 +153,8 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
 
                 {/* 3. ROSTER MANIFEST */}
                 <div className="w-full">
-                    {/* Header Row: Title Left, Buttons Right */}
-                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 pb-4 border-b border-red-600/30 gap-6">
+                    {/* Header Row */}
+                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-16 pb-4 border-b border-red-600/30 gap-6">
                         <div className="flex items-center gap-4">
                             <div className="w-2 h-8 bg-red-600"></div>
                             <div>
@@ -197,6 +168,7 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                         </div>
                         
                         <div className="flex items-center gap-4 self-end md:self-auto">
+                            {/* Only "Add Agent" remains. "Edit Profile" is removed. */}
                             {isLeader && team.members.length < team.size && (
                                 <button
                                     onClick={() => setIsAddMemberOpen(true)}
@@ -205,42 +177,34 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                                     + Add Agent
                                 </button>
                             )}
-                            {isLeader && (
-                                <button
-                                    onClick={() => setIsEditing(true)}
-                                    className="px-6 py-3 border border-white/20 hover:border-white text-neutral-400 hover:text-white text-[10px] font-bold uppercase tracking-[0.2em] transition-all"
-                                >
-                                    Edit Profile
-                                </button>
-                            )}
                         </div>
                     </div>
 
-                    {/* TABLE: Encased in Red Border */}
-                    <div className="border border-red-900/40 bg-black/40 backdrop-blur-sm">
+                    {/* TABLE */}
+                    <div className="border border-red-600/30 bg-black/40 backdrop-blur-sm">
                         
                         {/* Table Header */}
-                        <div className="hidden md:grid grid-cols-12 bg-red-950/20 border-b border-red-900/40 text-[10px] text-red-500/80 font-bold uppercase tracking-[0.2em]">
-                            <div className="col-span-3 py-5 px-6 border-r border-red-900/30">Operative Name</div>
-                            <div className="col-span-2 py-5 px-6 border-r border-red-900/30">Rank</div>
-                            <div className="col-span-3 py-5 px-6 border-r border-red-900/30">Phone No:</div>
-                            <div className="col-span-2 py-5 px-6 border-r border-red-900/30">Institute</div>
+                        <div className="hidden md:grid grid-cols-12 bg-red-900/20 border-b border-red-600/50 text-[10px] text-red-500 font-bold uppercase tracking-[0.2em]">
+                            <div className="col-span-3 py-5 px-6 border-r border-red-900/50">Operative Name</div>
+                            <div className="col-span-2 py-5 px-6 border-r border-red-900/50">Rank</div>
+                            <div className="col-span-3 py-5 px-6 border-r border-red-900/50">Phone No:</div>
+                            <div className="col-span-2 py-5 px-6 border-r border-red-900/50">Institute</div>
                             <div className="col-span-2 py-5 px-6 text-right">Logistics</div>
                         </div>
 
                         {/* Table Rows */}
-                        <div className="divide-y divide-red-900/20">
+                        <div className="divide-y divide-red-900/30">
                             {team.members.map((member) => (
                                 <motion.div 
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     key={member.id}
                                     className={cn("group relative flex flex-col md:grid md:grid-cols-12 transition-colors hover:bg-white/[0.02]",
-                                        member.is_leader ? "bg-red-900/[0.03]" : ""
+                                        member.is_leader ? "bg-red-900/[0.05]" : ""
                                     )}
                                 >
                                     {/* Name */}
-                                    <div className="md:col-span-3 p-5 md:px-6 md:py-6 md:border-r border-red-900/30 flex flex-col justify-center">
+                                    <div className="md:col-span-3 p-5 md:px-6 md:py-6 md:border-r border-red-900/50 flex flex-col justify-center">
                                         <span className="text-sm text-white font-bold uppercase tracking-wider group-hover:text-red-100 transition-colors">
                                             {member.name}
                                         </span>
@@ -250,7 +214,7 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                                     </div>
 
                                     {/* Rank */}
-                                    <div className="md:col-span-2 p-5 md:px-6 md:py-6 md:border-r border-red-900/30 flex items-center">
+                                    <div className="md:col-span-2 p-5 md:px-6 md:py-6 md:border-r border-red-900/50 flex items-center">
                                         {member.is_leader ? (
                                             <span className="text-[9px] font-black text-red-500 bg-red-500/10 border border-red-500/20 px-2 py-1 uppercase tracking-widest">
                                                 Squad Leader
@@ -263,7 +227,7 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                                     </div>
 
                                     {/* Phone */}
-                                    <div className="md:col-span-3 p-5 md:px-6 md:py-6 md:border-r border-red-900/30 flex items-center gap-3 md:gap-0">
+                                    <div className="md:col-span-3 p-5 md:px-6 md:py-6 md:border-r border-red-900/50 flex items-center gap-3 md:gap-0">
                                         <span className="md:hidden text-[10px] text-neutral-600 uppercase font-bold tracking-widest">Phone:</span>
                                         <span className="text-xs text-neutral-400 font-mono tracking-wider">
                                             {member.phone}
@@ -271,7 +235,7 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                                     </div>
 
                                     {/* Institute */}
-                                    <div className="md:col-span-2 p-5 md:px-6 md:py-6 md:border-r border-red-900/30 flex items-center gap-3 md:gap-0">
+                                    <div className="md:col-span-2 p-5 md:px-6 md:py-6 md:border-r border-red-900/50 flex items-center gap-3 md:gap-0">
                                         <span className="md:hidden text-[10px] text-neutral-600 uppercase font-bold tracking-widest">Institute:</span>
                                         <span className="text-xs text-neutral-300 uppercase truncate tracking-wider max-w-[200px]">
                                             {member.college}
@@ -279,7 +243,7 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                                     </div>
 
                                     {/* Logistics */}
-                                    <div className="md:col-span-2 p-5 md:px-6 md:py-6 flex flex-row md:flex-col items-center md:items-end md:justify-center gap-4 border-t border-red-900/20 md:border-t-0">
+                                    <div className="md:col-span-2 p-5 md:px-6 md:py-6 flex flex-row md:flex-col items-center md:items-end md:justify-center gap-4 border-t border-red-900/50 md:border-t-0">
                                         <span className={cn("text-[10px] font-black uppercase tracking-widest", 
                                             member.food_preference === 'Non-Veg' ? "text-red-400" : "text-green-400"
                                         )}>
@@ -297,7 +261,7 @@ export default function TeamDashboard({ team, user, isLeader }: TeamDashboardPro
                     </div>
                 </div>
 
-                {/* --- ADD MEMBER MODAL (Consistent styling) --- */}
+                {/* --- ADD MEMBER MODAL --- */}
                 {isAddMemberOpen && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
                         <div className="w-full max-w-lg bg-black border border-red-900/50 p-8 shadow-[0_0_50px_rgba(220,38,38,0.2)]">
